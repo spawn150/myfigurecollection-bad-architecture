@@ -1,2 +1,2 @@
-# myfigurecollection-architecutres
-Showcase of different architectures for myfigurecollection app
+# myfigurecollection-bad-architecture
+Showcase of a standard (bad) Android architecture
