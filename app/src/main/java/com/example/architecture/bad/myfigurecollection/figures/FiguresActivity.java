@@ -1,5 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,8 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.architecture.bad.myfigurecollection.R;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
-public class FiguresActivity extends AppCompatActivity {
+public class FiguresActivity extends AppCompatActivity implements FiguresFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
 
@@ -33,6 +35,16 @@ public class FiguresActivity extends AppCompatActivity {
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+
+        FiguresFragment figuresFragment =
+                (FiguresFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (figuresFragment == null) {
+            // Create the fragment
+            figuresFragment = FiguresFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), figuresFragment, R.id.contentFrame);
+        }
+
 
     }
 
@@ -76,4 +88,8 @@ public class FiguresActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

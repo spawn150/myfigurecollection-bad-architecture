@@ -16,6 +16,7 @@
         app:cardElevation="4dp">
 
         <TextView
+            android:id="@+id/text_view_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:text="Example Item"/>
