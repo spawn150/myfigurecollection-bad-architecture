@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,8 +61,8 @@ public class FiguresFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -103,6 +104,8 @@ public class FiguresFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(new FigureAdapter(new String[]{"Figure 1", "Figure 2", "Figure 3"}));
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
     }
 
@@ -130,7 +133,7 @@ public class FiguresFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public TextView mTextView;
-            public ViewHolder(CardView v) {
+            public ViewHolder(View v) {
                 super(v);
                 mTextView = (TextView)v.findViewById(R.id.text_view_title);
             }
@@ -146,7 +149,7 @@ public class FiguresFragment extends Fragment {
         public FigureAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                        int viewType) {
             // create a new view
-            CardView v = (CardView)LayoutInflater.from(parent.getContext())
+            View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.card_view_collection_figure, parent, false);
 
             ViewHolder vh = new ViewHolder(v);
