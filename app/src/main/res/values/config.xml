@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="figure_large_image_url" translatable="false">http://s1.tsuki-board.net/pics/figure/large/%1$s.jpg</string>
+
+</resources>
