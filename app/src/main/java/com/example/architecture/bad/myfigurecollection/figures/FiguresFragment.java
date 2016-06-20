@@ -5,12 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
@@ -43,16 +44,12 @@ public class FiguresFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment FiguresFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static FiguresFragment newInstance() {
         FiguresFragment fragment = new FiguresFragment();
         Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +58,7 @@ public class FiguresFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -104,8 +100,10 @@ public class FiguresFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FigureAdapter(new String[]{"Figure 1", "Figure 2", "Figure 3"}));
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.eva_test, R.drawable.daitan_test, R.drawable.buggy_test, R.drawable.ufo_test, R.drawable.wheel_test}));
+        //recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.pod_test, R.drawable.pod2_test, R.drawable.pod3_test, R.drawable.pod4_test}));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
     }
 
@@ -125,22 +123,22 @@ public class FiguresFragment extends Fragment {
     }
 
     private static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
-        private String[] mDataset;
+        private int[] mDataset;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
         public static class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public TextView mTextView;
+            public ImageView imageViewFigure;
             public ViewHolder(View v) {
                 super(v);
-                mTextView = (TextView)v.findViewById(R.id.text_view_title);
+                imageViewFigure = (ImageView)v.findViewById(R.id.image_view_figure);
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public FigureAdapter(String[] myDataset) {
+        public FigureAdapter(int[] myDataset) {
             mDataset = myDataset;
         }
 
@@ -161,7 +159,8 @@ public class FiguresFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.mTextView.setText(mDataset[position]);
+            holder.imageViewFigure.setImageResource(mDataset[position]);
+            //holder.imageViewFigure.setBackgroundResource(mDataset[position]);
 
         }
 
