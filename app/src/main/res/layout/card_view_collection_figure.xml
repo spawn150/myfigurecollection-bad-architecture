@@ -5,14 +5,15 @@
     android:id="@+id/card_view_collection_figure"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="16dp"
+    android:layout_margin="8dp"
+    android:padding="4dp"
+    app:cardUseCompatPadding="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
@@ -24,9 +25,17 @@
             tools:background="@drawable/buggy_test" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/text_view_figure_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:lines="2"
+            android:ellipsize="end"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             tools:text="Buggy the Clown" />
 
     </LinearLayout>

@@ -8,15 +8,33 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ant_robot.mfc.api.pojo.Category;
+import com.ant_robot.mfc.api.pojo.Data;
+import com.ant_robot.mfc.api.pojo.Item;
+import com.ant_robot.mfc.api.pojo.ItemList;
+import com.ant_robot.mfc.api.pojo.ItemState;
+import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
+import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -36,6 +54,8 @@ public class FiguresFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private FigureAdapter figureAdapter;
 
     public FiguresFragment() {
         // Required empty public constructor
@@ -101,10 +121,56 @@ public class FiguresFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.eva_test, R.drawable.daitan_test, R.drawable.buggy_test, R.drawable.ufo_test, R.drawable.wheel_test}));
+        figureAdapter = new FigureAdapter(new ArrayList<Item>());
+        recyclerView.setAdapter(figureAdapter);
         //recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.pod_test, R.drawable.pod2_test, R.drawable.pod3_test, R.drawable.pod4_test}));
         //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+        MFCRequest.INSTANCE.getCollectionService().getCollection("climbatize", new Callback<ItemList>() {
+            @Override
+            public void success(ItemList itemList, Response response) {
+                Log.d("MFC", itemList.toString());
+                ItemState itemState = itemList.getCollection().getOwned();
+                figureAdapter.updateData(itemState.getItem());
+/*
+                List<Item> items = itemState.getItem();
+                int len = items.size();
+                for (int i = 0; i < len; i++ ){
+                    Item item = items.get(i);
+
+                    Category category = item.getCategory();
+                    category.getName();
+
+                    Data figureData = item.getData();
+                    figureData.getId();
+                    figureData.getName();
+                    figureData.getReleaseDate();
+                }
+*/
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("MFC", error.getLocalizedMessage());
+            }
+        });
+
+
+//        MFCRequest.INSTANCE.getGalleryService().getGalleryForUser("spawn150", 0, new Callback<PictureGallery>() {
+//            @Override
+//            public void success(PictureGallery pictureGallery, Response response) {
+//                Log.d("MFC", pictureGallery.toString());
+//
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Log.e("MFC", error.getLocalizedMessage());
+//            }
+//        });
 
     }
 
@@ -124,7 +190,7 @@ public class FiguresFragment extends Fragment {
     }
 
     private static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
-        private int[] mDataset;
+        private List<Item> mDataset;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -132,15 +198,22 @@ public class FiguresFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public ImageView imageViewFigure;
+            public TextView textViewFigureName;
             public ViewHolder(View v) {
                 super(v);
                 imageViewFigure = (ImageView)v.findViewById(R.id.image_view_figure);
+                textViewFigureName = (TextView)v.findViewById(R.id.text_view_figure_name);
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public FigureAdapter(int[] myDataset) {
+        public FigureAdapter(List<Item> myDataset) {
             mDataset = myDataset;
+        }
+
+        public void updateData(List<Item> myDataset){
+            mDataset = myDataset;
+            notifyDataSetChanged();
         }
 
         // Create new views (invoked by the layout manager)
@@ -158,20 +231,39 @@ public class FiguresFragment extends Fragment {
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-            holder.imageViewFigure.setImageResource(mDataset[position]);
-            //holder.imageViewFigure.setBackgroundResource(mDataset[position]);
+
+            Item figureItem = mDataset.get(position);
+            Category category = figureItem.getCategory();
+            category.getName();
+
+            Data figureData = figureItem.getData();
+            figureData.getId();
+            figureData.getName();
+            figureData.getReleaseDate();
+
+            //holder.imageViewFigure.setImageResource();
+
+            String url = holder.imageViewFigure.getContext().getString(R.string.figure_large_image_url, figureData.getId());
+
+            Glide
+                .with(holder.imageViewFigure.getContext())
+                .load(url)
+                //.centerCrop()
+                //.placeholder(R.drawable.loading_spinner)
+                //.crossFade()
+                .listener(new GlideLoggingListener<String, GlideDrawable>())
+                .into(holder.imageViewFigure);
+
+            holder.textViewFigureName.setText(figureData.getName());
 
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.length;
+            return mDataset.size();
         }
     }
-
 
 
 }
