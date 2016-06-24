@@ -20,7 +20,7 @@ android {
             //TODO enable them!
             //minifyEnabled true
             // Uses new built-in shrinker http://tools.android.com/tech-docs/new-build-system/built-in-shrinker
-            //useProguard false
+            useProguard false
         }
         release {
             minifyEnabled false
