@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -125,31 +126,21 @@ public class FiguresFragment extends Fragment {
         recyclerView.setAdapter(figureAdapter);
         //recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.pod_test, R.drawable.pod2_test, R.drawable.pod3_test, R.drawable.pod4_test}));
         //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        /*GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        */
 
-        MFCRequest.INSTANCE.getCollectionService().getCollection("climbatize", new Callback<ItemList>() {
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
+
+        MFCRequest.INSTANCE.getCollectionService().getCollection("spawn150"/*"STARlock"*//*"climbatize"*/, new Callback<ItemList>() {
             @Override
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
                 ItemState itemState = itemList.getCollection().getOwned();
                 figureAdapter.updateData(itemState.getItem());
-/*
-                List<Item> items = itemState.getItem();
-                int len = items.size();
-                for (int i = 0; i < len; i++ ){
-                    Item item = items.get(i);
-
-                    Category category = item.getCategory();
-                    category.getName();
-
-                    Data figureData = item.getData();
-                    figureData.getId();
-                    figureData.getName();
-                    figureData.getReleaseDate();
-                }
-*/
-
-
             }
 
             @Override
@@ -157,20 +148,6 @@ public class FiguresFragment extends Fragment {
                 Log.e("MFC", error.getLocalizedMessage());
             }
         });
-
-
-//        MFCRequest.INSTANCE.getGalleryService().getGalleryForUser("spawn150", 0, new Callback<PictureGallery>() {
-//            @Override
-//            public void success(PictureGallery pictureGallery, Response response) {
-//                Log.d("MFC", pictureGallery.toString());
-//
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Log.e("MFC", error.getLocalizedMessage());
-//            }
-//        });
 
     }
 
@@ -241,16 +218,13 @@ public class FiguresFragment extends Fragment {
             figureData.getName();
             figureData.getReleaseDate();
 
-            //holder.imageViewFigure.setImageResource();
-
             String url = holder.imageViewFigure.getContext().getString(R.string.figure_large_image_url, figureData.getId());
 
             Glide
                 .with(holder.imageViewFigure.getContext())
                 .load(url)
-                //.centerCrop()
-                //.placeholder(R.drawable.loading_spinner)
-                //.crossFade()
+                .fitCenter()
+                .placeholder(R.drawable.placeholder)
                 .listener(new GlideLoggingListener<String, GlideDrawable>())
                 .into(holder.imageViewFigure);
 
