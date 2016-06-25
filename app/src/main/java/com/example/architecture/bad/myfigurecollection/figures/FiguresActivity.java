@@ -10,86 +10,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.architecture.bad.myfigurecollection.BaseActivity;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
-public class FiguresActivity extends AppCompatActivity implements FiguresFragment.OnFragmentInteractionListener {
-
-    private DrawerLayout mDrawerLayout;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_figures);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        // Set up the navigation drawer.
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-
-        FiguresFragment figuresFragment =
-                (FiguresFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (figuresFragment == null) {
-            // Create the fragment
-            figuresFragment = FiguresFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), figuresFragment, R.id.contentFrame);
-        }
-
-
-    }
+public class FiguresActivity extends BaseActivity implements FiguresFragment.OnFragmentInteractionListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                // Open the navigation drawer when the home icon is selected from the toolbar.
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.settings_navigation_menu_item:
-                                // Do nothing, we're already on that screen
-                                break;
-                            /*
-                            case R.id.statistics_navigation_menu_item:
-                                Intent intent =
-                                        new Intent(TasksActivity.this, StatisticsActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                break;
-                                */
-                            default:
-                                break;
-                        }
-                        // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
+    @Override
+    protected void setFragment(int contentFrameId) {
+        FiguresFragment figuresFragment = (FiguresFragment) getSupportFragmentManager().findFragmentById(contentFrameId);
+        if (figuresFragment == null) {
+            // Create the fragment
+            figuresFragment = FiguresFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), figuresFragment, contentFrameId);
+        }
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
