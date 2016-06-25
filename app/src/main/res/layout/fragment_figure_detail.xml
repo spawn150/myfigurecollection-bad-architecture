@@ -39,4 +39,22 @@
         android:maxLines="1"
         tools:text="Release date della figure" />
 
+    <TextView
+        android:id="@+id/text_view_detail_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        tools:text="Price della figure" />
+
+    <TextView
+        android:id="@+id/text_view_detail_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        tools:text="Release date della figure" />
+
 </LinearLayout>

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
+import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesActivity;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
@@ -186,11 +187,15 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
 
         Data data = figureItem.getData();
         Category category = figureItem.getCategory();
+        Mycollection mycollection = figureItem.getMycollection();
 
         ActivityUtils.startItemFigureDetailActivity(BaseActivity.this, new ItemFigureDetail(
                 data.getId(),
                 data.getName(),
-                data.getReleaseDate() != null ? data.getReleaseDate().toString() : "", category.getName()));
+                data.getReleaseDate() != null ? data.getReleaseDate().toString() : "",
+                mycollection.getScore(),
+                mycollection.getNumber(),
+                category.getName()));
     }
 
 }

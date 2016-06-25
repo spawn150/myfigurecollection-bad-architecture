@@ -11,12 +11,16 @@ public class ItemFigureDetail implements Parcelable {
     private String id;
     private String name;
     private String releaseDate;
+    private String score;
+    private String number;
     private String category;
 
-    public ItemFigureDetail(String id, String name, String releaseDate, String category) {
+    public ItemFigureDetail(String id, String name, String releaseDate, String score, String number, String category) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
+        this.score = score;
+        this.number = number;
         this.category = category;
     }
 
@@ -32,6 +36,14 @@ public class ItemFigureDetail implements Parcelable {
         return releaseDate;
     }
 
+    public String getScore() {
+        return score;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -40,6 +52,8 @@ public class ItemFigureDetail implements Parcelable {
         id = in.readString();
         name = in.readString();
         releaseDate = in.readString();
+        score = in.readString();
+        number = in.readString();
         category = in.readString();
     }
 
@@ -53,6 +67,8 @@ public class ItemFigureDetail implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(releaseDate);
+        dest.writeString(score);
+        dest.writeString(number);
         dest.writeString(category);
     }
 
