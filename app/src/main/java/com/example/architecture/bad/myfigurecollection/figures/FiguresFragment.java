@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,32 +16,21 @@ import android.widget.TextView;
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
-import com.ant_robot.mfc.api.pojo.ItemList;
-import com.ant_robot.mfc.api.pojo.ItemState;
-import com.ant_robot.mfc.api.pojo.PictureGallery;
-import com.ant_robot.mfc.api.request.MFCRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link FiguresFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FiguresFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class FiguresFragment extends Fragment {
+public abstract class FiguresFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,25 +42,7 @@ public class FiguresFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private FigureAdapter figureAdapter;
-
-    public FiguresFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment FiguresFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FiguresFragment newInstance() {
-        FiguresFragment fragment = new FiguresFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    FigureAdapter figureAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,36 +87,18 @@ public class FiguresFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycle_view_collection_figures);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
         figureAdapter = new FigureAdapter(new ArrayList<Item>());
         recyclerView.setAdapter(figureAdapter);
-        //recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.pod_test, R.drawable.pod2_test, R.drawable.pod3_test, R.drawable.pod4_test}));
-        //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        /*StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-*/
-
-        MFCRequest.INSTANCE.getCollectionService().getCollection("STARlock"/*"spawn150"*//*"climbatize"*/, new Callback<ItemList>() {
-            @Override
-            public void success(ItemList itemList, Response response) {
-                Log.d("MFC", itemList.toString());
-                ItemState itemState = itemList.getCollection().getOwned();
-                figureAdapter.updateData(itemState.getItem());
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("MFC", error.getLocalizedMessage());
-            }
-        });
-
+        loadCollection();
     }
+
+    protected abstract void loadCollection();
 
     /**
      * This interface must be implemented by activities that contain this
@@ -165,7 +115,7 @@ public class FiguresFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
+    static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
         private List<Item> mDataset;
 
         // Provide a reference to the views for each data item
@@ -175,10 +125,11 @@ public class FiguresFragment extends Fragment {
             // each data item is just a string in this case
             public ImageView imageViewFigure;
             public TextView textViewFigureName;
+
             public ViewHolder(View v) {
                 super(v);
-                imageViewFigure = (ImageView)v.findViewById(R.id.image_view_figure);
-                textViewFigureName = (TextView)v.findViewById(R.id.text_view_figure_name);
+                imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
+                textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
             }
         }
 
@@ -187,7 +138,7 @@ public class FiguresFragment extends Fragment {
             mDataset = myDataset;
         }
 
-        public void updateData(List<Item> myDataset){
+        public void updateData(List<Item> myDataset) {
             mDataset = myDataset;
             notifyDataSetChanged();
         }
@@ -195,7 +146,7 @@ public class FiguresFragment extends Fragment {
         // Create new views (invoked by the layout manager)
         @Override
         public FigureAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+                                                           int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.card_view_collection_figure, parent, false);
@@ -219,13 +170,13 @@ public class FiguresFragment extends Fragment {
             String url = holder.imageViewFigure.getContext().getString(R.string.figure_large_image_url, figureData.getId());
 
             Glide
-                .with(holder.imageViewFigure.getContext())
-                .load(url)
-                .override(256, 320)
-                .centerCrop()
-                .placeholder(R.drawable.placeholder)
-                .listener(new GlideLoggingListener<String, GlideDrawable>())
-                .into(holder.imageViewFigure);
+                    .with(holder.imageViewFigure.getContext())
+                    .load(url)
+                    .override(256, 320)
+                    .centerCrop()
+                    .placeholder(R.drawable.placeholder)
+                    .listener(new GlideLoggingListener<String, GlideDrawable>())
+                    .into(holder.imageViewFigure);
 
             holder.textViewFigureName.setText(figureData.getName());
 

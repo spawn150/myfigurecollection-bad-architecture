@@ -26,13 +26,7 @@ public class FiguresActivity extends BaseActivity implements FiguresFragment.OnF
 
     @Override
     protected void setFragment(int contentFrameId) {
-        FiguresFragment figuresFragment = (FiguresFragment) getSupportFragmentManager().findFragmentById(contentFrameId);
-        if (figuresFragment == null) {
-            // Create the fragment
-            figuresFragment = FiguresFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), figuresFragment, contentFrameId);
-        }
+        //TODO Remove this method
     }
 
     @Override
