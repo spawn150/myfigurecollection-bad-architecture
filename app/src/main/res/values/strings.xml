@@ -7,4 +7,6 @@
     <string name="menu_title_pow">Pictures of the week</string>
     <string name="menu_title_pom">Pictures of the month</string>
     <string name="navigation_view_header_title">MFC</string>
+    <string name="title_activity_best_pictures">BestPicturesActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
