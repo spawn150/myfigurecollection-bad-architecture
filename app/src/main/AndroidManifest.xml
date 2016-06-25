@@ -22,7 +22,15 @@
             android:name=".bestpictures.BestPicturesActivity"
             android:label="@string/title_activity_best_pictures"
             android:theme="@style/AppTheme" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity
+            android:name=".figuredetail.FigureDetailActivity"
+            android:label="@string/title_activity_figure_detail"
+            android:parentActivityName=".figures.FiguresActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.architecture.bad.myfigurecollection.figures.FiguresActivity" />
+        </activity>
     </application>
 
 </manifest>

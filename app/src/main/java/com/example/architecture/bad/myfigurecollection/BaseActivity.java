@@ -16,8 +16,13 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.MenuItem;
 
+import com.ant_robot.mfc.api.pojo.Category;
+import com.ant_robot.mfc.api.pojo.Data;
+import com.ant_robot.mfc.api.pojo.Item;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesActivity;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
+import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFragment;
@@ -28,11 +33,10 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements FiguresFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = BaseActivity.class.getName();
+    private static final String TAG = BaseActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
-    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -173,6 +177,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             // return null to display only the icon
             return null;
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(Item figureItem) {
+
+        Log.d(TAG, "Figure Item: " + figureItem.toString());
+
+        Data data = figureItem.getData();
+        Category category = figureItem.getCategory();
+
+        ActivityUtils.startItemFigureDetailActivity(BaseActivity.this, new ItemFigureDetail(
+                data.getId(),
+                data.getName(),
+                data.getReleaseDate() != null ? data.getReleaseDate().toString() : "", category.getName()));
     }
 
 }

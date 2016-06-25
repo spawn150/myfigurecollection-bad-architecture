@@ -14,7 +14,7 @@ import com.example.architecture.bad.myfigurecollection.BaseActivity;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
-public class FiguresActivity extends BaseActivity implements FiguresFragment.OnFragmentInteractionListener {
+public class FiguresActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -27,11 +27,6 @@ public class FiguresActivity extends BaseActivity implements FiguresFragment.OnF
     @Override
     protected void setFragment(int contentFrameId) {
         //TODO Remove this method
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
 

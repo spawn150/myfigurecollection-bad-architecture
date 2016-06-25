@@ -23,10 +23,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
+
 /**
  * This provides methods to help Activities load their UI.
  */
 public class ActivityUtils {
+
+    public static final String ARG_FIGURE_DETAIL = "figuredetailargument";
 
     /**
      * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
@@ -47,4 +52,14 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
+    public static void startActivityInSameTask (@NonNull Context context, @NonNull Class className){
+        Intent intent = new Intent(context, className);
+        context.startActivity(intent);
+    }
+
+    public static void startItemFigureDetailActivity(@NonNull Context context, ItemFigureDetail itemFigureDetail){
+        Intent intent = new Intent(context, FigureDetailActivity.class);
+        intent.putExtra(ARG_FIGURE_DETAIL, itemFigureDetail);
+        context.startActivity(intent);
+    }
 }

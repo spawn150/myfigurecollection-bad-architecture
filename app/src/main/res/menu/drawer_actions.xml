@@ -22,7 +22,7 @@
         android:title="@string/menu_title_settings" />
 
     <!--item
-        android:id="@+id/statistics_navigation_menu_item"
+        android:releaseDate="@+releaseDate/statistics_navigation_menu_item"
         android:icon="@drawable/ic_statistics"
         android:title="@string/statistics_title" /-->
 </menu>

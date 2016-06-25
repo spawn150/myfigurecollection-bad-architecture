@@ -44,6 +44,13 @@ public abstract class FiguresFragment extends Fragment {
 
     FigureAdapter figureAdapter;
 
+    FigureItemListener figureItemListener = new FigureItemListener() {
+        @Override
+        public void onFigureItemClick(Item figureItem) {
+            mListener.onFragmentInteraction(figureItem);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +64,6 @@ public abstract class FiguresFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_figures, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -90,7 +90,7 @@ public abstract class FiguresFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         //recyclerView.setHasFixedSize(true);
-        figureAdapter = new FigureAdapter(new ArrayList<Item>());
+        figureAdapter = new FigureAdapter(new ArrayList<Item>(), figureItemListener);
         recyclerView.setAdapter(figureAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -111,12 +111,12 @@ public abstract class FiguresFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Item figureItem);
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
         private List<Item> mDataset;
+        private FigureItemListener mFigureItemListener;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -130,12 +130,19 @@ public abstract class FiguresFragment extends Fragment {
                 super(v);
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public FigureAdapter(List<Item> myDataset) {
+        public FigureAdapter(List<Item> myDataset, FigureItemListener figureItemListener) {
             mDataset = myDataset;
+            mFigureItemListener = figureItemListener;
         }
 
         public void updateData(List<Item> myDataset) {
@@ -158,7 +165,7 @@ public abstract class FiguresFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
-            Item figureItem = mDataset.get(position);
+            final Item figureItem = mDataset.get(position);
             Category category = figureItem.getCategory();
             category.getName();
 
@@ -167,18 +174,24 @@ public abstract class FiguresFragment extends Fragment {
             figureData.getName();
             figureData.getReleaseDate();
 
-            String url = holder.imageViewFigure.getContext().getString(R.string.figure_large_image_url, figureData.getId());
+            String url = holder.imageViewFigure.getContext().getString(R.string.figure_big_image_url, figureData.getId());
 
             Glide
-                    .with(holder.imageViewFigure.getContext())
-                    .load(url)
-                    .override(256, 320)
-                    .centerCrop()
-                    .placeholder(R.drawable.placeholder)
-                    .listener(new GlideLoggingListener<String, GlideDrawable>())
-                    .into(holder.imageViewFigure);
+                .with(holder.imageViewFigure.getContext())
+                .load(url)
+                .override(256, 320)
+                .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .listener(new GlideLoggingListener<String, GlideDrawable>())
+                .into(holder.imageViewFigure);
 
             holder.textViewFigureName.setText(figureData.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFigureItemListener.onFigureItemClick(figureItem);
+                }
+            });
 
         }
 
@@ -189,5 +202,11 @@ public abstract class FiguresFragment extends Fragment {
         }
     }
 
+
+    private interface FigureItemListener {
+
+        void onFigureItemClick(Item figureItem);
+
+    }
 
 }
