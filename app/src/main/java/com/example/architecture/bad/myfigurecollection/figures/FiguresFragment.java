@@ -89,7 +89,7 @@ public abstract class FiguresFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         figureAdapter = new FigureAdapter(new ArrayList<Item>());
         recyclerView.setAdapter(figureAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);

@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.MenuItem;
 
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesActivity;
@@ -34,6 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    int[] tabSelectedIcons = {R.drawable.ic_owned_full_24px, R.drawable.ic_wished_full_24px, R.drawable.ic_ordered_full_24px};
+    int[] tabUnselectedIcons = {R.drawable.ic_owned_empty_24px, R.drawable.ic_wished_empty_24px, R.drawable.ic_ordered_empty_24px};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,26 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(tabSelectedIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(tabUnselectedIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        int tabSelectedPosition = tabLayout.getSelectedTabPosition();
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_owned_full_24px);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_wished_empty_24px);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_ordered_empty_24px);
 
     }
 
@@ -146,7 +170,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+            // return null to display only the icon
+            return null;
         }
     }
 
