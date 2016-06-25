@@ -126,16 +126,15 @@ public class FiguresFragment extends Fragment {
         recyclerView.setAdapter(figureAdapter);
         //recyclerView.setAdapter(new FigureAdapter(new int[]{R.drawable.pod_test, R.drawable.pod2_test, R.drawable.pod3_test, R.drawable.pod4_test}));
         //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        /*GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
-        */
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        /*StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
+*/
 
-
-        MFCRequest.INSTANCE.getCollectionService().getCollection("spawn150"/*"STARlock"*//*"climbatize"*/, new Callback<ItemList>() {
+        MFCRequest.INSTANCE.getCollectionService().getCollection("STARlock"/*"spawn150"*//*"climbatize"*/, new Callback<ItemList>() {
             @Override
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
@@ -201,8 +200,7 @@ public class FiguresFragment extends Fragment {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.card_view_collection_figure, parent, false);
 
-            ViewHolder vh = new ViewHolder(v);
-            return vh;
+            return new ViewHolder(v);
         }
 
         // Replace the contents of a view (invoked by the layout manager)
@@ -223,7 +221,8 @@ public class FiguresFragment extends Fragment {
             Glide
                 .with(holder.imageViewFigure.getContext())
                 .load(url)
-                .fitCenter()
+                .override(256, 320)
+                .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .listener(new GlideLoggingListener<String, GlideDrawable>())
                 .into(holder.imageViewFigure);
