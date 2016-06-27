@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/image_view_detail_figure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        tools:background="@drawable/buggy_test" />
+        tools:background="@drawable/buggy_test" />-->
 
     <TextView
         android:id="@+id/text_view_detail_figure_name"

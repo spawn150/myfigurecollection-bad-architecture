@@ -70,7 +70,7 @@ public class FigureDetailFragment extends Fragment {
         TextView textViewDetailReleaseDate = (TextView) view.findViewById(R.id.text_view_detail_release_date);
         TextView textViewDetailScore = (TextView) view.findViewById(R.id.text_view_detail_score);
         TextView textViewDetailNumber = (TextView) view.findViewById(R.id.text_view_detail_number);
-        ImageView imageViewDetailFigure = (ImageView) view.findViewById(R.id.image_view_detail_figure);
+        //ImageView imageViewDetailFigure = (ImageView) view.findViewById(R.id.image_view_detail_figure);
 
         textViewDetailFigureName.setText(itemFigureDetail.getName());
         textViewDetailCategory.setText(itemFigureDetail.getCategory());
@@ -78,6 +78,7 @@ public class FigureDetailFragment extends Fragment {
         textViewDetailScore.setText(itemFigureDetail.getScore());
         textViewDetailNumber.setText(itemFigureDetail.getNumber());
 
+        /*
         String url = getContext().getString(R.string.figure_large_image_url, itemFigureDetail.getId());
 
         Glide
@@ -86,7 +87,7 @@ public class FigureDetailFragment extends Fragment {
             .centerCrop()
             .placeholder(R.drawable.placeholder)
             .listener(new GlideLoggingListener<String, GlideDrawable>())
-            .into(imageViewDetailFigure);
+            .into(imageViewDetailFigure);*/
 
     }
 }
