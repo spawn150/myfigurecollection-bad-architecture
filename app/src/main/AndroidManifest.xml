@@ -11,7 +11,7 @@
         <activity
             android:name=".figures.FiguresActivity"
             android:label="@string/title_activity_figures"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
             android:name=".figuredetail.FigureDetailActivity"
             android:label="@string/title_activity_figure_detail"
             android:parentActivityName=".figures.FiguresActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.OverlapSystemBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.architecture.bad.myfigurecollection.figures.FiguresActivity" />
