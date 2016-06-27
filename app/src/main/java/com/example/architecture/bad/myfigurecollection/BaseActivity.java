@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
@@ -66,10 +67,12 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tab.setIcon(tabSelectedIcons[tab.getPosition()]);
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -82,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
 
             }
         });
-        int tabSelectedPosition = tabLayout.getSelectedTabPosition();
+
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_owned_full_24px);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_wished_empty_24px);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_ordered_empty_24px);
