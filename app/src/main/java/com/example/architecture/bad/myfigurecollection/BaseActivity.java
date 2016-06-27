@@ -13,17 +13,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.MenuItem;
 
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
 import com.ant_robot.mfc.api.pojo.Mycollection;
-import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesActivity;
-import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
-import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFragment;
