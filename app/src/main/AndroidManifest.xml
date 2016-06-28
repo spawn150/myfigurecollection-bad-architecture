@@ -10,7 +10,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".figures.FiguresActivity"
-            android:label="@string/title_activity_figures"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +19,9 @@
         </activity>
         <activity
             android:name=".bestpictures.BestPicturesActivity"
-            android:label="@string/title_activity_best_pictures"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".figuredetail.FigureDetailActivity"
-            android:label="@string/title_activity_figure_detail"
             android:parentActivityName=".figures.FiguresActivity"
             android:theme="@style/AppTheme.Detail">
             <meta-data
