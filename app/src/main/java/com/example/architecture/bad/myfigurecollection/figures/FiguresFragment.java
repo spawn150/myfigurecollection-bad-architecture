@@ -1,7 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +22,7 @@ import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
+import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +58,11 @@ public abstract class FiguresFragment extends Fragment {
                     .setId(data.getId())
                     .setName(data.getName())
                     .setCategory(category.getName())
-                    .setReleaseDate(data.getReleaseDate() != null ? data.getReleaseDate().toString() : "")
-                    .setScore(mycollection.getScore())
-                    .setPrice(data.getPrice())
+                    .setReleaseDate(StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))
+                    .setScore(StringUtils.getFractionValue(mycollection.getScore(), getString(R.string.denominator_score_value), getString(R.string.not_available)) )
+                    .setPrice(StringUtils.getCurrencyValue(data.getPrice(), getString(R.string.currency_symbol), getString(R.string.not_available)))
                     .setNumber(mycollection.getNumber())
-                    .setWishability(mycollection.getWishability())
+                    .setWishability(StringUtils.getFractionValue(mycollection.getWishability(), getString(R.string.denominator_wishability_value), getString(R.string.not_available)))
                     .setBarcode(data.getBarcode())
                     .build();
 

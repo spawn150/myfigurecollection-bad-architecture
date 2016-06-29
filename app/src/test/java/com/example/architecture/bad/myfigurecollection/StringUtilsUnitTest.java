@@ -119,4 +119,93 @@ public class StringUtilsUnitTest {
         assertEquals("BakuretsuTenshiMeg1/8(Alter)", value);
     }
 
+    @Test
+    public void testGetStringValue() throws Exception {
+        String value = StringUtils.getStringValue("string value", "N.A.");
+        assertEquals("string value", value);
+    }
+
+    @Test
+    public void testGetStringValueWithEmptyValue() throws Exception {
+        String value = StringUtils.getStringValue("", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetStringValueWithNull() throws Exception {
+        String value = StringUtils.getStringValue(null, "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetStringValueWithZeroValue() throws Exception {
+        String value = StringUtils.getStringValue("0", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetStringValueWithNegativeValue() throws Exception {
+        String value = StringUtils.getStringValue("-1", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetCurrencyValue() throws Exception {
+        String value = StringUtils.getCurrencyValue("8000", "¥", "N.A.");
+        assertEquals("8000¥", value);
+    }
+
+    @Test
+    public void testGetCurrencyValueWithEmptyValue() throws Exception {
+        String value = StringUtils.getCurrencyValue("", "¥", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetCurrencyValueWithNull() throws Exception {
+        String value = StringUtils.getCurrencyValue(null, "¥", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetCurrencyValueWithZeroValue() throws Exception {
+        String value = StringUtils.getCurrencyValue("0", "¥", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetCurrencyValueWithNegativeValue() throws Exception {
+        String value = StringUtils.getCurrencyValue("-1", "¥", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetFractionValue() throws Exception {
+        String value = StringUtils.getFractionValue("8", "10", "N.A.");
+        assertEquals("8/10", value);
+    }
+
+    @Test
+    public void testGetFractionValueWithEmptyValue() throws Exception {
+        String value = StringUtils.getFractionValue("", "10", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetFractionValueWithNull() throws Exception {
+        String value = StringUtils.getFractionValue(null, "10", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetFractionValueWithZeroValue() throws Exception {
+        String value = StringUtils.getFractionValue("0", "10", "N.A.");
+        assertEquals("N.A.", value);
+    }
+
+    @Test
+    public void testGetFractionValueWithNegativeValue() throws Exception {
+        String value = StringUtils.getFractionValue("-1", "10", "N.A.");
+        assertEquals("N.A.", value);
+    }
 }

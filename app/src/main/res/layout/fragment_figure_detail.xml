@@ -15,9 +15,9 @@
 
         <TextView
             android:id="@+id/text_view_detail_figure_name"
+            style="@style/Base.Titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Titles"
             tools:text="Titolo della Figure Titolo della Figure Titolo della Figure " />
 
         <TextView
@@ -57,14 +57,16 @@
             style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="8000¥" />
+            tools:text="8000¥"
+            tools:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/view_group_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 style="@style/Base.Labels"
@@ -86,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 style="@style/Base.Labels"
@@ -137,7 +140,7 @@
             style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="N.A." />
+            tools:text="12312312313" />
 
     </LinearLayout>
 

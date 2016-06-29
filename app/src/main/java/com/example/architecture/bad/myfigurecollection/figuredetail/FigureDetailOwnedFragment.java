@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 /**
  * Created by spawn on 29/06/16.
@@ -34,8 +35,8 @@ public class FigureDetailOwnedFragment extends FigureDetailFragment {
         view.findViewById(R.id.view_group_score).setVisibility(View.VISIBLE);
         TextView textViewDetailScore = (TextView) view.findViewById(R.id.text_view_detail_score);
         TextView textViewDetailNumber = (TextView) view.findViewById(R.id.text_view_detail_number);
-        textViewDetailScore.setText(itemFigureDetail.getScore());
-        textViewDetailNumber.setText(itemFigureDetail.getNumber());
+        textViewDetailScore.setText(StringUtils.getStringValue(itemFigureDetail.getScore(), getString(R.string.not_available)));
+        textViewDetailNumber.setText(StringUtils.getStringValue(itemFigureDetail.getNumber(), getString(R.string.not_available)));
     }
 
 }

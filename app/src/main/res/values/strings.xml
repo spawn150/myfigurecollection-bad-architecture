@@ -17,4 +17,6 @@
     <string name="label_wishability">Wishability</string>
     <string name="label_number_of_items">Items #</string>
     <string name="label_barcode">Barcode</string>
+    <string name="not_available">N.A.</string>
+    <string name="currency_symbol">¥</string>
 </resources>

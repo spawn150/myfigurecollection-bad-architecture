@@ -58,8 +58,8 @@ public abstract class FigureDetailFragment extends Fragment {
         textViewDetailFigureName.setText(StringUtils.extractStringAfterSeparatorRepeatedNTimes(itemFigureDetail.getName(), '-', 2));
         textViewDetailCategory.setText(itemFigureDetail.getCategory());
         textViewDetailReleaseDate.setText(itemFigureDetail.getReleaseDate());
-        textViewDetailPrice.setText(itemFigureDetail.getPrice());
-        textViewDetailBarcode.setText(itemFigureDetail.getBarcode());
+        textViewDetailPrice.setText(StringUtils.getStringValue(itemFigureDetail.getPrice(), getString(R.string.not_available)));
+        textViewDetailBarcode.setText(StringUtils.getStringValue(itemFigureDetail.getBarcode(), getString(R.string.not_available)));
 
         setExtraViews(view);
     }
