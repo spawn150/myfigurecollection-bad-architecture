@@ -1,6 +1,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
@@ -17,78 +17,127 @@
             android:id="@+id/text_view_detail_figure_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="3"
+            style="@style/Base.Titles"
             tools:text="Titolo della Figure Titolo della Figure Titolo della Figure " />
 
         <TextView
+            style="@style/Base.Labels"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Labels"
-            android:text="@string/label_category"/>
+            android:text="@string/label_category" />
 
         <TextView
             android:id="@+id/text_view_detail_category"
+            style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents"
             tools:text="Categoria della figure" />
 
         <TextView
+            style="@style/Base.Labels"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Labels"
-            android:text="@string/label_release_date"/>
+            android:text="@string/label_release_date" />
 
         <TextView
             android:id="@+id/text_view_detail_release_date"
+            style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents"
             tools:text="Release date della figure" />
 
         <TextView
+            style="@style/Base.Labels"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Labels"
-            android:text="@string/label_score"/>
+            android:text="@string/label_price" />
 
         <TextView
-            android:id="@+id/text_view_detail_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/text_view_detail_price"
             style="@style/Base.Contents"
-            tools:text="Price della figure" />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:text="8000¥" />
+
+        <LinearLayout
+            android:id="@+id/view_group_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_score" />
+
+            <TextView
+                android:id="@+id/text_view_detail_score"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="8/10" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_group_whishability"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_wishability" />
+
+            <TextView
+                android:id="@+id/text_view_detail_whishability"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="7/10" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_group_number_of_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_number_of_items" />
+
+            <TextView
+                android:id="@+id/text_view_detail_number"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="3" />
+
+        </LinearLayout>
+
+        <TextView
             style="@style/Base.Labels"
-            android:text="@string/label_number_of_items"/>
-
-        <TextView
-            android:id="@+id/text_view_detail_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents"
-            tools:text="3" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Base.Labels"
-            android:text="@string/label_barcode"/>
+            android:text="@string/label_barcode" />
 
         <TextView
             android:id="@+id/text_view_detail_barcode"
+            style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents"
             tools:text="N.A." />
 
-
     </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

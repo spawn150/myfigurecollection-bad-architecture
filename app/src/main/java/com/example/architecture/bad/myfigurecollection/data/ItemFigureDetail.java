@@ -11,6 +11,8 @@ public class ItemFigureDetail implements Parcelable {
     private String id;
     private String name;
     private String releaseDate;
+    private String price;
+    private String wishability;
     private String score;
     private String number;
     private String category;
