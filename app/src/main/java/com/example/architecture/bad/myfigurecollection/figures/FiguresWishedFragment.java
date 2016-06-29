@@ -8,6 +8,8 @@ import android.util.Log;
 import com.ant_robot.mfc.api.pojo.ItemList;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -69,6 +71,11 @@ public class FiguresWishedFragment extends FiguresFragment {
             }
         });
 
+    }
+
+    @Override
+    protected void onFragmentInteraction(ItemFigureDetail itemFigureDetail) {
+        mListener.onFragmentInteraction(itemFigureDetail, ActivityUtils.WISHED_FRAGMENT);
     }
 
 

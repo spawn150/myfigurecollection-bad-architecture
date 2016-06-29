@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:visibility="gone">
+            android:visibility="gone">
 
             <TextView
                 style="@style/Base.Labels"
@@ -82,11 +82,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/view_group_whishability"
+            android:id="@+id/view_group_wishability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:visibility="gone">
+            android:visibility="gone">
 
             <TextView
                 style="@style/Base.Labels"
@@ -95,7 +95,7 @@
                 android:text="@string/label_wishability" />
 
             <TextView
-                android:id="@+id/text_view_detail_whishability"
+                android:id="@+id/text_view_detail_wishability"
                 style="@style/Base.Contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,7 +107,9 @@
             android:id="@+id/view_group_number_of_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 style="@style/Base.Labels"

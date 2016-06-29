@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
@@ -33,10 +34,12 @@ public class FigureDetailActivity extends AppCompatActivity {
 
         FigureDetailFragment figureDetailFragment = (FigureDetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
         if (figureDetailFragment == null) {
-            // Create the fragment
-            figureDetailFragment = FigureDetailFragment.newInstance(itemFigureDetail);
-            ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), figureDetailFragment, R.id.fragment_figure_detail);
+
+            int fragmentType = getIntent().getIntExtra(ActivityUtils.ARG_FRAGMENT_TYPE, ActivityUtils.OWNED_FRAGMENT);
+            //noinspection WrongConstant
+            figureDetailFragment = FigureDetailFragmentFactory.createFragmentDetail(fragmentType, itemFigureDetail);
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureDetailFragment, R.id.fragment_figure_detail);
         }
 
     }

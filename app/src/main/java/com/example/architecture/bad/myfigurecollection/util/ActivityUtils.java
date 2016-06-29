@@ -18,6 +18,7 @@ package com.example.architecture.bad.myfigurecollection.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,12 +27,25 @@ import android.support.v4.app.FragmentTransaction;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * This provides methods to help Activities load their UI.
  */
 public class ActivityUtils {
 
     public static final String ARG_FIGURE_DETAIL = "figuredetailargument";
+    public static final String ARG_FRAGMENT_TYPE = "fragmenttype";
+
+    public static final int OWNED_FRAGMENT = 0;
+    public static final int WISHED_FRAGMENT = 1;
+    public static final int ORDERED_FRAGMENT = 2;
+
+    @IntDef({OWNED_FRAGMENT, WISHED_FRAGMENT, ORDERED_FRAGMENT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface FragmentType {
+    }
 
     /**
      * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
@@ -57,9 +71,10 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void startItemFigureDetailActivity(@NonNull Context context, ItemFigureDetail itemFigureDetail){
+    public static void startItemFigureDetailActivity(@NonNull Context context, ItemFigureDetail itemFigureDetail, @FragmentType int fragmentType){
         Intent intent = new Intent(context, FigureDetailActivity.class);
         intent.putExtra(ARG_FIGURE_DETAIL, itemFigureDetail);
+        intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
         context.startActivity(intent);
     }
 }

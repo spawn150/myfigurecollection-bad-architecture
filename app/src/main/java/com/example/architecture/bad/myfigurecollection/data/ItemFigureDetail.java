@@ -10,20 +10,24 @@ public class ItemFigureDetail implements Parcelable {
 
     private String id;
     private String name;
+    private String category;
     private String releaseDate;
     private String price;
     private String wishability;
     private String score;
     private String number;
-    private String category;
+    private String barcode;
 
-    public ItemFigureDetail(String id, String name, String releaseDate, String score, String number, String category) {
+    private ItemFigureDetail(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
         this.id = id;
         this.name = name;
+        this.category = category;
         this.releaseDate = releaseDate;
+        this.price = price;
+        this.wishability = wishability;
         this.score = score;
         this.number = number;
-        this.category = category;
+        this.barcode = barcode;
     }
 
     public String getId() {
@@ -34,8 +38,20 @@ public class ItemFigureDetail implements Parcelable {
         return name;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getWishability() {
+        return wishability;
     }
 
     public String getScore() {
@@ -46,17 +62,96 @@ public class ItemFigureDetail implements Parcelable {
         return number;
     }
 
-    public String getCategory() {
-        return category;
+    public String getBarcode() {
+        return barcode;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemFigureDetail{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", price='" + price + '\'' +
+                ", wishability='" + wishability + '\'' +
+                ", score='" + score + '\'' +
+                ", number='" + number + '\'' +
+                ", barcode='" + barcode + '\'' +
+                '}';
+    }
+
+    public static class Builder {
+        private String id;
+        private String name;
+        private String category;
+        private String releaseDate;
+        private String price;
+        private String wishability;
+        private String score;
+        private String number;
+        private String barcode;
+
+        public Builder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setCategory(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder setReleaseDate(String releaseDate) {
+            this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public Builder setPrice(String price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setWishability(String wishability) {
+            this.wishability = wishability;
+            return this;
+        }
+
+        public Builder setScore(String score) {
+            this.score = score;
+            return this;
+        }
+
+        public Builder setNumber(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public Builder setBarcode(String barcode) {
+            this.barcode = barcode;
+            return this;
+        }
+
+        public ItemFigureDetail build() {
+            return new ItemFigureDetail(id, name, category, releaseDate, price, wishability, score, number, barcode);
+        }
     }
 
     protected ItemFigureDetail(Parcel in) {
         id = in.readString();
         name = in.readString();
+        category = in.readString();
         releaseDate = in.readString();
+        price = in.readString();
+        wishability = in.readString();
         score = in.readString();
         number = in.readString();
-        category = in.readString();
+        barcode = in.readString();
     }
 
     @Override
@@ -68,10 +163,13 @@ public class ItemFigureDetail implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeString(category);
         dest.writeString(releaseDate);
+        dest.writeString(price);
+        dest.writeString(wishability);
         dest.writeString(score);
         dest.writeString(number);
-        dest.writeString(category);
+        dest.writeString(barcode);
     }
 
     @SuppressWarnings("unused")

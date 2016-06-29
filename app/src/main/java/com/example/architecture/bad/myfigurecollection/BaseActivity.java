@@ -14,12 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.ant_robot.mfc.api.pojo.Category;
-import com.ant_robot.mfc.api.pojo.Data;
-import com.ant_robot.mfc.api.pojo.Item;
-import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
@@ -27,6 +22,7 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFra
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOwnedFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,21 +176,11 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
     }
 
     @Override
-    public void onFragmentInteraction(Item figureItem) {
+    public void onFragmentInteraction(ItemFigureDetail figureItem, @FragmentType int fragmentType) {
 
         Log.d(TAG, "Figure Item: " + figureItem.toString());
 
-        Data data = figureItem.getData();
-        Category category = figureItem.getCategory();
-        Mycollection mycollection = figureItem.getMycollection();
-
-        ActivityUtils.startItemFigureDetailActivity(BaseActivity.this, new ItemFigureDetail(
-                data.getId(),
-                data.getName(),
-                data.getReleaseDate() != null ? data.getReleaseDate().toString() : "",
-                mycollection.getScore(),
-                mycollection.getNumber(),
-                category.getName()));
+        ActivityUtils.startItemFigureDetailActivity(BaseActivity.this, figureItem, fragmentType);
     }
 
 }

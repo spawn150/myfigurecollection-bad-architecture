@@ -16,9 +16,12 @@ import android.widget.TextView;
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
+import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
+import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 
 import java.util.ArrayList;
@@ -40,14 +43,30 @@ public abstract class FiguresFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    OnFragmentInteractionListener mListener;
 
     FigureAdapter figureAdapter;
 
     FigureItemListener figureItemListener = new FigureItemListener() {
         @Override
         public void onFigureItemClick(Item figureItem) {
-            mListener.onFragmentInteraction(figureItem);
+
+            Data data = figureItem.getData();
+            Category category = figureItem.getCategory();
+            Mycollection mycollection = figureItem.getMycollection();
+            ItemFigureDetail figureDetail = new ItemFigureDetail.Builder()
+                    .setId(data.getId())
+                    .setName(data.getName())
+                    .setCategory(category.getName())
+                    .setReleaseDate(data.getReleaseDate() != null ? data.getReleaseDate().toString() : "")
+                    .setScore(mycollection.getScore())
+                    .setPrice(data.getPrice())
+                    .setNumber(mycollection.getNumber())
+                    .setWishability(mycollection.getWishability())
+                    .setBarcode(data.getBarcode())
+                    .build();
+
+            onFragmentInteraction(figureDetail);
         }
     };
 
@@ -100,6 +119,8 @@ public abstract class FiguresFragment extends Fragment {
 
     protected abstract void loadCollection();
 
+    protected abstract void onFragmentInteraction(ItemFigureDetail itemFigureDetail);
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -111,7 +132,7 @@ public abstract class FiguresFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Item figureItem);
+        void onFragmentInteraction(ItemFigureDetail figureItem, @ActivityUtils.FragmentType int fragmentType);
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
