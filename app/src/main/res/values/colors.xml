@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="lightGrey">#6f7880</color>
+    <color name="darkGrey">#464c51</color>
 
     <!-- scrim background -->
     <color name="translucent_scrim_top">#55000000</color>

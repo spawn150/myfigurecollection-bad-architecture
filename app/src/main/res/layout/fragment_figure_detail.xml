@@ -24,40 +24,70 @@
             tools:text="Titolo della Figure Titolo della Figure Titolo della Figure " />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Labels"
+            android:text="@string/label_category"/>
+
+        <TextView
             android:id="@+id/text_view_detail_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="1"
+            style="@style/Base.Contents"
             tools:text="Categoria della figure" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Labels"
+            android:text="@string/label_release_date"/>
 
         <TextView
             android:id="@+id/text_view_detail_release_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="1"
+            style="@style/Base.Contents"
             tools:text="Release date della figure" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Labels"
+            android:text="@string/label_score"/>
 
         <TextView
             android:id="@+id/text_view_detail_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="1"
+            style="@style/Base.Contents"
             tools:text="Price della figure" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Labels"
+            android:text="@string/label_number_of_items"/>
 
         <TextView
             android:id="@+id/text_view_detail_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="1"
-            tools:text="Release date della figure" />
+            style="@style/Base.Contents"
+            tools:text="3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Labels"
+            android:text="@string/label_barcode"/>
+
+        <TextView
+            android:id="@+id/text_view_detail_barcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Contents"
+            tools:text="N.A." />
+
 
     </LinearLayout>
 
