@@ -140,6 +140,10 @@
             style="@style/Base.Contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="true"
+            android:textIsSelectable="true"
+            android:focusable="true"
+            android:longClickable="true"
             tools:text="12312312313" />
 
     </LinearLayout>
