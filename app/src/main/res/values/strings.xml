@@ -19,4 +19,5 @@
     <string name="label_barcode">Barcode</string>
     <string name="not_available">N.A.</string>
     <string name="currency_symbol">¥</string>
+    <string name="title_activity_figure_gallery">FigureGalleryActivity</string>
 </resources>

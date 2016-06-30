@@ -28,6 +28,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.architecture.bad.myfigurecollection.figures.FiguresActivity" />
         </activity>
+        <activity
+            android:name=".figuregallery.FigureGalleryActivity"
+            android:label="@string/title_activity_figure_gallery"
+            android:theme="@style/AppTheme.Detail">
+        </activity>
     </application>
 
 </manifest>

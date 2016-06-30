@@ -26,6 +26,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
+import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -37,6 +38,7 @@ public class ActivityUtils {
 
     public static final String ARG_FIGURE_DETAIL = "figuredetailargument";
     public static final String ARG_FRAGMENT_TYPE = "fragmenttype";
+    public static final String ARG_FIGURE_ID = "figureid";
 
     public static final int OWNED_FRAGMENT = 0;
     public static final int WISHED_FRAGMENT = 1;
@@ -75,6 +77,12 @@ public class ActivityUtils {
         Intent intent = new Intent(context, FigureDetailActivity.class);
         intent.putExtra(ARG_FIGURE_DETAIL, itemFigureDetail);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
+        context.startActivity(intent);
+    }
+
+    public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId){
+        Intent intent = new Intent(context, FigureGalleryActivity.class);
+        intent.putExtra(ARG_FIGURE_ID, figureId);
         context.startActivity(intent);
     }
 }

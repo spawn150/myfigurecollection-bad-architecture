@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -51,9 +52,21 @@ public class FigureDetailActivity extends AppCompatActivity {
     }
 
 
-    private void loadBackdrop(String figureId) {
+    private void loadBackdrop(final String figureId) {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(getString(R.string.figure_large_image_url, figureId)).centerCrop().into(imageView);
+
+        if (imageView != null) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityUtils.startItemFigureGalleryActivity(v.getContext(), figureId);
+                }
+            });
+
+            Glide.with(this).load(getString(R.string.figure_large_image_url, figureId)).centerCrop().into(imageView);
+        }
+
+
     }
 
 }
