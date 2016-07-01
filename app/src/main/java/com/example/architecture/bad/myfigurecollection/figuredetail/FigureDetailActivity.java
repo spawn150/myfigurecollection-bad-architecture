@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
@@ -24,20 +24,20 @@ public class FigureDetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FigureDetail figureDetail = getIntent().getParcelableExtra(ActivityUtils.ARG_FIGURE_DETAIL);
+        DetailedFigure detailedFigure = getIntent().getParcelableExtra(ActivityUtils.ARG_FIGURE_DETAIL);
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(StringUtils.extractStringBeforeSeparatorRepeatedNTimes(figureDetail.getName(), '-', 2));
+        collapsingToolbar.setTitle(StringUtils.extractStringBeforeSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2));
 
-        loadBackdrop(figureDetail.getId());
+        loadBackdrop(detailedFigure.getId());
 
         FigureDetailFragment figureDetailFragment = (FigureDetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
         if (figureDetailFragment == null) {
 
             int fragmentType = getIntent().getIntExtra(ActivityUtils.ARG_FRAGMENT_TYPE, ActivityUtils.OWNED_FRAGMENT);
             //noinspection WrongConstant
-            figureDetailFragment = FigureDetailFragmentFactory.createFragmentDetail(fragmentType, figureDetail);
+            figureDetailFragment = FigureDetailFragmentFactory.createFragmentDetail(fragmentType, detailedFigure);
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureDetailFragment, R.id.fragment_figure_detail);
         }

@@ -24,7 +24,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
 
@@ -73,9 +73,9 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void startItemFigureDetailActivity(@NonNull Context context, FigureDetail figureDetail, @FragmentType int fragmentType){
+    public static void startItemFigureDetailActivity(@NonNull Context context, DetailedFigure detailedFigure, @FragmentType int fragmentType){
         Intent intent = new Intent(context, FigureDetailActivity.class);
-        intent.putExtra(ARG_FIGURE_DETAIL, figureDetail);
+        intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
         context.startActivity(intent);
     }

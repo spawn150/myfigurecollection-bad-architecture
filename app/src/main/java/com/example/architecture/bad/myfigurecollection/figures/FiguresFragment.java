@@ -19,7 +19,7 @@ import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
@@ -54,7 +54,7 @@ public abstract class FiguresFragment extends Fragment {
             Data data = figureItem.getData();
             Category category = figureItem.getCategory();
             Mycollection mycollection = figureItem.getMycollection();
-            FigureDetail figureDetail = new FigureDetail.Builder()
+            DetailedFigure detailedFigure = new DetailedFigure.Builder()
                     .setId(data.getId())
                     .setName(data.getName())
                     .setCategory(category.getName())
@@ -66,7 +66,7 @@ public abstract class FiguresFragment extends Fragment {
                     .setBarcode(data.getBarcode())
                     .build();
 
-            onFragmentInteraction(figureDetail);
+            onFragmentInteraction(detailedFigure);
         }
     };
 
@@ -119,7 +119,7 @@ public abstract class FiguresFragment extends Fragment {
 
     protected abstract void loadCollection();
 
-    protected abstract void onFragmentInteraction(FigureDetail figureDetail);
+    protected abstract void onFragmentInteraction(DetailedFigure detailedFigure);
 
     /**
      * This interface must be implemented by activities that contain this
@@ -132,7 +132,7 @@ public abstract class FiguresFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(FigureDetail figureItem, @ActivityUtils.FragmentType int fragmentType);
+        void onFragmentInteraction(DetailedFigure figureItem, @ActivityUtils.FragmentType int fragmentType);
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {

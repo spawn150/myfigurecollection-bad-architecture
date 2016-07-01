@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 /**
@@ -23,9 +23,9 @@ public class FigureDetailOwnedFragment extends FigureDetailFragment {
      *
      * @return A new instance of fragment FigureDetailOwnedFragment.
      */
-    public static FigureDetailOwnedFragment newInstance(FigureDetail figureDetail) {
+    public static FigureDetailOwnedFragment newInstance(DetailedFigure detailedFigure) {
         FigureDetailOwnedFragment fragment = new FigureDetailOwnedFragment();
-        fragment.setArguments(createBundle(figureDetail));
+        fragment.setArguments(createBundle(detailedFigure));
         return fragment;
     }
 
@@ -35,8 +35,8 @@ public class FigureDetailOwnedFragment extends FigureDetailFragment {
         view.findViewById(R.id.view_group_score).setVisibility(View.VISIBLE);
         TextView textViewDetailScore = (TextView) view.findViewById(R.id.text_view_detail_score);
         TextView textViewDetailNumber = (TextView) view.findViewById(R.id.text_view_detail_number);
-        textViewDetailScore.setText(StringUtils.getStringValue(figureDetail.getScore(), getString(R.string.not_available)));
-        textViewDetailNumber.setText(StringUtils.getStringValue(figureDetail.getNumber(), getString(R.string.not_available)));
+        textViewDetailScore.setText(StringUtils.getStringValue(detailedFigure.getScore(), getString(R.string.not_available)));
+        textViewDetailNumber.setText(StringUtils.getStringValue(detailedFigure.getNumber(), getString(R.string.not_available)));
     }
 
 }

@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 /**
@@ -23,9 +23,9 @@ public class FigureDetailWishedFragment extends FigureDetailFragment {
      *
      * @return A new instance of fragment FigureDetailWishedFragment.
      */
-    public static FigureDetailWishedFragment newInstance(FigureDetail figureDetail) {
+    public static FigureDetailWishedFragment newInstance(DetailedFigure detailedFigure) {
         FigureDetailWishedFragment fragment = new FigureDetailWishedFragment();
-        fragment.setArguments(createBundle(figureDetail));
+        fragment.setArguments(createBundle(detailedFigure));
         return fragment;
     }
 
@@ -33,7 +33,7 @@ public class FigureDetailWishedFragment extends FigureDetailFragment {
     protected void setExtraViews(View view) {
         view.findViewById(R.id.view_group_wishability).setVisibility(View.VISIBLE);
         TextView textViewDetailWishability = (TextView) view.findViewById(R.id.text_view_detail_wishability);
-        textViewDetailWishability.setText(StringUtils.getStringValue(figureDetail.getWishability(), getString(R.string.not_available)));
+        textViewDetailWishability.setText(StringUtils.getStringValue(detailedFigure.getWishability(), getString(R.string.not_available)));
     }
 
 }

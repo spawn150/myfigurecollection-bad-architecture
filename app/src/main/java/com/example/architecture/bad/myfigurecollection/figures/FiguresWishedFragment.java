@@ -8,7 +8,7 @@ import android.util.Log;
 import com.ant_robot.mfc.api.pojo.ItemList;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import retrofit.Callback;
@@ -74,8 +74,8 @@ public class FiguresWishedFragment extends FiguresFragment {
     }
 
     @Override
-    protected void onFragmentInteraction(FigureDetail figureDetail) {
-        mListener.onFragmentInteraction(figureDetail, ActivityUtils.WISHED_FRAGMENT);
+    protected void onFragmentInteraction(DetailedFigure detailedFigure) {
+        mListener.onFragmentInteraction(detailedFigure, ActivityUtils.WISHED_FRAGMENT);
     }
 
 

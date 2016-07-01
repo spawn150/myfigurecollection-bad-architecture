@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 /**
@@ -22,9 +22,9 @@ public class FigureDetailOrderedFragment extends FigureDetailFragment {
      *
      * @return A new instance of fragment FigureDetailOrderedFragment.
      */
-    public static FigureDetailOrderedFragment newInstance(FigureDetail figureDetail) {
+    public static FigureDetailOrderedFragment newInstance(DetailedFigure detailedFigure) {
         FigureDetailOrderedFragment fragment = new FigureDetailOrderedFragment();
-        fragment.setArguments(createBundle(figureDetail));
+        fragment.setArguments(createBundle(detailedFigure));
         return fragment;
     }
 
@@ -32,6 +32,6 @@ public class FigureDetailOrderedFragment extends FigureDetailFragment {
     protected void setExtraViews(View view) {
         view.findViewById(R.id.view_group_number_of_items).setVisibility(View.VISIBLE);
         TextView textViewDetailNumber = (TextView) view.findViewById(R.id.text_view_detail_number);
-        textViewDetailNumber.setText(StringUtils.getStringValue(figureDetail.getNumber(), getString(R.string.not_available)));
+        textViewDetailNumber.setText(StringUtils.getStringValue(detailedFigure.getNumber(), getString(R.string.not_available)));
     }
 }

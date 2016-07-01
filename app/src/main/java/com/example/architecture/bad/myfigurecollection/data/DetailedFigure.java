@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by spawn on 25/06/16.
  */
-public class FigureDetail implements Parcelable {
+public class DetailedFigure implements Parcelable {
 
     private String id;
     private String name;
@@ -18,7 +18,7 @@ public class FigureDetail implements Parcelable {
     private String number;
     private String barcode;
 
-    private FigureDetail(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
+    private DetailedFigure(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -68,7 +68,7 @@ public class FigureDetail implements Parcelable {
 
     @Override
     public String toString() {
-        return "FigureDetail{" +
+        return "DetailedFigure{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
@@ -137,12 +137,12 @@ public class FigureDetail implements Parcelable {
             return this;
         }
 
-        public FigureDetail build() {
-            return new FigureDetail(id, name, category, releaseDate, price, wishability, score, number, barcode);
+        public DetailedFigure build() {
+            return new DetailedFigure(id, name, category, releaseDate, price, wishability, score, number, barcode);
         }
     }
 
-    protected FigureDetail(Parcel in) {
+    protected DetailedFigure(Parcel in) {
         id = in.readString();
         name = in.readString();
         category = in.readString();
@@ -173,15 +173,15 @@ public class FigureDetail implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<FigureDetail> CREATOR = new Parcelable.Creator<FigureDetail>() {
+    public static final Parcelable.Creator<DetailedFigure> CREATOR = new Parcelable.Creator<DetailedFigure>() {
         @Override
-        public FigureDetail createFromParcel(Parcel in) {
-            return new FigureDetail(in);
+        public DetailedFigure createFromParcel(Parcel in) {
+            return new DetailedFigure(in);
         }
 
         @Override
-        public FigureDetail[] newArray(int size) {
-            return new FigureDetail[size];
+        public DetailedFigure[] newArray(int size) {
+            return new DetailedFigure[size];
         }
     };
 }
