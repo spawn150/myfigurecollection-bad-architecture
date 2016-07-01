@@ -19,7 +19,7 @@ import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
@@ -54,7 +54,7 @@ public abstract class FiguresFragment extends Fragment {
             Data data = figureItem.getData();
             Category category = figureItem.getCategory();
             Mycollection mycollection = figureItem.getMycollection();
-            ItemFigureDetail figureDetail = new ItemFigureDetail.Builder()
+            FigureDetail figureDetail = new FigureDetail.Builder()
                     .setId(data.getId())
                     .setName(data.getName())
                     .setCategory(category.getName())
@@ -119,7 +119,7 @@ public abstract class FiguresFragment extends Fragment {
 
     protected abstract void loadCollection();
 
-    protected abstract void onFragmentInteraction(ItemFigureDetail itemFigureDetail);
+    protected abstract void onFragmentInteraction(FigureDetail figureDetail);
 
     /**
      * This interface must be implemented by activities that contain this
@@ -132,7 +132,7 @@ public abstract class FiguresFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(ItemFigureDetail figureItem, @ActivityUtils.FragmentType int fragmentType);
+        void onFragmentInteraction(FigureDetail figureItem, @ActivityUtils.FragmentType int fragmentType);
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
@@ -177,7 +177,7 @@ public abstract class FiguresFragment extends Fragment {
                                                            int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_view_collection_figure, parent, false);
+                    .inflate(R.layout.layout_card_view_collection_figure, parent, false);
 
             return new ViewHolder(v);
         }

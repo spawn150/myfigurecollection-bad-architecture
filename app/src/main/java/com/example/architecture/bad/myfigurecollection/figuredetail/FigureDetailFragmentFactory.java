@@ -1,6 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
-import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 
@@ -9,19 +9,19 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.Fragme
  */
 public class FigureDetailFragmentFactory {
 
-    public static FigureDetailFragment createFragmentDetail(@FragmentType int fragmentType, ItemFigureDetail itemFigureDetail){
+    public static FigureDetailFragment createFragmentDetail(@FragmentType int fragmentType, FigureDetail figureDetail){
 
         FigureDetailFragment figureDetailFragment;
         switch (fragmentType){
 
             case ActivityUtils.OWNED_FRAGMENT:
-                figureDetailFragment = FigureDetailOwnedFragment.newInstance(itemFigureDetail);
+                figureDetailFragment = FigureDetailOwnedFragment.newInstance(figureDetail);
                 break;
             case ActivityUtils.ORDERED_FRAGMENT:
-                figureDetailFragment = FigureDetailOrderedFragment.newInstance(itemFigureDetail);
+                figureDetailFragment = FigureDetailOrderedFragment.newInstance(figureDetail);
                 break;
             case ActivityUtils.WISHED_FRAGMENT:
-                figureDetailFragment = FigureDetailWishedFragment.newInstance(itemFigureDetail);
+                figureDetailFragment = FigureDetailWishedFragment.newInstance(figureDetail);
                 break;
             default:
                 figureDetailFragment = null;

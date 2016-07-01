@@ -15,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFragment;
@@ -176,7 +176,7 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
     }
 
     @Override
-    public void onFragmentInteraction(ItemFigureDetail figureItem, @FragmentType int fragmentType) {
+    public void onFragmentInteraction(FigureDetail figureItem, @FragmentType int fragmentType) {
 
         Log.d(TAG, "Figure Item: " + figureItem.toString());
 

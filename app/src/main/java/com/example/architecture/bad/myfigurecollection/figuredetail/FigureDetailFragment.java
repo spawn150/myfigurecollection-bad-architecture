@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
+import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
 /**
@@ -19,11 +19,11 @@ public abstract class FigureDetailFragment extends Fragment {
 
     private static final String ARG_FIGURE_DETAIL_PARAM = "figuredetailparam";
 
-    protected ItemFigureDetail itemFigureDetail;
+    protected FigureDetail figureDetail;
 
-    static Bundle createBundle(ItemFigureDetail itemFigureDetail){
+    static Bundle createBundle(FigureDetail figureDetail){
         Bundle args = new Bundle();
-        args.putParcelable(ARG_FIGURE_DETAIL_PARAM, itemFigureDetail);
+        args.putParcelable(ARG_FIGURE_DETAIL_PARAM, figureDetail);
         return args;
     }
 
@@ -32,7 +32,7 @@ public abstract class FigureDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            itemFigureDetail = getArguments().getParcelable(ARG_FIGURE_DETAIL_PARAM);
+            figureDetail = getArguments().getParcelable(ARG_FIGURE_DETAIL_PARAM);
         }
     }
 
@@ -55,11 +55,11 @@ public abstract class FigureDetailFragment extends Fragment {
         TextView textViewDetailReleaseDate = (TextView) view.findViewById(R.id.text_view_detail_release_date);
         TextView textViewDetailPrice = (TextView) view.findViewById(R.id.text_view_detail_price);
         TextView textViewDetailBarcode = (TextView) view.findViewById(R.id.text_view_detail_barcode);
-        textViewDetailFigureName.setText(StringUtils.extractStringAfterSeparatorRepeatedNTimes(itemFigureDetail.getName(), '-', 2));
-        textViewDetailCategory.setText(itemFigureDetail.getCategory());
-        textViewDetailReleaseDate.setText(itemFigureDetail.getReleaseDate());
-        textViewDetailPrice.setText(StringUtils.getStringValue(itemFigureDetail.getPrice(), getString(R.string.not_available)));
-        textViewDetailBarcode.setText(StringUtils.getStringValue(itemFigureDetail.getBarcode(), getString(R.string.not_available)));
+        textViewDetailFigureName.setText(StringUtils.extractStringAfterSeparatorRepeatedNTimes(figureDetail.getName(), '-', 2));
+        textViewDetailCategory.setText(figureDetail.getCategory());
+        textViewDetailReleaseDate.setText(figureDetail.getReleaseDate());
+        textViewDetailPrice.setText(StringUtils.getStringValue(figureDetail.getPrice(), getString(R.string.not_available)));
+        textViewDetailBarcode.setText(StringUtils.getStringValue(figureDetail.getBarcode(), getString(R.string.not_available)));
 
         setExtraViews(view);
     }

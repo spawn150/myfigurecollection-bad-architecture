@@ -9,8 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.ItemFigureDetail;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
+import com.example.architecture.bad.myfigurecollection.data.FigureDetail;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 
@@ -25,20 +24,20 @@ public class FigureDetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ItemFigureDetail itemFigureDetail = getIntent().getParcelableExtra(ActivityUtils.ARG_FIGURE_DETAIL);
+        FigureDetail figureDetail = getIntent().getParcelableExtra(ActivityUtils.ARG_FIGURE_DETAIL);
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(StringUtils.extractStringBeforeSeparatorRepeatedNTimes(itemFigureDetail.getName(), '-', 2));
+        collapsingToolbar.setTitle(StringUtils.extractStringBeforeSeparatorRepeatedNTimes(figureDetail.getName(), '-', 2));
 
-        loadBackdrop(itemFigureDetail.getId());
+        loadBackdrop(figureDetail.getId());
 
         FigureDetailFragment figureDetailFragment = (FigureDetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
         if (figureDetailFragment == null) {
 
             int fragmentType = getIntent().getIntExtra(ActivityUtils.ARG_FRAGMENT_TYPE, ActivityUtils.OWNED_FRAGMENT);
             //noinspection WrongConstant
-            figureDetailFragment = FigureDetailFragmentFactory.createFragmentDetail(fragmentType, itemFigureDetail);
+            figureDetailFragment = FigureDetailFragmentFactory.createFragmentDetail(fragmentType, figureDetail);
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureDetailFragment, R.id.fragment_figure_detail);
         }

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by spawn on 25/06/16.
  */
-public class ItemFigureDetail implements Parcelable {
+public class FigureDetail implements Parcelable {
 
     private String id;
     private String name;
@@ -18,7 +18,7 @@ public class ItemFigureDetail implements Parcelable {
     private String number;
     private String barcode;
 
-    private ItemFigureDetail(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
+    private FigureDetail(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -68,7 +68,7 @@ public class ItemFigureDetail implements Parcelable {
 
     @Override
     public String toString() {
-        return "ItemFigureDetail{" +
+        return "FigureDetail{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
@@ -137,12 +137,12 @@ public class ItemFigureDetail implements Parcelable {
             return this;
         }
 
-        public ItemFigureDetail build() {
-            return new ItemFigureDetail(id, name, category, releaseDate, price, wishability, score, number, barcode);
+        public FigureDetail build() {
+            return new FigureDetail(id, name, category, releaseDate, price, wishability, score, number, barcode);
         }
     }
 
-    protected ItemFigureDetail(Parcel in) {
+    protected FigureDetail(Parcel in) {
         id = in.readString();
         name = in.readString();
         category = in.readString();
@@ -173,15 +173,15 @@ public class ItemFigureDetail implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<ItemFigureDetail> CREATOR = new Parcelable.Creator<ItemFigureDetail>() {
+    public static final Parcelable.Creator<FigureDetail> CREATOR = new Parcelable.Creator<FigureDetail>() {
         @Override
-        public ItemFigureDetail createFromParcel(Parcel in) {
-            return new ItemFigureDetail(in);
+        public FigureDetail createFromParcel(Parcel in) {
+            return new FigureDetail(in);
         }
 
         @Override
-        public ItemFigureDetail[] newArray(int size) {
-            return new ItemFigureDetail[size];
+        public FigureDetail[] newArray(int size) {
+            return new FigureDetail[size];
         }
     };
 }
