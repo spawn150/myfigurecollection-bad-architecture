@@ -16,13 +16,15 @@ public class FigureGalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_figure_gallery);
+
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_24px);
-
+        */
 
         FigureGalleryFragment figureGalleryFragment = (FigureGalleryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
         if (figureGalleryFragment == null) {
