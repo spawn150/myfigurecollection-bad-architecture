@@ -83,20 +83,18 @@ public class FigureGalleryFragment extends Fragment {
             @Override
             public void success(PictureGallery pictureGallery, Response response) {
 
-                List<GalleryFigure> galleryFigures;
+                List<GalleryFigure> galleryFigures = new ArrayList<>();
+                galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
+
                 if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
                     List<Picture> pictures = pictureGallery.getGallery().getPicture();
 
-                    int size = pictures.size();
-                    galleryFigures = new ArrayList<>(size);
-
                     Picture picture;
+                    int size = pictures.size();
                     for (int i = 0; i < size; i++) {
                         picture = pictures.get(i);
                         galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
                     }
-                } else {
-                    galleryFigures = new ArrayList<>();
                 }
                 galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
             }
@@ -131,8 +129,6 @@ public class FigureGalleryFragment extends Fragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ImageView imgDisplay;
-            TextView textViewUsername;
-            TextView textViewDate;
 
             inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.layout_image_fullscreen, container,
@@ -148,8 +144,8 @@ public class FigureGalleryFragment extends Fragment {
                     .listener(new GlideLoggingListener<String, GlideDrawable>())
                     .into(imgDisplay);
 
-            ((TextView)viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());
-            ((TextView)viewLayout.findViewById(R.id.text_view_gallery_date)).setText(galleryFigure.getDate());
+            ((TextView) viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());
+            ((TextView) viewLayout.findViewById(R.id.text_view_gallery_date)).setText(galleryFigure.getDate());
 
             container.addView(viewLayout);
 
