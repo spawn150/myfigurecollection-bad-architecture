@@ -28,6 +28,7 @@
     <!-- Text Styles -->
     <style name="Base.Labels" parent="android:Widget.TextView">
         <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/lightGrey</item>
         <item name="android:textSize">@dimen/font_small_size</item>
@@ -49,6 +50,7 @@
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/darkGrey</item>
         <item name="android:textSize">@dimen/font_medium_size</item>
