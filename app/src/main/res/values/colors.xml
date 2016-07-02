@@ -11,5 +11,11 @@
     <color name="translucent_scrim_top_center">#0C000000</color>
     <color name="translucent_scrim_bottom">#88000000</color>
     <color name="translucent_scrim_bottom_center">#0C000000</color>
+
+    <color name="translucent_scrim_top_white">#11FFFFFF</color>
+    <color name="translucent_scrim_top_center_white">#0CFFFFFF</color>
+    <color name="translucent_scrim_bottom_white">#88FFFFFF</color>
+    <color name="translucent_scrim_bottom_center_white">#0CFFFFFF</color>
+
 </resources>
 

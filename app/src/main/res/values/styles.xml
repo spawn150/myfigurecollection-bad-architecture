@@ -26,16 +26,6 @@
     <style name="AppTheme.Gallery" parent="Base.AppTheme.Gallery"/>
 
     <!-- Text Styles -->
-    <style name="Base.Labels" parent="android:Widget.TextView">
-        <item name="android:singleLine">true</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/lightGrey</item>
-        <item name="android:textSize">@dimen/font_small_size</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">8dp</item>
-    </style>
-
     <style name="Base.Titles" parent="android:Widget.TextView">
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
@@ -46,14 +36,34 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
+    <style name="Base.Labels" parent="android:Widget.TextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/lightGrey</item>
+        <item name="android:textSize">@dimen/font_small_size</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
     <style name="Base.Contents" parent="android:Widget.TextView">
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center_horizontal</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/darkGrey</item>
         <item name="android:textSize">@dimen/font_medium_size</item>
+    </style>
+
+    <style name="Base.Contents.Gallery" parent="android:Widget.TextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/font_medium_size</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
     </style>
 
 </resources>

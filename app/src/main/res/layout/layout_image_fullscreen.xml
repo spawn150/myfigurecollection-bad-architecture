@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,4 +12,28 @@
         android:scaleType="fitCenter"
         tools:src="@drawable/buggy_test" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sheet_text_scrim_height_bottom_gallery"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:background="@drawable/scrim_bottom">
+
+        <TextView
+            android:id="@+id/text_view_gallery_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Contents.Gallery"
+            android:text="Username Gallery" />
+
+        <TextView
+            android:id="@+id/text_view_gallery_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Contents.Gallery"
+            android:text="9 December 2015" />
+
+    </LinearLayout>
+
+</RelativeLayout>

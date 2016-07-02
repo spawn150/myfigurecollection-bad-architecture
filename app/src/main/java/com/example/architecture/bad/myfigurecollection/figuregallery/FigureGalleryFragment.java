@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
@@ -130,18 +131,25 @@ public class FigureGalleryFragment extends Fragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ImageView imgDisplay;
+            TextView textViewUsername;
+            TextView textViewDate;
 
             inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.layout_image_fullscreen, container,
                     false);
 
+            GalleryFigure galleryFigure = galleryFigures.get(position);
+
             imgDisplay = (ImageView) viewLayout.findViewById(R.id.image_view_figure);
 
             Glide
                     .with(container.getContext())
-                    .load(galleryFigures.get(position).getUrl())
+                    .load(galleryFigure.getUrl())
                     .listener(new GlideLoggingListener<String, GlideDrawable>())
                     .into(imgDisplay);
+
+            ((TextView)viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());
+            ((TextView)viewLayout.findViewById(R.id.text_view_gallery_date)).setText(galleryFigure.getDate());
 
             container.addView(viewLayout);
 

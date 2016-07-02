@@ -4,13 +4,18 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="detail_backdrop_height">500dp</dimen>
     <dimen name="default_margin">16dp</dimen>
+    <dimen name="default_xs_margin">4dp</dimen>
     <dimen name="card_margin">16dp</dimen>
+
     <dimen name="card_padding">16dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
 
     <!-- scrim heights -->
     <dimen name="sheet_text_scrim_height_top">150dp</dimen>
     <dimen name="sheet_text_scrim_height_bottom">200dp</dimen>
+    <dimen name="sheet_text_scrim_height_top_gallery">150dp</dimen>
+    <dimen name="sheet_text_scrim_height_bottom_gallery">200dp</dimen>
+
 
     <!-- Fonts size -->
     <dimen name="font_small_size">12sp</dimen>
