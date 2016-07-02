@@ -1,18 +1,15 @@
 package com.example.architecture.bad.myfigurecollection.figuregallery;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
@@ -79,24 +76,27 @@ public class FigureGalleryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ViewPager galleryPager = (ViewPager)view.findViewById(R.id.pager_gallery);
+        final ViewPager galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
 
         MFCRequest.INSTANCE.getGalleryService().getGalleryForItem(figureId, 0, new Callback<PictureGallery>() {
             @Override
             public void success(PictureGallery pictureGallery, Response response) {
-                List<Picture> pictures = pictureGallery.getGallery().getPicture();
 
-                Log.d("GALLERY", pictures.toString());
+                List<GalleryFigure> galleryFigures;
+                if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
+                    List<Picture> pictures = pictureGallery.getGallery().getPicture();
 
-                int size = pictures.size();
-                List<GalleryFigure> galleryFigures = new ArrayList<>(size);
+                    int size = pictures.size();
+                    galleryFigures = new ArrayList<>(size);
 
-                Picture picture;
-                for (int i = 0; i < size; i++) {
-                    picture = pictures.get(i);
-                    galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
+                    Picture picture;
+                    for (int i = 0; i < size; i++) {
+                        picture = pictures.get(i);
+                        galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
+                    }
+                } else {
+                    galleryFigures = new ArrayList<>();
                 }
-
                 galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
             }
 
@@ -138,10 +138,10 @@ public class FigureGalleryFragment extends Fragment {
             imgDisplay = (ImageView) viewLayout.findViewById(R.id.image_view_figure);
 
             Glide
-                .with(container.getContext())
-                .load(galleryFigures.get(position).getUrl())
-                .listener(new GlideLoggingListener<String, GlideDrawable>())
-                .into(imgDisplay);
+                    .with(container.getContext())
+                    .load(galleryFigures.get(position).getUrl())
+                    .listener(new GlideLoggingListener<String, GlideDrawable>())
+                    .into(imgDisplay);
 
             container.addView(viewLayout);
 

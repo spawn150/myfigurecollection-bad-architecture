@@ -14,10 +14,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.Gallery" parent="Base.AppTheme.Gallery">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    <style name="AppTheme.Gallery" parent="AppTheme.NoActionBar">
+        <item name="android:background">@android:color/black</item>
     </style>
 
     <!-- ACTION BAR STYLES -->

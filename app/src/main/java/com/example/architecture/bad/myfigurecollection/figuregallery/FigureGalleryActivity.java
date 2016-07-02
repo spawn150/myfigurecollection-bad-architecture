@@ -32,11 +32,14 @@ public class FigureGalleryActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureGalleryFragment, R.id.fragment_figure_gallery);
         }
 
+        //noinspection ConstantConditions
+        findViewById(R.id.image_button_clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 }
