@@ -1,11 +1,13 @@
 package com.example.architecture.bad.myfigurecollection.figuregallery;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +37,30 @@ import retrofit.client.Response;
 public class FigureGalleryFragment extends Fragment {
 
     private static final String ARG_FIGURE_ID = "figureid";
+    private static final String TAG = FigureGalleryFragment.class.getSimpleName();
 
     private String figureId;
+    private int gallerySize;
+    private ViewPager galleryPager;
+    private OnGalleryListener galleryListener;
+
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            Log.d(TAG, "onPageScrolled");
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.d(TAG, "onPageSelected");
+            galleryListener.onFigureChanged(++position, gallerySize);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            Log.d(TAG, "onPageScrollStateChanged");
+        }
+    };
 
     public FigureGalleryFragment() {
     }
@@ -53,6 +77,24 @@ public class FigureGalleryFragment extends Fragment {
         args.putString(ARG_FIGURE_ID, figureId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            galleryListener = (OnGalleryListener) context;
+        }catch(Exception e){
+            Log.e(TAG, "onAttach - Activity must implement OnGalleryListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        galleryListener = null;
     }
 
     @Override
@@ -77,7 +119,8 @@ public class FigureGalleryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ViewPager galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
+        galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
+        galleryPager.addOnPageChangeListener(onPageChangeListener);
 
         MFCRequest.INSTANCE.getGalleryService().getGalleryForItem(figureId, 0, new Callback<PictureGallery>() {
             @Override
@@ -96,7 +139,9 @@ public class FigureGalleryFragment extends Fragment {
                         galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
                     }
                 }
+                gallerySize = galleryFigures.size();
                 galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
+                galleryListener.onFigureChanged(1, gallerySize);
             }
 
             @Override
@@ -105,6 +150,13 @@ public class FigureGalleryFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        galleryPager.removeOnPageChangeListener(onPageChangeListener);
     }
 
     private static class FullScreenImageAdapter extends PagerAdapter {
@@ -156,6 +208,10 @@ public class FigureGalleryFragment extends Fragment {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
+    }
+
+    public interface OnGalleryListener {
+        void onFigureChanged(int position, int total);
     }
 
 }

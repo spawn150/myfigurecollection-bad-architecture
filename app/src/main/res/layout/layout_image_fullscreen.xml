@@ -24,14 +24,14 @@
             android:id="@+id/text_view_gallery_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents.Gallery"
+            style="@style/Base.Gallery.Contents"
             android:text="Username Gallery" />
 
         <TextView
             android:id="@+id/text_view_gallery_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Contents.Gallery"
+            style="@style/Base.Gallery.Contents"
             android:text="9 December 2015" />
 
     </LinearLayout>

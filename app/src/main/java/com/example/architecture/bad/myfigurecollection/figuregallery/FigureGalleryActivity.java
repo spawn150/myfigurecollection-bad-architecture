@@ -1,16 +1,16 @@
 package com.example.architecture.bad.myfigurecollection.figuregallery;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
-public class FigureGalleryActivity extends AppCompatActivity {
+public class FigureGalleryActivity extends AppCompatActivity implements FigureGalleryFragment.OnGalleryListener {
+
+    private TextView textViewGalleryCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,12 @@ public class FigureGalleryActivity extends AppCompatActivity {
             }
         });
 
+        textViewGalleryCounter = (TextView)findViewById(R.id.text_view_gallery_counter);
+
     }
 
+    @Override
+    public void onFigureChanged(int position, int total) {
+        textViewGalleryCounter.setText(getString(R.string.label_gallery_counter, position, total));
+    }
 }

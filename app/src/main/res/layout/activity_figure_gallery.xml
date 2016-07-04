@@ -14,14 +14,26 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/sheet_text_scrim_height_top"
-        android:background="@drawable/scrim_top"/>
+        android:background="@drawable/scrim_top" />
 
-    <ImageButton
-        android:id="@+id/image_button_clear"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:background="@drawable/button_clear" />
+        android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/image_button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/button_clear" />
 
+        <TextView
+            android:id="@+id/text_view_gallery_counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Gallery.Titles"
+            tools:text="12 of 27"/>
+
+    </LinearLayout>
 </FrameLayout>

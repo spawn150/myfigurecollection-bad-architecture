@@ -54,15 +54,22 @@
         <item name="android:textSize">@dimen/font_medium_size</item>
     </style>
 
-    <style name="Base.Contents.Gallery" parent="android:Widget.TextView">
+    <style name="Base.Gallery" parent="android:Widget.TextView">
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/font_medium_size</item>
-        <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Base.Gallery.Titles" parent="Base.Gallery">
+        <item name="android:textSize">@dimen/font_big_size</item>
+    </style>
+
+    <style name="Base.Gallery.Contents" parent="Base.Gallery">
+        <item name="android:textSize">@dimen/font_medium_size</item>
         <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
     </style>
 

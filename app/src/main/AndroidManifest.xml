@@ -30,7 +30,6 @@
         </activity>
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
-            android:label="@string/title_activity_figure_gallery"
             android:theme="@style/AppTheme.Gallery">
         </activity>
     </application>
