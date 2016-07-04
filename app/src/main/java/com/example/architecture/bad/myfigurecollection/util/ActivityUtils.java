@@ -27,6 +27,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
+import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -83,6 +84,11 @@ public class ActivityUtils {
     public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId){
         Intent intent = new Intent(context, FigureGalleryActivity.class);
         intent.putExtra(ARG_FIGURE_ID, figureId);
+        context.startActivity(intent);
+    }
+
+    public static void startActivityTwitter (@NonNull Context context){
+        Intent intent = new Intent(context, EmbeddedTwitterActivity.class);
         context.startActivity(intent);
     }
 }

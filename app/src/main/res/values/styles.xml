@@ -21,9 +21,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.Detail" parent="Base.AppTheme"/>
+    <style name="AppTheme.Detail" parent="Base.AppTheme" />
 
-    <style name="AppTheme.Gallery" parent="Base.AppTheme.Gallery"/>
+    <style name="AppTheme.Gallery" parent="Base.AppTheme.Gallery" />
 
     <!-- Text Styles -->
     <style name="Base.Titles" parent="android:Widget.TextView">

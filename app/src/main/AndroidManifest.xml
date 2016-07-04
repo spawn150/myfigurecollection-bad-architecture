@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.architecture.bad.myfigurecollection">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,8 +33,16 @@
         </activity>
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
-            android:theme="@style/AppTheme.Gallery">
-        </activity>
+            android:theme="@style/AppTheme.Gallery" />
+        <activity
+            android:name=".timelinetwitter.EmbeddedTwitterActivity"
+            android:label="@string/title_activity_embedded_twitter"
+            android:theme="@style/AppTheme"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f8bc8a7c2b7a740714261964ad4795c6df3a6a12" />
+
     </application>
 
 </manifest>

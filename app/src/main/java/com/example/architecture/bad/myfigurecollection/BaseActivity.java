@@ -134,6 +134,9 @@ public abstract class BaseActivity extends AppCompatActivity implements FiguresF
                                 Log.d(TAG, "POM menu tapped!");
                                 //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
                                 break;
+                            case R.id.twitter_navigation_menu_item:
+                                Log.d(TAG, "Twitter menu tapped!");
+                                ActivityUtils.startActivityTwitter(BaseActivity.this);
                             default:
                                 break;
                         }

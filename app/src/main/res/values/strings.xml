@@ -6,6 +6,7 @@
     <string name="menu_title_pod">Pictures of the day</string>
     <string name="menu_title_pow">Pictures of the week</string>
     <string name="menu_title_pom">Pictures of the month</string>
+    <string name="menu_title_twitter">MyFigureCollection on Twitter</string>
     <string name="navigation_view_header_title">MFC</string>
     <string name="title_activity_best_pictures">BestPicturesActivity</string>
     <string name="action_settings">Settings</string>
@@ -21,4 +22,5 @@
     <string name="currency_symbol">¥</string>
     <string name="label_gallery_counter">%1$d of %2$d</string>
     <string name="title_activity_figure_gallery">FigureGalleryActivity</string>
+    <string name="title_activity_embedded_twitter">EmbeddedTwitterActivity</string>
 </resources>
