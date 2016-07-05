@@ -200,7 +200,7 @@ public abstract class FiguresFragment extends Fragment {
             Glide
                 .with(holder.imageViewFigure.getContext())
                 .load(url)
-                .override(256, 320)
+                //.override(256, 320)
                 .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .listener(new GlideLoggingListener<String, GlideDrawable>())

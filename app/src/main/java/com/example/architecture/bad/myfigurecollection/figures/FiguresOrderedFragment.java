@@ -57,7 +57,7 @@ public class FiguresOrderedFragment extends FiguresFragment {
 
     @Override
     protected void loadCollection() {
-        MFCRequest.INSTANCE.getCollectionService().getOrdered("STARlock"/*"spawn150"*//*"climbatize"*/, new Callback<ItemList>() {
+        MFCRequest.INSTANCE.getCollectionService().getOrdered("spawn150"/*"STARlock"*//*"climbatize"*/, new Callback<ItemList>() {
             @Override
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
