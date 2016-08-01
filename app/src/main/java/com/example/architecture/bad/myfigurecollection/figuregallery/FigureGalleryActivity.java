@@ -17,15 +17,6 @@ public class FigureGalleryActivity extends AppCompatActivity implements FigureGa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_figure_gallery);
 
-        /*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //noinspection ConstantConditions
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_24px);
-        */
-
         FigureGalleryFragment figureGalleryFragment = (FigureGalleryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
         if (figureGalleryFragment == null) {
             figureGalleryFragment = FigureGalleryFragment.newInstance(getIntent().getStringExtra(ActivityUtils.ARG_FIGURE_ID));
