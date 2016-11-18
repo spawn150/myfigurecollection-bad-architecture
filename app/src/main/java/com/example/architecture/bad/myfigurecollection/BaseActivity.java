@@ -1,6 +1,7 @@
 package com.example.architecture.bad.myfigurecollection;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,15 +33,15 @@ public abstract class BaseActivity extends AppCompatActivity
 
   private static final String TAG = BaseActivity.class.getSimpleName();
   private DrawerLayout mDrawerLayout;
-  private TabLayout tabLayout;
   private ViewPager viewPager;
 
   int[] tabSelectedIcons = {
-      R.drawable.ic_owned_full_24px, R.drawable.ic_wished_full_24px, R.drawable.ic_ordered_full_24px
+      R.drawable.ic_owned_full_24px, R.drawable.ic_ordered_full_24px,
+      R.drawable.ic_wished_full_24px,
   };
   int[] tabUnselectedIcons = {
-      R.drawable.ic_owned_empty_24px, R.drawable.ic_wished_empty_24px,
-      R.drawable.ic_ordered_empty_24px
+      R.drawable.ic_owned_empty_24px, R.drawable.ic_ordered_empty_24px,
+      R.drawable.ic_wished_empty_24px
   };
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity
     viewPager = (ViewPager) findViewById(R.id.viewpager);
     setupViewPager(viewPager);
 
-    tabLayout = (TabLayout) findViewById(R.id.tabs);
+    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
     tabLayout.setupWithViewPager(viewPager);
 
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -91,9 +92,9 @@ public abstract class BaseActivity extends AppCompatActivity
 
   private void setupViewPager(ViewPager viewPager) {
     ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(FiguresOwnedFragment.newInstance(), "Owned");
-    adapter.addFragment(FiguresOrderedFragment.newInstance(), "Ordered");
-    adapter.addFragment(FiguresWishedFragment.newInstance(), "Wished");
+    adapter.addFragment(FiguresOwnedFragment.newInstance());
+    adapter.addFragment(FiguresOrderedFragment.newInstance());
+    adapter.addFragment(FiguresWishedFragment.newInstance());
     viewPager.setAdapter(adapter);
   }
 
@@ -112,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity
   private void setupDrawerContent(NavigationView navigationView) {
     navigationView.setNavigationItemSelectedListener(
         new NavigationView.OnNavigationItemSelectedListener() {
-          @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+          @Override public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
               case R.id.settings_navigation_menu_item:
                 Log.d(TAG, "Settings menu tapped!");
@@ -149,7 +150,6 @@ public abstract class BaseActivity extends AppCompatActivity
 
   class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager manager) {
       super(manager);
@@ -163,9 +163,8 @@ public abstract class BaseActivity extends AppCompatActivity
       return mFragmentList.size();
     }
 
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment) {
       mFragmentList.add(fragment);
-      mFragmentTitleList.add(title);
     }
 
     @Override public CharSequence getPageTitle(int position) {
