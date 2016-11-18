@@ -53,8 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     ActionBar ab = getSupportActionBar();
-    ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-    ab.setDisplayHomeAsUpEnabled(true);
+    if (ab != null) {
+      ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+      ab.setDisplayHomeAsUpEnabled(true);
+    }
 
     // Set up the navigation drawer.
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,9 +87,9 @@ public abstract class BaseActivity extends AppCompatActivity
       }
     });
 
-    tabLayout.getTabAt(0).setIcon(R.drawable.ic_owned_full_24px);
-    tabLayout.getTabAt(2).setIcon(R.drawable.ic_ordered_empty_24px);
-    tabLayout.getTabAt(1).setIcon(R.drawable.ic_wished_empty_24px);
+    tabLayout.getTabAt(0).setIcon(tabSelectedIcons[0]);
+    tabLayout.getTabAt(1).setIcon(tabUnselectedIcons[1]);
+    tabLayout.getTabAt(2).setIcon(tabUnselectedIcons[2]);
   }
 
   private void setupViewPager(ViewPager viewPager) {
@@ -148,10 +150,10 @@ public abstract class BaseActivity extends AppCompatActivity
         });
   }
 
-  class ViewPagerAdapter extends FragmentPagerAdapter {
+  private class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager manager) {
+    ViewPagerAdapter(FragmentManager manager) {
       super(manager);
     }
 
@@ -163,7 +165,7 @@ public abstract class BaseActivity extends AppCompatActivity
       return mFragmentList.size();
     }
 
-    public void addFragment(Fragment fragment) {
+    void addFragment(Fragment fragment) {
       mFragmentList.add(fragment);
     }
 
