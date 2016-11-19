@@ -60,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     // Set up the navigation drawer.
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-    mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+    mDrawerLayout.setStatusBarBackground(R.color.primary_dark);
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     if (navigationView != null) {
       setupDrawerContent(navigationView);
