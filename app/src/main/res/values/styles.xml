@@ -1,76 +1,84 @@
 <resources>
 
-    <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme" />
+  <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme"/>
 
-    <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
+  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme"/>
 
-    <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
+  <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+    <item name="android:windowContentTransitions">true</item>
+  </style>
 
-    <style name="Base.AppTheme.Gallery" parent="Base.AppTheme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@android:color/black</item>
-    </style>
+  <style name="AppTheme.Detail" parent="Base.AppTheme">
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+  </style>
 
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+  </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="AppTheme.Gallery" parent="AppTheme.NoActionBar">
+    <item name="android:background">@android:color/black</item>
+  </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.Detail" parent="Base.AppTheme" />
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.Gallery" parent="Base.AppTheme.Gallery" />
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <!-- Text Styles -->
-    <style name="Base.Titles" parent="android:Widget.TextView">
-        <item name="android:singleLine">false</item>
-        <item name="android:maxLines">3</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">8dp</item>
-    </style>
+  <!-- Text Styles -->
+  <style name="Base.Titles" parent="android:Widget.TextView">
+    <item name="android:singleLine">false</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    <item name="android:paddingTop">16dp</item>
+    <item name="android:paddingBottom">8dp</item>
+  </style>
 
-    <style name="Base.Labels" parent="android:Widget.TextView">
-        <item name="android:singleLine">true</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/lightGrey</item>
-        <item name="android:textSize">@dimen/font_small_size</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">8dp</item>
-    </style>
+  <style name="Base.Labels" parent="android:Widget.TextView">
+    <item name="android:singleLine">true</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textColor">@color/lightGrey</item>
+    <item name="android:textSize">@dimen/font_small_size</item>
+    <item name="android:paddingTop">16dp</item>
+    <item name="android:paddingBottom">8dp</item>
+  </style>
 
-    <style name="Base.Contents" parent="android:Widget.TextView">
-        <item name="android:singleLine">false</item>
-        <item name="android:maxLines">2</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/darkGrey</item>
-        <item name="android:textSize">@dimen/font_medium_size</item>
-    </style>
+  <style name="Base.Contents" parent="android:Widget.TextView">
+    <item name="android:singleLine">false</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textColor">@color/darkGrey</item>
+    <item name="android:textSize">@dimen/font_medium_size</item>
+  </style>
 
-    <style name="Base.Gallery" parent="android:Widget.TextView">
-        <item name="android:singleLine">true</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:layout_marginLeft">@dimen/default_margin</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
+  <style name="Base.Gallery" parent="android:Widget.TextView">
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:layout_marginLeft">@dimen/default_margin</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
 
-    <style name="Base.Gallery.Titles" parent="Base.Gallery">
-        <item name="android:textSize">@dimen/font_big_size</item>
-    </style>
+  <style name="Base.Gallery.Titles" parent="Base.Gallery">
+    <item name="android:textSize">@dimen/font_big_size</item>
+  </style>
 
-    <style name="Base.Gallery.Contents" parent="Base.Gallery">
-        <item name="android:textSize">@dimen/font_medium_size</item>
-        <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
-    </style>
+  <style name="Base.Gallery.Contents" parent="Base.Gallery">
+    <item name="android:textSize">@dimen/font_medium_size</item>
+    <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
+  </style>
 
 </resources>
