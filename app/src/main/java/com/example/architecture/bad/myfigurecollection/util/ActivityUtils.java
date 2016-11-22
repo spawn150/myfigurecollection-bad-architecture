@@ -83,11 +83,8 @@ public class ActivityUtils {
         intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
 
-        /*
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, view, "detail");
-                */
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, view, "detail");
         activity.startActivity(intent, options.toBundle());
     }
 
