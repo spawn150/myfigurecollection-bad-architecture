@@ -3,6 +3,7 @@ package com.example.architecture.bad.myfigurecollection.figuredetail;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -38,9 +39,8 @@ public class FigureDetailActivity extends AppCompatActivity {
             R.id.fragment_figure_detail);
     if (figureDetailFragment == null) {
 
-      int fragmentType =
+      @ActivityUtils.FragmentType int fragmentType =
           getIntent().getIntExtra(ActivityUtils.ARG_FRAGMENT_TYPE, ActivityUtils.OWNED_FRAGMENT);
-      //noinspection WrongConstant
       figureDetailFragment =
           FigureDetailFragmentFactory.createFragmentDetail(fragmentType, detailedFigure);
 
@@ -50,7 +50,8 @@ public class FigureDetailActivity extends AppCompatActivity {
   }
 
   @Override public boolean onSupportNavigateUp() {
-    onBackPressed();
+    //onBackPressed();
+    supportFinishAfterTransition();
     return true;
   }
 

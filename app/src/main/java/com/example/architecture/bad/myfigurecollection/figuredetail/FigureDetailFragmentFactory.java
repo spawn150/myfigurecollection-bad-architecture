@@ -9,25 +9,23 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.Fragme
  */
 public class FigureDetailFragmentFactory {
 
-    public static FigureDetailFragment createFragmentDetail(@FragmentType int fragmentType, DetailedFigure detailedFigure){
+  public static FigureDetailFragment createFragmentDetail(@FragmentType int fragmentType,
+      DetailedFigure detailedFigure) {
 
-        FigureDetailFragment figureDetailFragment;
-        switch (fragmentType){
+    FigureDetailFragment figureDetailFragment;
+    switch (fragmentType) {
 
-            case ActivityUtils.OWNED_FRAGMENT:
-                figureDetailFragment = FigureDetailOwnedFragment.newInstance(detailedFigure);
-                break;
-            case ActivityUtils.ORDERED_FRAGMENT:
-                figureDetailFragment = FigureDetailOrderedFragment.newInstance(detailedFigure);
-                break;
-            case ActivityUtils.WISHED_FRAGMENT:
-                figureDetailFragment = FigureDetailWishedFragment.newInstance(detailedFigure);
-                break;
-            default:
-                figureDetailFragment = null;
-                break;
-        }
-        return figureDetailFragment;
+      case ActivityUtils.ORDERED_FRAGMENT:
+        figureDetailFragment = FigureDetailOrderedFragment.newInstance(detailedFigure);
+        break;
+      case ActivityUtils.WISHED_FRAGMENT:
+        figureDetailFragment = FigureDetailWishedFragment.newInstance(detailedFigure);
+        break;
+      case ActivityUtils.OWNED_FRAGMENT:
+      default:
+        figureDetailFragment = FigureDetailOwnedFragment.newInstance(detailedFigure);
+        break;
     }
-
+    return figureDetailFragment;
+  }
 }

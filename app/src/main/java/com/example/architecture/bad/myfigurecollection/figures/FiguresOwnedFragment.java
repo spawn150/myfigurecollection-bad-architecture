@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import android.view.View;
 import com.ant_robot.mfc.api.pojo.ItemList;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.request.MFCRequest;
@@ -65,8 +66,8 @@ public class FiguresOwnedFragment extends FiguresFragment {
     }
 
     @Override
-    protected void onFragmentInteraction(DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(detailedFigure, ActivityUtils.OWNED_FRAGMENT);
+    protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
+        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT);
     }
 
 

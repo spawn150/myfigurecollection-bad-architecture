@@ -16,14 +16,17 @@
 
 package com.example.architecture.bad.myfigurecollection.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.view.View;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
@@ -74,11 +77,15 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void startItemFigureDetailActivity(@NonNull Context context, DetailedFigure detailedFigure, @FragmentType int fragmentType){
-        Intent intent = new Intent(context, FigureDetailActivity.class);
+    public static void startItemFigureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType){
+        Intent intent = new Intent(activity, FigureDetailActivity.class);
         intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
-        context.startActivity(intent);
+        /*
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+            makeSceneTransitionAnimation(activity, view, "detail");
+        activity.startActivity(intent, options.toBundle());
+        */activity.startActivity(intent);
     }
 
     public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId){

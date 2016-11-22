@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import android.view.View;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
@@ -175,11 +176,11 @@ public abstract class BaseActivity extends AppCompatActivity
     }
   }
 
-  @Override
-  public void onFragmentInteraction(DetailedFigure figureItem, @FragmentType int fragmentType) {
+  @Override public void onFragmentInteraction(View view, DetailedFigure figureItem,
+      @FragmentType int fragmentType) {
 
     Log.d(TAG, "Figure Item: " + figureItem.toString());
 
-    ActivityUtils.startItemFigureDetailActivity(BaseActivity.this, figureItem, fragmentType);
+    ActivityUtils.startItemFigureDetailActivity(this, figureItem, view, fragmentType);
   }
 }
