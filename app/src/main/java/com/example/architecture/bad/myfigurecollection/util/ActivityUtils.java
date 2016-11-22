@@ -17,6 +17,7 @@
 package com.example.architecture.bad.myfigurecollection.util;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IntDef;
@@ -27,6 +28,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import android.view.View;
+
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
@@ -56,45 +58,46 @@ public class ActivityUtils {
     /**
      * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
      * performed by the {@code fragmentManager}.
-     *
      */
-    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
-                                              @NonNull Fragment fragment, int frameId) {
+    public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
+                                             @NonNull Fragment fragment, int frameId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();
     }
 
-    public static void startActivityWithNewTask (@NonNull Context context, @NonNull Class className){
+    public static void startActivityWithNewTask(@NonNull Context context, @NonNull Class className) {
         Intent intent = new Intent(context, className);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 
-    public static void startActivityInSameTask (@NonNull Context context, @NonNull Class className){
+    public static void startActivityInSameTask(@NonNull Context context, @NonNull Class className) {
         Intent intent = new Intent(context, className);
         context.startActivity(intent);
     }
 
-    public static void startItemFigureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType){
+    public static void startItemFigureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType) {
         Intent intent = new Intent(activity, FigureDetailActivity.class);
         intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
+
         /*
         ActivityOptionsCompat options = ActivityOptionsCompat.
-            makeSceneTransitionAnimation(activity, view, "detail");
+                makeSceneTransitionAnimation(activity, view, "detail");
+                */
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, view, "detail");
         activity.startActivity(intent, options.toBundle());
-        */activity.startActivity(intent);
     }
 
-    public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId){
+    public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId) {
         Intent intent = new Intent(context, FigureGalleryActivity.class);
         intent.putExtra(ARG_FIGURE_ID, figureId);
         context.startActivity(intent);
     }
 
-    public static void startActivityTwitter (@NonNull Context context){
+    public static void startActivityTwitter(@NonNull Context context) {
         Intent intent = new Intent(context, EmbeddedTwitterActivity.class);
         context.startActivity(intent);
     }

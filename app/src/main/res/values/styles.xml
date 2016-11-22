@@ -1,9 +1,6 @@
 <resources>
 
-    <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme" />
-
-    <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
-
+    <!-- Base application theme. -->
     <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -11,8 +8,8 @@
         <item name="android:windowContentTransitions">true</item>
 
         <!-- options are: explode, slide, fade -->
-        <item name="android:windowEnterTransition">@transition/change_image_transform</item>
-        <item name="android:windowExitTransition">@transition/change_image_transform</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
 
         <!-- specify shared element transitions -->
         <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform
@@ -20,6 +17,10 @@
         <item name="android:windowSharedElementExitTransition">@transition/change_image_transform
         </item>
     </style>
+
+    <style name="AppTheme" parent="Base.AppTheme" />
+
+    <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
 
     <style name="AppTheme.Detail" parent="Base.AppTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
