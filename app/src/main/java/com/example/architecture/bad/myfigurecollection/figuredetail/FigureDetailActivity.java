@@ -20,8 +20,6 @@ public class FigureDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setAllowEnterTransitionOverlap(true);
-
         setContentView(R.layout.activity_figure_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
