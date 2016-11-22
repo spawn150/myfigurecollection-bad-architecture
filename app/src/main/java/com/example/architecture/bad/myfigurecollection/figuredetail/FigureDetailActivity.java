@@ -72,8 +72,8 @@ public class FigureDetailActivity extends AppCompatActivity {
             });
 
             Glide.with(this)
-                    .load(getString(R.string.figure_big_image_url, figureId))
-                    .centerCrop()
+                    .load(getString(R.string.figure_large_image_url, figureId))
+                    .fitCenter()
                     .into(imageView);
         }
     }

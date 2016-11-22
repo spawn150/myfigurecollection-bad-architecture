@@ -11,7 +11,7 @@
   <android.support.design.widget.AppBarLayout
       android:id="@+id/app_bar_layout"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/detail_backdrop_height"
+      android:layout_height="wrap_content"
       android:fitsSystemWindows="true"
       android:theme="@style/AppTheme.AppBarOverlay"
       >
@@ -30,7 +30,7 @@
       <ImageView
           android:id="@+id/backdrop"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:fitsSystemWindows="true"
           android:scaleType="centerCrop"
           android:transitionName="detail"
