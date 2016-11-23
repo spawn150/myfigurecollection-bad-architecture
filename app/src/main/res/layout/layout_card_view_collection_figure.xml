@@ -22,7 +22,7 @@
             android:contentDescription="@string/content_description"
             android:scaleType="fitCenter"
             android:transitionName="@string/transition_detail"
-            tools:background="@drawable/buggy_test" />
+            tools:background="@drawable/test_buggy" />
 
         <TextView
             android:id="@+id/text_view_figure_name"

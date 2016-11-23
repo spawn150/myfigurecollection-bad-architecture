@@ -53,6 +53,7 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.ant_robot:MFC-SDK:0.0.4.6'
     compile('com.twitter.sdk.android:twitter:1.14.1@aar') {
         transitive = true;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
+import com.squareup.picasso.Picasso;
 
 public class FigureDetailActivity extends AppCompatActivity {
 
@@ -69,9 +71,16 @@ public class FigureDetailActivity extends AppCompatActivity {
                 }
             });
 
-            Glide.with(this)
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            int imageDimensionInPx = metrics.widthPixels;
+
+            Picasso.with(this)
                     .load(getString(R.string.figure_large_image_url, figureId))
-                    .fitCenter()
+                    .resize(imageDimensionInPx, imageDimensionInPx)
+                    .centerCrop()
+                    .placeholder(R.drawable.placeholder)
                     .into(imageView);
         }
     }
