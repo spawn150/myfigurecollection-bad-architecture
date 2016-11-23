@@ -7,4 +7,7 @@
     <string name="denominator_wishability_value" translatable="false">5</string>
     <string name="mfc_twitter_screename" translatable="false">tsukiboard</string>
 
+    <!-- transition's name -->
+    <string name="transition_detail" translatable="false">detail</string>
+
 </resources>
