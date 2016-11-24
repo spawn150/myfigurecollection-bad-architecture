@@ -1,5 +1,7 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class FigureDetailActivity extends AppCompatActivity {
 
@@ -77,11 +80,33 @@ public class FigureDetailActivity extends AppCompatActivity {
             int imageDimensionInPx = metrics.widthPixels;
 
             Picasso.with(this)
-                    .load(getString(R.string.figure_large_image_url, figureId))
+                    .load(getString(R.string.figure_big_image_url, figureId))
                     .resize(imageDimensionInPx, imageDimensionInPx)
                     .centerCrop()
                     .placeholder(R.drawable.placeholder)
                     .into(imageView);
+
+            Picasso.with(this)
+                    .load(getString(R.string.figure_large_image_url, figureId))
+                    .resize(imageDimensionInPx, imageDimensionInPx)
+                    .centerCrop()
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            imageView.setImageBitmap(bitmap);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    });
+
         }
     }
 }
