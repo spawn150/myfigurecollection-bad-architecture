@@ -1,5 +1,6 @@
 package com.example.architecture.bad.myfigurecollection;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,11 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.ant_robot.mfc.api.pojo.UserProfile;
+import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
@@ -25,162 +31,214 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresOwnedFragm
 import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public abstract class BaseActivity extends AppCompatActivity
-    implements FiguresFragment.OnFragmentInteractionListener {
+        implements FiguresFragment.OnFragmentInteractionListener {
 
-  private static final String TAG = BaseActivity.class.getSimpleName();
-  private DrawerLayout mDrawerLayout;
-  private ViewPager viewPager;
+    private static final String TAG = BaseActivity.class.getSimpleName();
+    private DrawerLayout mDrawerLayout;
+    private ViewPager viewPager;
 
-  int[] tabSelectedIcons = {
-      R.drawable.ic_owned_full_24px, R.drawable.ic_ordered_full_24px,
-      R.drawable.ic_wished_full_24px,
-  };
-  int[] tabUnselectedIcons = {
-      R.drawable.ic_owned_empty_24px, R.drawable.ic_ordered_empty_24px,
-      R.drawable.ic_wished_empty_24px
-  };
+    int[] tabSelectedIcons = {
+            R.drawable.ic_owned_full_24px, R.drawable.ic_ordered_full_24px,
+            R.drawable.ic_wished_full_24px,
+    };
+    int[] tabUnselectedIcons = {
+            R.drawable.ic_owned_empty_24px, R.drawable.ic_ordered_empty_24px,
+            R.drawable.ic_wished_empty_24px
+    };
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_figures);
+        setContentView(R.layout.activity_figures);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    ActionBar ab = getSupportActionBar();
-    if (ab != null) {
-      ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-      ab.setDisplayHomeAsUpEnabled(true);
-    }
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
 
-    // Set up the navigation drawer.
-    mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-    mDrawerLayout.setStatusBarBackground(R.color.primary_dark);
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-    if (navigationView != null) {
-      setupDrawerContent(navigationView);
-    }
+        // Set up the navigation drawer.
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.primary_dark);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
 
-    viewPager = (ViewPager) findViewById(R.id.viewpager);
-    setupViewPager(viewPager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-    tabLayout.setupWithViewPager(viewPager);
+        MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
+            @Override
+            public void success(Boolean aBoolean, Response response) {
+                Log.d(TAG, "Login successfully!");
+                MFCRequest.INSTANCE.getUserService().getUser("spawn150", new Callback<UserProfile>() {
+                    @Override
+                    public void success(UserProfile userProfile, Response response) {
+                        Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
+                        Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
 
-    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-      @Override public void onTabSelected(TabLayout.Tab tab) {
-        tab.setIcon(tabSelectedIcons[tab.getPosition()]);
-        viewPager.setCurrentItem(tab.getPosition());
-      }
+                        if (navigationView != null) {
+                            ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
+                            TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
+                            textViewUsername.setText(userProfile.getUser().getName());
 
-      @Override public void onTabUnselected(TabLayout.Tab tab) {
-        tab.setIcon(tabUnselectedIcons[tab.getPosition()]);
-      }
+                            Context context = BaseActivity.this;
 
-      @Override public void onTabReselected(TabLayout.Tab tab) {
+                            Picasso.with(context).load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture())).into(imageViewAvatar);
+                        }
 
-      }
-    });
+                    }
 
-    tabLayout.getTabAt(0).setIcon(tabSelectedIcons[0]);
-    tabLayout.getTabAt(1).setIcon(tabUnselectedIcons[1]);
-    tabLayout.getTabAt(2).setIcon(tabUnselectedIcons[2]);
-  }
+                    @Override
+                    public void failure(RetrofitError error) {
 
-  private void setupViewPager(ViewPager viewPager) {
-    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(FiguresOwnedFragment.newInstance());
-    adapter.addFragment(FiguresOrderedFragment.newInstance());
-    adapter.addFragment(FiguresWishedFragment.newInstance());
-    viewPager.setAdapter(adapter);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        // Open the navigation drawer when the home icon is selected from the toolbar.
-        mDrawerLayout.openDrawer(GravityCompat.START);
-        return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
-  protected abstract void setFragment(int contentFrameId);
-
-  private void setupDrawerContent(NavigationView navigationView) {
-    navigationView.setNavigationItemSelectedListener(
-        new NavigationView.OnNavigationItemSelectedListener() {
-          @Override public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-              case R.id.settings_navigation_menu_item:
-                Log.d(TAG, "Settings menu tapped!");
-                break;
-              case R.id.mfc_navigation_menu_item:
-                Log.d(TAG, "MFC menu tapped!");
-                ActivityUtils.startActivityWithNewTask(BaseActivity.this, FiguresActivity.class);
-                break;
-              case R.id.pod_navigation_menu_item:
-                Log.d(TAG, "POD menu tapped!");
-                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
-                break;
-              case R.id.pow_navigation_menu_item:
-                Log.d(TAG, "POW menu tapped!");
-                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
-                break;
-              case R.id.pom_navigation_menu_item:
-                Log.d(TAG, "POM menu tapped!");
-                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
-                break;
-              case R.id.twitter_navigation_menu_item:
-                Log.d(TAG, "Twitter menu tapped!");
-                ActivityUtils.startActivityTwitter(BaseActivity.this);
-              default:
-                break;
+                    }
+                });
             }
-            // Close the navigation drawer when an item is selected.
-            menuItem.setChecked(true);
-            mDrawerLayout.closeDrawers();
-            return true;
-          }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, "Login error!");
+            }
         });
-  }
 
-  private class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-    ViewPagerAdapter(FragmentManager manager) {
-      super(manager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(tabSelectedIcons[tab.getPosition()]);
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(tabUnselectedIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        tabLayout.getTabAt(0).setIcon(tabSelectedIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabUnselectedIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabUnselectedIcons[2]);
     }
 
-    @Override public Fragment getItem(int position) {
-      return mFragmentList.get(position);
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(FiguresOwnedFragment.newInstance());
+        adapter.addFragment(FiguresOrderedFragment.newInstance());
+        adapter.addFragment(FiguresWishedFragment.newInstance());
+        viewPager.setAdapter(adapter);
     }
 
-    @Override public int getCount() {
-      return mFragmentList.size();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Open the navigation drawer when the home icon is selected from the toolbar.
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    void addFragment(Fragment fragment) {
-      mFragmentList.add(fragment);
+    protected abstract void setFragment(int contentFrameId);
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.settings_navigation_menu_item:
+                                Log.d(TAG, "Settings menu tapped!");
+                                break;
+                            case R.id.mfc_navigation_menu_item:
+                                Log.d(TAG, "MFC menu tapped!");
+                                ActivityUtils.startActivityWithNewTask(BaseActivity.this, FiguresActivity.class);
+                                break;
+                            case R.id.pod_navigation_menu_item:
+                                Log.d(TAG, "POD menu tapped!");
+                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                break;
+                            case R.id.pow_navigation_menu_item:
+                                Log.d(TAG, "POW menu tapped!");
+                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                break;
+                            case R.id.pom_navigation_menu_item:
+                                Log.d(TAG, "POM menu tapped!");
+                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                break;
+                            case R.id.twitter_navigation_menu_item:
+                                Log.d(TAG, "Twitter menu tapped!");
+                                ActivityUtils.startActivityTwitter(BaseActivity.this);
+                            default:
+                                break;
+                        }
+                        // Close the navigation drawer when an item is selected.
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
-    @Override public CharSequence getPageTitle(int position) {
-      // return null to display only the icon
-      return null;
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+
+        ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        void addFragment(Fragment fragment) {
+            mFragmentList.add(fragment);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // return null to display only the icon
+            return null;
+        }
     }
-  }
 
-  @Override public void onFragmentInteraction(View view, DetailedFigure figureItem,
-      @FragmentType int fragmentType) {
+    @Override
+    public void onFragmentInteraction(View view, DetailedFigure figureItem,
+                                      @FragmentType int fragmentType) {
 
-    Log.d(TAG, "Figure Item: " + figureItem.toString());
+        Log.d(TAG, "Figure Item: " + figureItem.toString());
 
-    ActivityUtils.startItemFigureDetailActivity(this, figureItem, view, fragmentType);
-  }
+        ActivityUtils.startItemFigureDetailActivity(this, figureItem, view, fragmentType);
+    }
 }

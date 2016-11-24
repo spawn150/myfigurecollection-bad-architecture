@@ -3,6 +3,7 @@
 
     <string name="figure_big_image_url" translatable="false">http://s1.tsuki-board.net/pics/figure/big/%1$s.jpg</string>
     <string name="figure_large_image_url" translatable="false">http://s1.tsuki-board.net/pics/figure/large/%1$s.jpg</string>
+    <string name="avatar_large_image_url" translatable="false">http://s1.tsuki-board.net/pics/avatar/200/%1$s</string>
     <string name="denominator_score_value" translatable="false">10</string>
     <string name="denominator_wishability_value" translatable="false">5</string>
     <string name="mfc_twitter_screename" translatable="false">tsukiboard</string>
