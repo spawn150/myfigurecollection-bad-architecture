@@ -36,6 +36,7 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresOwnedFragm
 import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
+import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -107,7 +108,10 @@ public abstract class BaseActivity extends AppCompatActivity
                             textViewUsername.setText(userProfile.getUser().getName());
 
                             Context context = BaseActivity.this;
-                            Picasso.with(context).load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture())).into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                            Picasso.with(context)
+                                    .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
+                                    .resize(800, 800)
+                                    .into(imageViewAvatar, new com.squareup.picasso.Callback() {
                                 @Override
                                 public void onSuccess() {
                                     Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
