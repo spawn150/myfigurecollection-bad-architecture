@@ -1,6 +1,9 @@
 package com.example.architecture.bad.myfigurecollection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -8,6 +11,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +37,7 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFrag
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.w3c.dom.Text;
 
@@ -84,6 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        //TODO Refactor this code when implemented login view
         MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
             @Override
             public void success(Boolean aBoolean, Response response) {
@@ -95,13 +102,26 @@ public abstract class BaseActivity extends AppCompatActivity
                         Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
 
                         if (navigationView != null) {
-                            ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
+                            final ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
                             TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
                             textViewUsername.setText(userProfile.getUser().getName());
 
                             Context context = BaseActivity.this;
+                            Picasso.with(context).load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture())).into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                                    RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                                    imageDrawable.setCircular(true);
+                                    imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                                    imageViewAvatar.setImageDrawable(imageDrawable);
+                                }
 
-                            Picasso.with(context).load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture())).into(imageViewAvatar);
+                                @Override
+                                public void onError() {
+                                    imageViewAvatar.setImageResource(R.drawable.logo);
+                                }
+                            });
                         }
 
                     }
