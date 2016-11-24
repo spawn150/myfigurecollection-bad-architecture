@@ -2,6 +2,8 @@ package com.example.architecture.bad.myfigurecollection;
 
 import android.app.Application;
 
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -21,5 +23,13 @@ public class App extends Application {
 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+
+        //Initialize Picasso library
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+        Picasso built = builder.build();
+        //built.setIndicatorsEnabled(BuildConfig.DEBUG);
+        built.setLoggingEnabled(BuildConfig.DEBUG);
+        Picasso.setSingletonInstance(built);
     }
 }
