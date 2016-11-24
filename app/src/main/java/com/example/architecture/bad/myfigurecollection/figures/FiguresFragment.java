@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
+import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;
 
@@ -191,12 +193,15 @@ public abstract class FiguresFragment extends Fragment {
             figureData.getName();
             figureData.getReleaseDate();
 
-            String url = holder.imageViewFigure.getContext()
-                    .getString(R.string.figure_big_image_url, figureData.getId());
+            final Context context = holder.imageViewFigure.getContext();
 
-            Picasso.with(holder.imageViewFigure.getContext())
+            int imageDimensionInPx = CodeUtils.getScreenWidth(context);
+
+            String url = context.getString(R.string.figure_big_image_url, figureData.getId());
+
+            Picasso.with(context)
                     .load(url)
-                    .resize(512, 512)
+                    .resize(imageDimensionInPx, imageDimensionInPx)
                     .centerInside()
                     .placeholder(R.drawable.placeholder)
                     .into(holder.imageViewFigure);

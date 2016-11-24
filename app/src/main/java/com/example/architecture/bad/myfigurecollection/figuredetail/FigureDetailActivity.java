@@ -15,11 +15,14 @@ import com.bumptech.glide.Glide;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
+import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 public class FigureDetailActivity extends AppCompatActivity {
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class FigureDetailActivity extends AppCompatActivity {
     }
 
     private void loadBackdrop(final String figureId) {
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+        imageView = (ImageView) findViewById(R.id.backdrop);
 
         if (imageView != null) {
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +77,7 @@ public class FigureDetailActivity extends AppCompatActivity {
                 }
             });
 
-            DisplayMetrics metrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-            int imageDimensionInPx = metrics.widthPixels;
+            int imageDimensionInPx = CodeUtils.getScreenWidth(this);
 
             Picasso.with(this)
                     .load(getString(R.string.figure_big_image_url, figureId))
@@ -98,15 +98,19 @@ public class FigureDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onBitmapFailed(Drawable errorDrawable) {
-
                         }
 
                         @Override
                         public void onPrepareLoad(Drawable placeHolderDrawable) {
-
                         }
                     });
-
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        imageView.setImageBitmap(null);
+        imageView = null;
+        super.onStop();
     }
 }
