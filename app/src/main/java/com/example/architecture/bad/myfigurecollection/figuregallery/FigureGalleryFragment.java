@@ -1,6 +1,5 @@
 package com.example.architecture.bad.myfigurecollection.figuregallery;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,12 +16,10 @@ import android.widget.TextView;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.GalleryFigure;
-import com.example.architecture.bad.myfigurecollection.util.GlideLoggingListener;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +82,7 @@ public class FigureGalleryFragment extends Fragment {
 
         try {
             galleryListener = (OnGalleryListener) context;
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "onAttach - Activity must implement OnGalleryListener");
         }
     }
@@ -190,10 +187,9 @@ public class FigureGalleryFragment extends Fragment {
 
             imgDisplay = (ImageView) viewLayout.findViewById(R.id.image_view_figure);
 
-            Glide
+            Picasso
                     .with(container.getContext())
                     .load(galleryFigure.getUrl())
-                    .listener(new GlideLoggingListener<String, GlideDrawable>())
                     .into(imgDisplay);
 
             ((TextView) viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());

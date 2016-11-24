@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
