@@ -28,16 +28,7 @@
             android:id="@+id/text_view_figure_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:lines="3"
-            android:paddingBottom="8dp"
-            android:paddingEnd="4dp"
-            android:paddingStart="4dp"
-            android:paddingTop="8dp"
-            android:textColor="@color/primary_text"
-            android:textSize="14sp"
+            style="@style/CardView.Titles"
             tools:text="Buggy the Clown" />
 
     </LinearLayout>

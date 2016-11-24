@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/text_view_detail_figure_name"
-            style="@style/Base.Titles"
+            style="@style/Detail.Titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Titolo della Figure Titolo della Figure Titolo della Figure " />

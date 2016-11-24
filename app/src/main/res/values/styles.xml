@@ -46,11 +46,27 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Text Styles -->
+    <style name="CardView.AppTextAppearance" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/font_medium_size</item>
+    </style>
+
     <style name="Base.Titles" parent="android:Widget.TextView">
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CardView.Titles" parent="Base.Titles">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:paddingTop">@dimen/medium_padding</item>
+        <item name="android:paddingBottom">@dimen/medium_padding</item>
+        <item name="android:paddingStart">@dimen/small_padding</item>
+        <item name="android:paddingEnd">@dimen/small_padding</item>
+        <item name="android:textAppearance">@style/CardView.AppTextAppearance</item>
+    </style>
+
+    <style name="Detail.Titles" parent="Base.Titles">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">8dp</item>
@@ -71,7 +87,7 @@
         <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/darkGrey</item>
-        <item name="android:textSize">@dimen/font_medium_size</item>
+        <item name="android:textSize">@dimen/font_large_size</item>
     </style>
 
     <style name="Base.Gallery" parent="android:Widget.TextView">
@@ -85,11 +101,11 @@
     </style>
 
     <style name="Base.Gallery.Titles" parent="Base.Gallery">
-        <item name="android:textSize">@dimen/font_big_size</item>
+        <item name="android:textSize">@dimen/font_xlarge_size</item>
     </style>
 
     <style name="Base.Gallery.Contents" parent="Base.Gallery">
-        <item name="android:textSize">@dimen/font_medium_size</item>
+        <item name="android:textSize">@dimen/font_large_size</item>
         <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
     </style>
 
