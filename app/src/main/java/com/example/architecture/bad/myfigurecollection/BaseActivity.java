@@ -110,7 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity
                             Context context = BaseActivity.this;
                             Picasso.with(context)
                                     .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
-                                    .resize(800, 800)
+                                    .resize(360, 360) //TODO create converter from dp to px in CodeUtils
                                     .into(imageViewAvatar, new com.squareup.picasso.Callback() {
                                 @Override
                                 public void onSuccess() {

@@ -5,12 +5,12 @@
     android:background="?attr/colorPrimaryDark"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/image_view_avatar"
-        android:layout_width="125dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo" />
@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:text="@string/navigation_view_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 </FrameLayout>
