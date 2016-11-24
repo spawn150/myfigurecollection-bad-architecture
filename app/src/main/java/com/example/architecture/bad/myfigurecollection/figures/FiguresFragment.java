@@ -35,6 +35,8 @@ import java.util.List;
  */
 public abstract class FiguresFragment extends Fragment {
 
+    private static final int LAYOUT_COLUMNS = 2;
+
     OnFragmentInteractionListener mListener;
 
     FigureAdapter figureAdapter;
@@ -105,11 +107,9 @@ public abstract class FiguresFragment extends Fragment {
         //recyclerView.setHasFixedSize(true);
         figureAdapter = new FigureAdapter(new ArrayList<Item>(), figureItemListener);
         recyclerView.setAdapter(figureAdapter);
-    /*GridLayoutManager gridLayoutManager =
-        new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
-        */
+
         StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(LAYOUT_COLUMNS, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         loadCollection();
