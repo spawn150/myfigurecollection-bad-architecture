@@ -69,6 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_figures);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -112,20 +114,20 @@ public abstract class BaseActivity extends AppCompatActivity
                                     .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
                                     .resize(360, 360) //TODO create converter from dp to px in CodeUtils
                                     .into(imageViewAvatar, new com.squareup.picasso.Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
-                                    RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                                    imageDrawable.setCircular(true);
-                                    imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                                    imageViewAvatar.setImageDrawable(imageDrawable);
-                                }
+                                        @Override
+                                        public void onSuccess() {
+                                            Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                                            imageDrawable.setCircular(true);
+                                            imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                                            imageViewAvatar.setImageDrawable(imageDrawable);
+                                        }
 
-                                @Override
-                                public void onError() {
-                                    imageViewAvatar.setImageResource(R.drawable.logo);
-                                }
-                            });
+                                        @Override
+                                        public void onError() {
+                                            imageViewAvatar.setImageResource(R.drawable.logo);
+                                        }
+                                    });
                         }
 
                     }
