@@ -2,6 +2,7 @@ package com.example.architecture.bad.myfigurecollection;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.Twitter;
@@ -21,6 +22,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        initializeStetho();
+
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
 
@@ -31,4 +34,29 @@ public class App extends Application {
         built.setLoggingEnabled(BuildConfig.DEBUG);
         Picasso.setSingletonInstance(built);
     }
+
+    private void initializeStetho() {
+        //Stetho initialization
+
+        // Create an InitializerBuilder
+        Stetho.InitializerBuilder initializerBuilder =
+                Stetho.newInitializerBuilder(this);
+
+        // Enable Chrome DevTools
+        initializerBuilder.enableWebKitInspector(
+                Stetho.defaultInspectorModulesProvider(this)
+        );
+
+        // Enable command line interface
+        initializerBuilder.enableDumpapp(
+                Stetho.defaultDumperPluginsProvider(this)
+        );
+
+        // Use the InitializerBuilder to generate an Initializer
+        Stetho.Initializer initializer = initializerBuilder.build();
+
+        // Initialize Stetho with the Initializer
+        Stetho.initialize(initializer);
+    }
+
 }

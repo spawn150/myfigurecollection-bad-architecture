@@ -1,9 +1,13 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
@@ -19,10 +23,13 @@ import com.ant_robot.mfc.api.pojo.Item;
 import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,16 +203,26 @@ public abstract class FiguresFragment extends Fragment {
 
             final Context context = holder.imageViewFigure.getContext();
 
-            int imageDimensionInPx = CodeUtils.getScreenWidth(context);
-
             String url = context.getString(R.string.figure_big_image_url, figureData.getId());
 
             Picasso.with(context)
                     .load(url)
-                    .resize(imageDimensionInPx, imageDimensionInPx)
-                    .centerInside()
                     .placeholder(R.drawable.placeholder)
-                    .into(holder.imageViewFigure);
+                    .into(holder.imageViewFigure, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
+                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                            holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
+                            holder.imageViewFigure.requestLayout();
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
 
             holder.textViewFigureName.setText(figureData.getName());
             holder.itemView.setOnClickListener(new View.OnClickListener() {

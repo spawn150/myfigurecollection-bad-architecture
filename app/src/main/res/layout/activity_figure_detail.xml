@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/content_description"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:transitionName="@string/transition_detail"
                 app:layout_collapseMode="parallax" />
 

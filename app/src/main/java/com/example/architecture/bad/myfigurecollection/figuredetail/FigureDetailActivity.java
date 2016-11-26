@@ -1,6 +1,7 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,6 +15,7 @@ import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -54,6 +56,7 @@ public class FigureDetailActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureDetailFragment,
                     R.id.fragment_figure_detail);
         }
+
     }
 
     @Override
@@ -74,34 +77,25 @@ public class FigureDetailActivity extends AppCompatActivity {
                 }
             });
 
-            int imageDimensionInPx = CodeUtils.getScreenWidth(this);
-
-            Picasso.with(this)
-                    .load(getString(R.string.figure_big_image_url, figureId))
-                    .resize(imageDimensionInPx, imageDimensionInPx)
-                    .centerCrop()
-                    .placeholder(R.drawable.placeholder)
-                    .into(imageView);
-
             Picasso.with(this)
                     .load(getString(R.string.figure_large_image_url, figureId))
-                    .resize(imageDimensionInPx, imageDimensionInPx)
-                    .centerCrop()
-                    .into(new Target() {
+                    .into(imageView, new Callback() {
                         @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            imageView.setImageBitmap(bitmap);
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                            double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
+                            imageView.getLayoutParams().height = (int) newWidth;
+                            imageView.requestLayout();
                         }
 
                         @Override
-                        public void onBitmapFailed(Drawable errorDrawable) {
-                        }
+                        public void onError() {
 
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
                         }
                     });
         }
+
     }
 
     @Override
