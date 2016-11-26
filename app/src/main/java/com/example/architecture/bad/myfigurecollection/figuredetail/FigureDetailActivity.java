@@ -8,6 +8,8 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.architecture.bad.myfigurecollection.R;
@@ -42,6 +44,15 @@ public class FigureDetailActivity extends AppCompatActivity {
                 StringUtils.extractStringBeforeSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2));
 
         loadBackdrop(detailedFigure.getId());
+
+        //Workaround to fix issue on NestedScrollView scrolling (http://stackoverflow.com/questions/31795483/collapsingtoolbarlayout-doesnt-recognize-scroll-fling)
+        FrameLayout viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
+        viewGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.getId();
+            }
+        });
 
         FigureDetailFragment figureDetailFragment =
                 (FigureDetailFragment) getSupportFragmentManager().findFragmentById(
