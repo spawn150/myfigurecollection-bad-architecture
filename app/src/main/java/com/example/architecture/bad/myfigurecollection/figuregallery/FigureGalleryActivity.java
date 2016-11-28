@@ -27,9 +27,10 @@ public class FigureGalleryActivity extends AppCompatActivity implements FigureGa
         findViewById(R.id.image_button_clear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
+
 
         textViewGalleryCounter = (TextView)findViewById(R.id.text_view_gallery_counter);
 
