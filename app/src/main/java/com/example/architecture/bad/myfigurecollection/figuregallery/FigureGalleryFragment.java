@@ -123,22 +123,24 @@ public class FigureGalleryFragment extends Fragment {
             @Override
             public void success(PictureGallery pictureGallery, Response response) {
 
-                List<GalleryFigure> galleryFigures = new ArrayList<>();
-                galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
+                if (getActivity() != null && isAdded()) {
+                    List<GalleryFigure> galleryFigures = new ArrayList<>();
+                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
 
-                if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
-                    List<Picture> pictures = pictureGallery.getGallery().getPicture();
+                    if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
+                        List<Picture> pictures = pictureGallery.getGallery().getPicture();
 
-                    Picture picture;
-                    int size = pictures.size();
-                    for (int i = 0; i < size; i++) {
-                        picture = pictures.get(i);
-                        galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
+                        Picture picture;
+                        int size = pictures.size();
+                        for (int i = 0; i < size; i++) {
+                            picture = pictures.get(i);
+                            galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
+                        }
                     }
+                    gallerySize = galleryFigures.size();
+                    galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
+                    galleryListener.onFigureChanged(1, gallerySize);
                 }
-                gallerySize = galleryFigures.size();
-                galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
-                galleryListener.onFigureChanged(1, gallerySize);
             }
 
             @Override
