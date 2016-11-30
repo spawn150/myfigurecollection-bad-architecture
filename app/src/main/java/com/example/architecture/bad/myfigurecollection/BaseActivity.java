@@ -28,8 +28,10 @@ import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
+import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresOwnedFragment;
@@ -49,21 +51,11 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public abstract class BaseActivity extends AppCompatActivity
+public class BaseActivity extends AppCompatActivity
         implements FiguresFragment.OnFragmentInteractionListener {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
-    private ViewPager viewPager;
-
-    int[] tabSelectedIcons = {
-            R.drawable.ic_owned_full_24px, R.drawable.ic_ordered_full_24px,
-            R.drawable.ic_wished_full_24px,
-    };
-    int[] tabUnselectedIcons = {
-            R.drawable.ic_owned_empty_24px, R.drawable.ic_ordered_empty_24px,
-            R.drawable.ic_wished_empty_24px
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity
             setupDrawerContent(navigationView);
         }
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        setMyCollectionFragment();
 
         //TODO Refactor this code when implemented login view
         MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
@@ -145,38 +136,6 @@ public abstract class BaseActivity extends AppCompatActivity
             }
         });
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(tabSelectedIcons[tab.getPosition()]);
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(tabUnselectedIcons[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        tabLayout.getTabAt(0).setIcon(tabSelectedIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabUnselectedIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabUnselectedIcons[2]);
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(FiguresOwnedFragment.newInstance());
-        adapter.addFragment(FiguresOrderedFragment.newInstance());
-        adapter.addFragment(FiguresWishedFragment.newInstance());
-        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -190,8 +149,6 @@ public abstract class BaseActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    protected abstract void setFragment(int contentFrameId);
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -203,19 +160,19 @@ public abstract class BaseActivity extends AppCompatActivity
                                 break;
                             case R.id.mfc_navigation_menu_item:
                                 Log.d(TAG, "MFC menu tapped!");
-                                ActivityUtils.startActivityWithNewTask(BaseActivity.this, FiguresActivity.class);
+                                setMyCollectionFragment();
                                 break;
                             case R.id.pod_navigation_menu_item:
                                 Log.d(TAG, "POD menu tapped!");
-                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                setPODFragment();
                                 break;
                             case R.id.pow_navigation_menu_item:
                                 Log.d(TAG, "POW menu tapped!");
-                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                setPOWFragment();
                                 break;
                             case R.id.pom_navigation_menu_item:
                                 Log.d(TAG, "POM menu tapped!");
-                                //ActivityUtils.startActivityWithNewTask(BaseActivity.this, BestPicturesActivity.class);
+                                setPOMFragment();
                                 break;
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
@@ -231,31 +188,39 @@ public abstract class BaseActivity extends AppCompatActivity
                 });
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-
-        ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
+    private  void setMyCollectionFragment(){
+        FiguresContainerFragment figuresContainerFragment = (FiguresContainerFragment) getSupportFragmentManager().findFragmentByTag(FiguresContainerFragment.TAG);
+        if (figuresContainerFragment == null) {
+            // Create the fragment
+            figuresContainerFragment = FiguresContainerFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
         }
+    }
 
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+    private void setPODFragment(){
+        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
+        if (bestPicturesFragment == null) {
+            // Create the fragment
+            bestPicturesFragment = BestPicturesFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
         }
+    }
 
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
+    private void setPOWFragment(){
+        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
+        if (bestPicturesFragment == null) {
+            // Create the fragment
+            bestPicturesFragment = BestPicturesFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
         }
+    }
 
-        void addFragment(Fragment fragment) {
-            mFragmentList.add(fragment);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            // return null to display only the icon
-            return null;
+    private void setPOMFragment(){
+        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
+        if (bestPicturesFragment == null) {
+            // Create the fragment
+            bestPicturesFragment = BestPicturesFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
         }
     }
 

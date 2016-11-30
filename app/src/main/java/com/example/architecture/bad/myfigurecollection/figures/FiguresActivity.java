@@ -14,10 +14,5 @@ public class FiguresActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void setFragment(int contentFrameId) {
-        //TODO Remove this method
-    }
-
 
 }

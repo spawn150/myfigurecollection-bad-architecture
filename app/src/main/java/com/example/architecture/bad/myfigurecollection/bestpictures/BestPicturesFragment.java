@@ -1,8 +1,8 @@
 package com.example.architecture.bad.myfigurecollection.bestpictures;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +14,13 @@ import com.example.architecture.bad.myfigurecollection.R;
  */
 public class BestPicturesFragment extends Fragment {
 
+    public static final String TAG = BestPicturesFragment.class.getName();
+
     public BestPicturesFragment() {
     }
 
     public static BestPicturesFragment newInstance() {
         BestPicturesFragment fragment = new BestPicturesFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
