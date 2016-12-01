@@ -3,18 +3,12 @@ package com.example.architecture.bad.myfigurecollection;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,31 +24,20 @@ import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresActivity;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresOrderedFragment;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresOwnedFragment;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresWishedFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
-import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class BaseActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements FiguresFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = BaseActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -100,7 +83,7 @@ public class BaseActivity extends AppCompatActivity
                             TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
                             textViewUsername.setText(userProfile.getUser().getName());
 
-                            Context context = BaseActivity.this;
+                            Context context = MainActivity.this;
                             Picasso.with(context)
                                     .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
                                     .resize(360, 360) //TODO create converter from dp to px in CodeUtils
@@ -176,7 +159,7 @@ public class BaseActivity extends AppCompatActivity
                                 break;
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
-                                ActivityUtils.startActivityTwitter(BaseActivity.this);
+                                ActivityUtils.startActivityTwitter(MainActivity.this);
                             default:
                                 break;
                         }
