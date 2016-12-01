@@ -23,6 +23,9 @@ import android.widget.TextView;
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
+import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheDayFragment;
+import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheMonthFragment;
+import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheWeekFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
@@ -181,29 +184,29 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setPODFragment() {
-        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
-        if (bestPicturesFragment == null) {
+        PictureOfTheDayFragment pictureOfTheDayFragment = (PictureOfTheDayFragment) getSupportFragmentManager().findFragmentByTag(PictureOfTheDayFragment.TAG);
+        if (pictureOfTheDayFragment == null) {
             // Create the fragment
-            bestPicturesFragment = BestPicturesFragment.newInstance();
-            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
+            pictureOfTheDayFragment = PictureOfTheDayFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheDayFragment, R.id.figures_container, PictureOfTheDayFragment.TAG);
         }
     }
 
     private void setPOWFragment() {
-        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
-        if (bestPicturesFragment == null) {
+        PictureOfTheWeekFragment pictureOfTheWeekFragment = (PictureOfTheWeekFragment) getSupportFragmentManager().findFragmentByTag(PictureOfTheWeekFragment.TAG);
+        if (pictureOfTheWeekFragment == null) {
             // Create the fragment
-            bestPicturesFragment = BestPicturesFragment.newInstance();
-            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
+            pictureOfTheWeekFragment = PictureOfTheWeekFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheWeekFragment, R.id.figures_container, PictureOfTheWeekFragment.TAG);
         }
     }
 
     private void setPOMFragment() {
-        BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
-        if (bestPicturesFragment == null) {
+        PictureOfTheMonthFragment pictureOfTheMonthFragment = (PictureOfTheMonthFragment) getSupportFragmentManager().findFragmentByTag(PictureOfTheMonthFragment.TAG);
+        if (pictureOfTheMonthFragment == null) {
             // Create the fragment
-            bestPicturesFragment = BestPicturesFragment.newInstance();
-            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), bestPicturesFragment, R.id.figures_container, BestPicturesFragment.TAG);
+            pictureOfTheMonthFragment = PictureOfTheMonthFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheMonthFragment, R.id.figures_container, PictureOfTheMonthFragment.TAG);
         }
     }
 

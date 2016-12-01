@@ -6,23 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class BestPicturesFragment extends Fragment {
-
-    public static final String TAG = BestPicturesFragment.class.getName();
-
-    public BestPicturesFragment() {
-    }
-
-    public static BestPicturesFragment newInstance() {
-        BestPicturesFragment fragment = new BestPicturesFragment();
-        return fragment;
-    }
+public abstract class BestPicturesFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,5 +29,10 @@ public class BestPicturesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ((TextView) view.findViewById(R.id.text_view_best_pictures)).setText(getTextValue());
     }
+
+    protected abstract String getTextValue();
+
 }

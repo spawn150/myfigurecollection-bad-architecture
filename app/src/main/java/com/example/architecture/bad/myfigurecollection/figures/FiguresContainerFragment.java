@@ -47,8 +47,7 @@ public class FiguresContainerFragment extends Fragment {
      * @return A new instance of fragment FiguresContainerFragment.
      */
     public static FiguresContainerFragment newInstance() {
-        FiguresContainerFragment fragment = new FiguresContainerFragment();
-        return fragment;
+        return new FiguresContainerFragment();
     }
 
     @Override
