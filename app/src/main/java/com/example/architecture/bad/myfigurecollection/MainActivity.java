@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
-    private void setMyCollectionFragment(){
+    private void setMyCollectionFragment() {
         FiguresContainerFragment figuresContainerFragment = (FiguresContainerFragment) getSupportFragmentManager().findFragmentByTag(FiguresContainerFragment.TAG);
         if (figuresContainerFragment == null) {
             // Create the fragment
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
     }
 
-    private void setPODFragment(){
+    private void setPODFragment() {
         BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
         if (bestPicturesFragment == null) {
             // Create the fragment
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setPOWFragment(){
+    private void setPOWFragment() {
         BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
         if (bestPicturesFragment == null) {
             // Create the fragment
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setPOMFragment(){
+    private void setPOMFragment() {
         BestPicturesFragment bestPicturesFragment = (BestPicturesFragment) getSupportFragmentManager().findFragmentByTag(BestPicturesFragment.TAG);
         if (bestPicturesFragment == null) {
             // Create the fragment
@@ -210,9 +210,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(View view, DetailedFigure figureItem,
                                       @FragmentType int fragmentType) {
-
         Log.d(TAG, "Figure Item: " + figureItem.toString());
-
         ActivityUtils.startItemFigureDetailActivity(this, figureItem, view, fragmentType);
     }
 }
