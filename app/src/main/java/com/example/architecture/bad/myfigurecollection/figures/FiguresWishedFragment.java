@@ -34,15 +34,11 @@ public class FiguresWishedFragment extends FiguresFragment {
    */
   public static FiguresWishedFragment newInstance() {
     FiguresWishedFragment fragment = new FiguresWishedFragment();
-    Bundle args = new Bundle();
-    fragment.setArguments(args);
     return fragment;
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-    }
   }
 
   @Override protected void loadCollection() {

@@ -35,16 +35,12 @@ public class FiguresOrderedFragment extends FiguresFragment {
      */
     public static FiguresOrderedFragment newInstance() {
         FiguresOrderedFragment fragment = new FiguresOrderedFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override

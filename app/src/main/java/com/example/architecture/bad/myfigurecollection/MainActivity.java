@@ -171,13 +171,13 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
-    private  void setMyCollectionFragment(){
+    private void setMyCollectionFragment(){
         FiguresContainerFragment figuresContainerFragment = (FiguresContainerFragment) getSupportFragmentManager().findFragmentByTag(FiguresContainerFragment.TAG);
         if (figuresContainerFragment == null) {
             // Create the fragment
             figuresContainerFragment = FiguresContainerFragment.newInstance();
-            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
         }
+        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
     }
 
     private void setPODFragment(){

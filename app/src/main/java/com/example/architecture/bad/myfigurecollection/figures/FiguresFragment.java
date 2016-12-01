@@ -119,11 +119,7 @@ public abstract class FiguresFragment extends Fragment {
                 new StaggeredGridLayoutManager(LAYOUT_COLUMNS, StaggeredGridLayoutManager.VERTICAL);
         staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         loadCollection();
     }
 

@@ -35,16 +35,12 @@ public class FiguresOwnedFragment extends FiguresFragment {
      */
     public static FiguresOwnedFragment newInstance() {
         FiguresOwnedFragment fragment = new FiguresOwnedFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
