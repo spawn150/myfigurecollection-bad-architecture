@@ -10,8 +10,6 @@ buildscript {
     }
 }
 
-
-
 repositories {
     maven { url 'https://dl.bintray.com/climbatize/maven/' }
     maven { url 'https://maven.fabric.io/public' }

@@ -1,7 +1,5 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -12,9 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.architecture.bad.myfigurecollection.BaseActivity;
 import com.example.architecture.bad.myfigurecollection.R;
 
 import java.util.ArrayList;

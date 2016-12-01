@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".BaseActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".bestpictures.BestPicturesActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".figuredetail.FigureDetailActivity"
-            android:parentActivityName=".figures.FiguresActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.architecture.bad.myfigurecollection.figures.FiguresActivity" />
+                android:value="com.example.architecture.bad.myfigurecollection.MainActivity" />
         </activity>
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
