@@ -4,7 +4,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/mfc_navigation_menu_item"
-            android:title="@string/menu_title_mfc" />
+            android:title="@string/menu_title_mfc"
+            android:checked="true"/>
 
         <item
             android:id="@+id/pod_navigation_menu_item"
