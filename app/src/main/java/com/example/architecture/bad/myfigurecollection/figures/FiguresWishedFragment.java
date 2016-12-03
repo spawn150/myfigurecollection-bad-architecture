@@ -33,8 +33,7 @@ public class FiguresWishedFragment extends FiguresFragment {
    * @return A new instance of fragment FiguresOwnedFragment.
    */
   public static FiguresWishedFragment newInstance() {
-    FiguresWishedFragment fragment = new FiguresWishedFragment();
-    return fragment;
+      return new FiguresWishedFragment();
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {

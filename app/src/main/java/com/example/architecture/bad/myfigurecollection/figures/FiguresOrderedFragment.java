@@ -34,8 +34,7 @@ public class FiguresOrderedFragment extends FiguresFragment {
      * @return A new instance of fragment FiguresOwnedFragment.
      */
     public static FiguresOrderedFragment newInstance() {
-        FiguresOrderedFragment fragment = new FiguresOrderedFragment();
-        return fragment;
+        return new FiguresOrderedFragment();
     }
 
     @Override
