@@ -25,8 +25,6 @@ public class FiguresContainerFragment extends Fragment {
 
     public static final String TAG = FiguresContainerFragment.class.getName();
 
-    private ViewPager viewPager;
-
     int[] tabSelectedIcons = {
             R.drawable.ic_owned_full_24px, R.drawable.ic_ordered_full_24px,
             R.drawable.ic_wished_full_24px,
@@ -61,7 +59,7 @@ public class FiguresContainerFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -91,7 +89,7 @@ public class FiguresContainerFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(FiguresOwnedFragment.newInstance());
         adapter.addFragment(FiguresOrderedFragment.newInstance());
         adapter.addFragment(FiguresWishedFragment.newInstance());
