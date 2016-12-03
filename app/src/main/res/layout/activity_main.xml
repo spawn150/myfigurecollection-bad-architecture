@@ -32,6 +32,7 @@
             android:id="@+id/figures_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
