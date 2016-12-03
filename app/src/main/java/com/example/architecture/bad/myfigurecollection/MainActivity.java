@@ -178,8 +178,8 @@ public class MainActivity extends AppCompatActivity
         if (figuresContainerFragment == null) {
             // Create the fragment
             figuresContainerFragment = FiguresContainerFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
         }
-        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
     }
 
     private void setPODFragment() {
