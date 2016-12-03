@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.example.architecture.bad.myfigurecollection.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheDayFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheMonthFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheWeekFragment;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
         setTheme(R.style.AppTheme);
 
-        setContentView(R.layout.activity_figures);
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
