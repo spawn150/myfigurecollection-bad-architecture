@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +27,7 @@ import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfThe
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
+import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 import com.squareup.picasso.Picasso;
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
                                 break;
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
-                                ActivityUtils.startActivityTwitter(MainActivity.this);
+                                setTwitterFragment();
                             default:
                                 break;
                         }
@@ -206,6 +206,15 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             pictureOfTheMonthFragment = PictureOfTheMonthFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheMonthFragment, R.id.figures_container, PictureOfTheMonthFragment.TAG);
+        }
+    }
+
+    private void setTwitterFragment() {
+        EmbeddedTwitterFragment embeddedTwitterFragment = (EmbeddedTwitterFragment) getSupportFragmentManager().findFragmentByTag(EmbeddedTwitterFragment.TAG);
+        if (embeddedTwitterFragment == null) {
+            // Create the fragment
+            embeddedTwitterFragment = EmbeddedTwitterFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
         }
     }
 

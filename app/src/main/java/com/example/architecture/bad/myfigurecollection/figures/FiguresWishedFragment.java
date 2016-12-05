@@ -42,7 +42,7 @@ public class FiguresWishedFragment extends FiguresFragment {
 
   @Override protected void loadCollection() {
     MFCRequest.INSTANCE.getCollectionService()
-        .getWished("spawn150"/*"STARlock"*//*"climbatize"*/, new Callback<ItemList>() {
+        .getWished(/*"spawn150""STARlock"*/"climbatize", new Callback<ItemList>() {
           @Override public void success(ItemList itemList, Response response) {
             Log.d("MFC", itemList.toString());
             ItemState itemState = itemList.getCollection().getWished();

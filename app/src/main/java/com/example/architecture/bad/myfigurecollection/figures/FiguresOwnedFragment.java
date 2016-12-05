@@ -44,7 +44,7 @@ public class FiguresOwnedFragment extends FiguresFragment {
 
     @Override
     protected void loadCollection() {
-        MFCRequest.INSTANCE.getCollectionService().getOwned("spawn150"/*"STARlock"*//*"climbatize"*/, new Callback<ItemList>() {
+        MFCRequest.INSTANCE.getCollectionService().getOwned(/*"spawn150""STARlock"*/"climbatize", new Callback<ItemList>() {
             @Override
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
