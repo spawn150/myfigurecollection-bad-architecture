@@ -17,7 +17,6 @@
 package com.example.architecture.bad.myfigurecollection.util;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IntDef;
@@ -32,7 +31,6 @@ import android.view.View;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
-import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -105,8 +103,4 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void startActivityTwitter(@NonNull Context context) {
-        Intent intent = new Intent(context, EmbeddedTwitterActivity.class);
-        context.startActivity(intent);
-    }
 }

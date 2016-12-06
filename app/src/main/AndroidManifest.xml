@@ -31,10 +31,6 @@
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
             android:theme="@style/AppTheme.Gallery" />
-        <activity
-            android:name=".timelinetwitter.EmbeddedTwitterActivity"
-            android:label="@string/title_activity_embedded_twitter"
-            android:theme="@style/AppTheme"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
