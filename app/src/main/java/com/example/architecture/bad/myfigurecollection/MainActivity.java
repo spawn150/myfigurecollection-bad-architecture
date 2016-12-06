@@ -30,6 +30,7 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
+import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 import com.squareup.picasso.Picasso;
 
 import retrofit.Callback;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity
                             final ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
                             TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
                             textViewUsername.setText(userProfile.getUser().getName());
+
+                            SessionHelper.createSession(MainActivity.this, userProfile.getUser());
 
                             Context context = MainActivity.this;
                             Picasso.with(context)

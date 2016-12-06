@@ -4,13 +4,14 @@ package com.example.architecture.bad.myfigurecollection.figures;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-
 import android.view.View;
+
 import com.ant_robot.mfc.api.pojo.ItemList;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
+import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -44,7 +45,7 @@ public class FiguresOwnedFragment extends FiguresFragment {
 
     @Override
     protected void loadCollection() {
-        MFCRequest.INSTANCE.getCollectionService().getOwned(/*"spawn150""STARlock"*/"climbatize", new Callback<ItemList>() {
+        MFCRequest.INSTANCE.getCollectionService().getOwned(SessionHelper.getUserName(getContext()), new Callback<ItemList>() {
             @Override
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
