@@ -5,8 +5,7 @@
         <item
             android:id="@+id/mfc_navigation_menu_item"
             android:title="@string/menu_title_mfc"
-            android:checked="true"
-            android:visible="false"/>
+            android:checked="true" />
 
         <item
             android:id="@+id/pod_navigation_menu_item"
