@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;

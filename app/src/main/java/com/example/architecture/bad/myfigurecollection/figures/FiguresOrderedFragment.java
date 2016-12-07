@@ -50,7 +50,7 @@ public class FiguresOrderedFragment extends FiguresFragment {
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
                 ItemState itemState = itemList.getCollection().getOrdered();
-                figureAdapter.updateData(itemState.getItem());
+                showData(itemState);
             }
 
             @Override

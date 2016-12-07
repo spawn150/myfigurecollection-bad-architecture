@@ -50,7 +50,7 @@ public class FiguresOwnedFragment extends FiguresFragment {
             public void success(ItemList itemList, Response response) {
                 Log.d("MFC", itemList.toString());
                 ItemState itemState = itemList.getCollection().getOwned();
-                figureAdapter.updateData(itemState.getItem());
+                showData(itemState);
             }
 
             @Override

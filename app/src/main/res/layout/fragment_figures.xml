@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.architecture.bad.myfigurecollection.figures.FiguresFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view_collection_figures"
+    <ViewSwitcher
+        android:id="@+id/view_switcher_figures"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/layout_card_view_collection_figure"
-        />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view_collection_figures"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/layout_card_view_collection_figure" />
+
+    </ViewSwitcher>
+
 
 </FrameLayout>

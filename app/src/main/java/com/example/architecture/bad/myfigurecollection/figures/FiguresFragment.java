@@ -3,33 +3,30 @@ package com.example.architecture.bad.myfigurecollection.figures;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
+import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +41,8 @@ public abstract class FiguresFragment extends Fragment {
 
     private static final int LAYOUT_COLUMNS = 2;
 
+    private ViewSwitcher viewSwitcher;
     OnFragmentInteractionListener mListener;
-
     FigureAdapter figureAdapter;
 
     FigureItemListener figureItemListener = new FigureItemListener() {
@@ -108,8 +105,8 @@ public abstract class FiguresFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView =
-                (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
+        viewSwitcher = (ViewSwitcher) view.findViewById(R.id.view_switcher_figures);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
         figureAdapter = new FigureAdapter(new ArrayList<Item>(), figureItemListener);
@@ -126,6 +123,11 @@ public abstract class FiguresFragment extends Fragment {
     protected abstract void loadCollection();
 
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
+
+    protected void showData(ItemState itemState) {
+        viewSwitcher.showNext();
+        figureAdapter.updateData(itemState.getItem());
+    }
 
     /**
      * This interface must be implemented by activities that contain this
