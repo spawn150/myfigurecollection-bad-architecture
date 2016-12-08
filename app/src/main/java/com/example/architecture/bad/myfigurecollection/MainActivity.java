@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,66 +66,18 @@ public class MainActivity extends AppCompatActivity
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.primary_dark);
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
 
         setMyCollectionFragment();
 
-        //TODO Refactor this code when implemented login view
-        MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
-            @Override
-            public void success(Boolean aBoolean, Response response) {
-                Log.d(TAG, "Login successfully!");
-                MFCRequest.INSTANCE.getUserService().getUser("spawn150", new Callback<UserProfile>() {
-                    @Override
-                    public void success(UserProfile userProfile, Response response) {
-                        Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
-                        Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
-
-                        if (navigationView != null) {
-                            final ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
-                            TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
-                            textViewUsername.setText(userProfile.getUser().getName());
-
-                            SessionHelper.createSession(MainActivity.this, userProfile.getUser());
-
-                            Context context = MainActivity.this;
-                            Picasso.with(context)
-                                    .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
-                                    .resize(360, 360) //TODO create converter from dp to px in CodeUtils
-                                    .into(imageViewAvatar, new com.squareup.picasso.Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
-                                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                                            imageDrawable.setCircular(true);
-                                            imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                                            imageViewAvatar.setImageDrawable(imageDrawable);
-                                        }
-
-                                        @Override
-                                        public void onError() {
-                                            imageViewAvatar.setImageResource(R.drawable.logo);
-                                        }
-                                    });
-                        }
-
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(TAG, "Login error!");
-            }
-        });
+        if (!SessionHelper.isAuthenticated(this)) {
+            login();
+        } else {
+            loadUserProfile();
+        }
 
     }
 
@@ -137,6 +90,64 @@ public class MainActivity extends AppCompatActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void login() {
+        MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
+            @Override
+            public void success(Boolean aBoolean, Response response) {
+                loadUserProfile();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //TODO Manage error in Login
+            }
+        });
+    }
+
+    private void loadUserProfile() {
+        MFCRequest.INSTANCE.getUserService().getUser("spawn150", new Callback<UserProfile>() {
+            @Override
+            public void success(UserProfile userProfile, Response response) {
+                Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
+                Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
+
+                if (navigationView != null) {
+                    final ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
+                    TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
+                    textViewUsername.setText(userProfile.getUser().getName());
+
+                    SessionHelper.createSession(MainActivity.this, userProfile.getUser());
+
+                    Context context = MainActivity.this;
+                    Picasso.with(context)
+                            .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
+                            .resize(360, 360) //TODO create converter from dp to px in CodeUtils
+                            .into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                                    RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                                    imageDrawable.setCircular(true);
+                                    imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                                    imageViewAvatar.setImageDrawable(imageDrawable);
+                                }
+
+                                @Override
+                                public void onError() {
+                                    imageViewAvatar.setImageResource(R.drawable.logo);
+                                }
+                            });
+                }
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                //TODO Manage error in loading user profile
+            }
+        });
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
