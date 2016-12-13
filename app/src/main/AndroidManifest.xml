@@ -31,6 +31,9 @@
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
             android:theme="@style/AppTheme.Gallery" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:theme="@style/AppTheme.Gallery" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
