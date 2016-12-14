@@ -11,7 +11,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import io.fabric.sdk.android.Fabric;
 
 /**
- * Created by spawn on 04/07/16.
+ * Application class where all libraries are initialized
  */
 public class App extends Application {
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
