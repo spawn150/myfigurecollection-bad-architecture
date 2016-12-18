@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity
             setupDrawerContent(navigationView);
         }
 
-        setMyCollectionFragment();
-
         if (!SessionHelper.isAuthenticated(this)) {
             login();
         } else {
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void login() {
+        //TODO Remove hardcode user/pwd
         MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
             @Override
             public void success(Boolean aBoolean, Response response) {
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadUserProfile() {
+        //TODO Remove hardcode user
         MFCRequest.INSTANCE.getUserService().getUser("spawn150", new Callback<UserProfile>() {
             @Override
             public void success(UserProfile userProfile, Response response) {
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity
                     textViewUsername.setText(userProfile.getUser().getName());
 
                     SessionHelper.createSession(MainActivity.this, userProfile.getUser());
+
+                    setMyCollectionFragment();
 
                     Context context = MainActivity.this;
                     Picasso.with(context)
