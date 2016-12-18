@@ -45,8 +45,8 @@ public class SessionHelper {
         SharedPreferences prefs = context.getSharedPreferences(APP_ACCOUNT_PREFS_NAME, Context.MODE_PRIVATE);
         //TODO Remove hardcoded values when implemented the correct behaviour
         return new SessionUser(
-                prefs.getString(USER_ID_PREFS, "1"),
-                prefs.getString(USER_NAME_PREFS, "spawn150"), /*"spawn150""STARlock""climbatize"*/
+                prefs.getString(USER_ID_PREFS, ""),
+                prefs.getString(USER_NAME_PREFS, ""), /*"spawn150""STARlock""climbatize"*/
                 prefs.getString(USER_PICTURE_PREFS, ""),
                 prefs.getString(USER_HOMEPAGE_PREFS, "")
         );
