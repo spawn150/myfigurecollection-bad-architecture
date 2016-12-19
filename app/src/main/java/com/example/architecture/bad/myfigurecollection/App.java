@@ -2,8 +2,9 @@ package com.example.architecture.bad.myfigurecollection;
 
 import android.app.Application;
 
+import com.ant_robot.mfc.api.request.MFCRequest;
 import com.facebook.stetho.Stetho;
-import com.squareup.picasso.OkHttpDownloader;
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -22,6 +23,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        MFCRequest.initialize(this);
+
         initializeStetho();
 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
@@ -29,7 +32,7 @@ public class App extends Application {
 
         //Initialize Picasso library
         Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+        builder.downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE));
         Picasso built = builder.build();
         built.setLoggingEnabled(BuildConfig.DEBUG);
         Picasso.setSingletonInstance(built);

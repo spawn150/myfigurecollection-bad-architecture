@@ -13,9 +13,9 @@ import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,20 +45,22 @@ public class FiguresOwnedFragment extends FiguresFragment {
 
     @Override
     protected void loadCollection() {
-        MFCRequest.INSTANCE.getCollectionService().getOwned(SessionHelper.getUserName(getContext()), new Callback<ItemList>() {
+
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOwned(SessionHelper.getUserName(getContext()));
+        call.enqueue(new Callback<ItemList>() {
             @Override
-            public void success(ItemList itemList, Response response) {
+            public void onResponse(Call<ItemList> call, Response<ItemList> response) {
+                ItemList itemList = response.body();
                 Log.d("MFC", itemList.toString());
                 ItemState itemState = itemList.getCollection().getOwned();
                 showData(itemState);
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                Log.e("MFC", error.getLocalizedMessage());
+            public void onFailure(Call<ItemList> call, Throwable t) {
+                Log.e("MFC", "Error on loading Owned items.", t);
             }
         });
-
     }
 
     @Override

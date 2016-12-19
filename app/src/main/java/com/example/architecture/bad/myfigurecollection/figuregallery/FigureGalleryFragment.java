@@ -24,9 +24,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -119,14 +119,16 @@ public class FigureGalleryFragment extends Fragment {
         galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
         galleryPager.addOnPageChangeListener(onPageChangeListener);
 
-        MFCRequest.INSTANCE.getGalleryService().getGalleryForItem(figureId, 0, new Callback<PictureGallery>() {
+        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, 0);
+        call.enqueue(new Callback<PictureGallery>() {
             @Override
-            public void success(PictureGallery pictureGallery, Response response) {
+            public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {
 
                 if (getActivity() != null && isAdded()) {
                     List<GalleryFigure> galleryFigures = new ArrayList<>();
                     galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
 
+                    PictureGallery pictureGallery = response.body();
                     if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
                         List<Picture> pictures = pictureGallery.getGallery().getPicture();
 
@@ -144,11 +146,10 @@ public class FigureGalleryFragment extends Fragment {
             }
 
             @Override
-            public void failure(RetrofitError error) {
-
+            public void onFailure(Call<PictureGallery> call, Throwable t) {
+                Log.e(TAG, "Error loading Gallery", t);
             }
         });
-
     }
 
     @Override

@@ -14,12 +14,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
@@ -35,9 +33,9 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.Fragme
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 import com.squareup.picasso.Picasso;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements FiguresFragment.OnFragmentInteractionListener {
@@ -92,24 +90,26 @@ public class MainActivity extends AppCompatActivity
 
     private void login() {
         //TODO Remove hardcode user/pwd
-        MFCRequest.INSTANCE.connect("spawn150", "pul78lce", this, new Callback<Boolean>() {
+        MFCRequest.getInstance().connect("spawn150", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
             @Override
-            public void success(Boolean aBoolean, Response response) {
+            public void success(Boolean aBoolean) {
                 loadUserProfile();
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                //TODO Manage error in Login
+            public void error(Throwable throwable) {
+                Log.e(TAG, "Error in connect()", throwable);
             }
         });
     }
 
     private void loadUserProfile() {
         //TODO Remove hardcode user
-        MFCRequest.INSTANCE.getUserService().getUser("spawn150", new Callback<UserProfile>() {
+        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn150");
+        call.enqueue(new Callback<UserProfile>() {
             @Override
-            public void success(UserProfile userProfile, Response response) {
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                UserProfile userProfile = response.body();
                 Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
                 Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
 
@@ -142,12 +142,11 @@ public class MainActivity extends AppCompatActivity
                                 }
                             });
                 }
-
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                //TODO Manage error in loading user profile
+            public void onFailure(Call<UserProfile> call, Throwable t) {
+                Log.e(TAG, "Error in getUser()", t);
             }
         });
     }
