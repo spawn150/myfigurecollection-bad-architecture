@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
 
                                 @Override
                                 public void onError() {
-                                    imageViewAvatar.setImageResource(R.drawable.logo);
+                                    imageViewAvatar.setImageResource(R.drawable.logo_144);
                                 }
                             });
                 }
