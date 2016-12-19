@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/logo_144" />
+            android:src="@drawable/ic_tsuko_color" />
     </item>
 </layer-list>

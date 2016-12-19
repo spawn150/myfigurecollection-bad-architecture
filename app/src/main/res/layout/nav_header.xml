@@ -12,7 +12,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/logo_144" />
+        android:src="@drawable/ic_tsuko_color" />
 
     <TextView
         android:id="@+id/text_view_username"
