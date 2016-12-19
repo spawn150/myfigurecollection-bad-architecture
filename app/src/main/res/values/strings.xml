@@ -25,6 +25,12 @@
     <string name="title_activity_figure_gallery">FigureGalleryActivity</string>
     <string name="title_activity_embedded_twitter">EmbeddedTwitterActivity</string>
 
+    <!-- Error messages -->
+    <string name="message_error_no_items_in_list">Save the first item in your list!</string>
+    <string name="message_error_loading_owned_items">Error loading Owned items.</string>
+    <string name="message_error_loading_ordered_items">Error loading Ordered items.</string>
+    <string name="message_error_loading_wished_items">Error loading Wished items.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

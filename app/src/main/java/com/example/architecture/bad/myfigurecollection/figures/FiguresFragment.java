@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,8 @@ import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +42,18 @@ import java.util.List;
  */
 public abstract class FiguresFragment extends Fragment {
 
-    private static final int LAYOUT_COLUMNS = 2;
+    private static final int LOADING = 0;
+    private static final int SUCCESS = 1;
+    private static final int ERROR = 2;
 
+    @IntDef({LOADING, SUCCESS, ERROR})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ViewState {
+    }
+
+    private static final int LAYOUT_COLUMNS = 2;
     private ViewFlipper viewFlipper;
+    private TextView textViewErrorMessage;
     OnFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
@@ -106,6 +118,7 @@ public abstract class FiguresFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
+        textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
@@ -125,12 +138,21 @@ public abstract class FiguresFragment extends Fragment {
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData(ItemState itemState) {
-        viewFlipper.setDisplayedChild(1);
-        figureAdapter.updateData(itemState.getItem());
+        if (itemState.getItem() != null && !itemState.getItem().isEmpty()) {
+            setViewState(SUCCESS);
+            figureAdapter.updateData(itemState.getItem());
+        } else {
+            showError(getActivity().getString(R.string.message_error_no_items_in_list));
+        }
     }
 
-    protected void showError(){
-        viewFlipper.setDisplayedChild(2);
+    protected void showError(String message) {
+        textViewErrorMessage.setText(message);
+        setViewState(ERROR);
+    }
+
+    private void setViewState(@ViewState int viewState) {
+        viewFlipper.setDisplayedChild(viewState);
     }
 
     /**
@@ -249,4 +271,5 @@ public abstract class FiguresFragment extends Fragment {
     private interface FigureItemListener {
         void onFigureItemClick(View view, Item figureItem);
     }
+
 }

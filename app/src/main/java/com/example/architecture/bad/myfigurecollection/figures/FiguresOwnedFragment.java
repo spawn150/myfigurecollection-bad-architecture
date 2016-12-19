@@ -9,6 +9,7 @@ import android.view.View;
 import com.ant_robot.mfc.api.pojo.ItemList;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
@@ -59,6 +60,9 @@ public class FiguresOwnedFragment extends FiguresFragment {
             @Override
             public void onFailure(Call<ItemList> call, Throwable t) {
                 Log.e("MFC", "Error on loading Owned items.", t);
+                if(getActivity() != null) {
+                    showError(getActivity().getString(R.string.message_error_loading_owned_items));
+                }
             }
         });
     }
