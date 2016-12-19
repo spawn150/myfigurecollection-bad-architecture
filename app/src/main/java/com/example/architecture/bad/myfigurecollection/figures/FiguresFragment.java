@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
+import android.widget.ViewFlipper;
 
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
@@ -41,7 +41,7 @@ public abstract class FiguresFragment extends Fragment {
 
     private static final int LAYOUT_COLUMNS = 2;
 
-    private ViewSwitcher viewSwitcher;
+    private ViewFlipper viewFlipper;
     OnFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
@@ -105,7 +105,7 @@ public abstract class FiguresFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewSwitcher = (ViewSwitcher) view.findViewById(R.id.view_switcher_figures);
+        viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
         recyclerView.setHasFixedSize(true);
@@ -125,8 +125,12 @@ public abstract class FiguresFragment extends Fragment {
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData(ItemState itemState) {
-        viewSwitcher.showNext();
+        viewFlipper.setDisplayedChild(1);
         figureAdapter.updateData(itemState.getItem());
+    }
+
+    protected void showError(){
+        viewFlipper.setDisplayedChild(2);
     }
 
     /**

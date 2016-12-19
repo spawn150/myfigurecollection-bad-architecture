@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.architecture.bad.myfigurecollection.figures.FiguresFragment">
 
-    <ViewSwitcher
-        android:id="@+id/view_switcher_figures"
+    <ViewFlipper
+        android:id="@+id/view_flipper_figures"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/layout_card_view_collection_figure" />
 
-    </ViewSwitcher>
+    </ViewFlipper>
 
 
 </FrameLayout>
