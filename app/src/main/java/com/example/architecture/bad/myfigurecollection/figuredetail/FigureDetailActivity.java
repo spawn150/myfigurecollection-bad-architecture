@@ -93,11 +93,13 @@ public class FigureDetailActivity extends AppCompatActivity {
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                            double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
-                            imageView.getLayoutParams().height = (int) newWidth;
-                            imageView.requestLayout();
+                            if (imageView != null) {
+                                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                                double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                                double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
+                                imageView.getLayoutParams().height = (int) newWidth;
+                                imageView.requestLayout();
+                            }
                         }
 
                         @Override
