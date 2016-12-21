@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/xlarge_margin"
-        android:drawableTop="@drawable/ic_tsuko_color"
+        android:drawableTop="@drawable/ic_tsuko_bn"
         android:gravity="center"
         android:textSize="16sp"
         android:paddingBottom="@dimen/xlarge_padding"
