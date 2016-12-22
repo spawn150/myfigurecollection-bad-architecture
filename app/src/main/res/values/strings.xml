@@ -26,10 +26,12 @@
     <string name="title_activity_embedded_twitter">EmbeddedTwitterActivity</string>
 
     <!-- Error messages -->
-    <string name="message_error_no_items_in_list">Save the first item in your list!</string>
-    <string name="message_error_loading_owned_items">Error loading Owned items.</string>
-    <string name="message_error_loading_ordered_items">Error loading Ordered items.</string>
-    <string name="message_error_loading_wished_items">Error loading Wished items.</string>
+    <string name="ordered_items_value">ordered</string>
+    <string name="owned_items_value">owned</string>
+    <string name="wished_items_value">wished</string>
+    <string name="title_error_no_items_in_list">Get to your %s items</string>
+    <string name="message_error_no_items_in_list">Items you have %s will show up here.</string>
+    <string name="title_error_loading_items">Error loading %s items</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

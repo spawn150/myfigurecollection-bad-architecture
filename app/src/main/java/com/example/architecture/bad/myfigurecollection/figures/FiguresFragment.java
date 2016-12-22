@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -54,6 +55,7 @@ public abstract class FiguresFragment extends Fragment {
     private static final int LAYOUT_COLUMNS = 2;
     private ViewFlipper viewFlipper;
     private TextView textViewErrorMessage;
+    private TextView textViewErrorTitle;
     OnFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
@@ -118,6 +120,7 @@ public abstract class FiguresFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
+        textViewErrorTitle = (TextView) view.findViewById(R.id.text_view_error_title);
         textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
         //performance optimization
@@ -138,15 +141,16 @@ public abstract class FiguresFragment extends Fragment {
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData(ItemState itemState) {
-        if (itemState.getItem() != null && !itemState.getItem().isEmpty()) {
-            setViewState(SUCCESS);
-            figureAdapter.updateData(itemState.getItem());
-        } else {
-            showError(getActivity().getString(R.string.message_error_no_items_in_list));
-        }
+        setViewState(SUCCESS);
+        figureAdapter.updateData(itemState.getItem());
     }
 
-    protected void showError(String message) {
+    protected void showError(String title) {
+        showError(title, "");
+    }
+
+    protected void showError(String title, String message) {
+        textViewErrorTitle.setText(title);
         textViewErrorMessage.setText(message);
         setViewState(ERROR);
     }

@@ -18,16 +18,30 @@
         tools:listitem="@layout/layout_card_view_collection_figure"
         tools:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/text_view_error_message"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/xlarge_margin"
-        android:drawableTop="@drawable/ic_tsuko_bn"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:paddingBottom="@dimen/xlarge_padding"
-        tools:text="Errore!" />
+        android:orientation="vertical"
+        android:padding="@dimen/large_padding">
+
+        <TextView
+            android:id="@+id/text_view_error_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_tsuko_bn"
+            android:gravity="center"
+            android:textSize="18sp"
+            tools:text="Titolo dell'errore" />
+
+        <TextView
+            android:id="@+id/text_view_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:gravity="center"
+            android:textSize="15sp"
+            tools:text="Messaggio più esplicativo del tipo di errore con relativa spiegazine completa." />
+    </LinearLayout>
 
 </ViewFlipper>
