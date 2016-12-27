@@ -57,7 +57,7 @@ public class FiguresOrderedFragment extends FiguresFragment {
                     showData(itemState);
                 } else {
                     String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.ordered_items_value));
-                    String message = String.format(getActivity().getString(R.string.message_error_no_items_in_list), getActivity().getString(R.string.ordered_items_value));
+                    String message = getActivity().getString(R.string.message_error_no_ordered_items_in_list);
                     showError(title, message);
                 }
             }

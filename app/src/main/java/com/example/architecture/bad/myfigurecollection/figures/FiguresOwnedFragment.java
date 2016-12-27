@@ -58,7 +58,8 @@ public class FiguresOwnedFragment extends FiguresFragment {
                     showData(itemState);
                 } else {
                     String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.owned_items_value));
-                    String message = String.format(getActivity().getString(R.string.message_error_no_items_in_list), getActivity().getString(R.string.owned_items_value));
+                    String message = getActivity().getString(R.string.message_error_no_owned_items_in_list);
+                    ;
                     showError(title, message);
                 }
 
@@ -67,7 +68,7 @@ public class FiguresOwnedFragment extends FiguresFragment {
             @Override
             public void onFailure(Call<ItemList> call, Throwable t) {
                 Log.e("MFC", "Error on loading Owned items.", t);
-                if(getActivity() != null) {
+                if (getActivity() != null) {
                     String title = String.format(getActivity().getString(R.string.title_error_loading_items), getActivity().getString(R.string.owned_items_value));
                     showError(title);
                 }

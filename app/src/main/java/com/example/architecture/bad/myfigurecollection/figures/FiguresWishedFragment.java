@@ -57,7 +57,7 @@ public class FiguresWishedFragment extends FiguresFragment {
                     showData(itemState);
                 } else {
                     String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.wished_items_value));
-                    String message = String.format(getActivity().getString(R.string.message_error_no_items_in_list), getActivity().getString(R.string.wished_items_value));
+                    String message = getActivity().getString(R.string.message_error_no_wished_items_in_list);
                     showError(title, message);
                 }
 
