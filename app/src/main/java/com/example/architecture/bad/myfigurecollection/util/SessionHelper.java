@@ -41,7 +41,12 @@ public class SessionHelper {
         return user.getName();
     }
 
-    private static SessionUser getUserData(Context context) {
+    /**
+     * Gets User data in session
+     * @param context context
+     * @return user's data
+     */
+    public static SessionUser getUserData(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(APP_ACCOUNT_PREFS_NAME, Context.MODE_PRIVATE);
         //TODO Remove hardcoded values when implemented the correct behaviour
         return new SessionUser(

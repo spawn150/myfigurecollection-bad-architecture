@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -14,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +28,7 @@ import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfThe
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheMonthFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheWeekFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.SessionUser;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
@@ -68,13 +72,17 @@ public class MainActivity extends AppCompatActivity
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onStart();
 
         if (!SessionHelper.isAuthenticated(this)) {
             login();
         } else {
-            loadUserProfile();
+            setupUserProfileData();
         }
-
     }
 
     @Override
@@ -90,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
     private void login() {
         //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn_test", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
+        MFCRequest.getInstance().connect("spawn150", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
                 loadUserProfile();
@@ -105,7 +113,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadUserProfile() {
         //TODO Remove hardcode user
-        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn_test");
+        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn150");
         call.enqueue(new Callback<UserProfile>() {
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
@@ -113,35 +121,8 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
                 Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
 
-                if (navigationView != null) {
-                    final ImageView imageViewAvatar = (ImageView) navigationView.findViewById(R.id.image_view_avatar);
-                    TextView textViewUsername = (TextView) navigationView.findViewById(R.id.text_view_username);
-                    textViewUsername.setText(userProfile.getUser().getName());
-
-                    SessionHelper.createSession(MainActivity.this, userProfile.getUser());
-
-                    setMyCollectionFragment();
-
-                    Context context = MainActivity.this;
-                    Picasso.with(context)
-                            .load(context.getString(R.string.avatar_large_image_url, userProfile.getUser().getPicture()))
-                            .resize(360, 360) //TODO create converter from dp to px in CodeUtils
-                            .into(imageViewAvatar, new com.squareup.picasso.Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
-                                    RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                                    imageDrawable.setCircular(true);
-                                    imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                                    imageViewAvatar.setImageDrawable(imageDrawable);
-                                }
-
-                                @Override
-                                public void onError() {
-                                    imageViewAvatar.setImageResource(R.drawable.ic_tsuko_color);
-                                }
-                            });
-                }
+                SessionHelper.createSession(MainActivity.this, userProfile.getUser());
+                setupUserProfileData();
             }
 
             @Override
@@ -149,6 +130,43 @@ public class MainActivity extends AppCompatActivity
                 Log.e(TAG, "Error in getUser()", t);
             }
         });
+    }
+
+    private void setupUserProfileData() {
+        if (navigationView != null) {
+
+            //fix bug on library using app:headerLayout="@layout/nav_header" - ref link: http://stackoverflow.com/questions/33199764/android-api-23-change-navigation-view-headerlayout-textview
+            View header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            navigationView.addHeaderView(header);
+
+            Context context = MainActivity.this;
+            SessionUser sessionUser = SessionHelper.getUserData(context);
+
+            final ImageView imageViewAvatar = (ImageView) header.findViewById(R.id.image_view_avatar);
+            TextView textViewUsername = (TextView) header.findViewById(R.id.text_view_username);
+            textViewUsername.setText(sessionUser.getName());
+            setMyCollectionFragment();
+
+            Picasso.with(context)
+                    .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
+                    .resize(240, 240) //TODO create converter from dp to px in CodeUtils
+                    .into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                            imageDrawable.setCircular(true);
+                            imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                            imageViewAvatar.setImageDrawable(imageDrawable);
+                        }
+
+                        @Override
+                        public void onError() {
+                            imageViewAvatar.setImageResource(R.drawable.ic_tsuko_color);
+                        }
+                    });
+
+        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
