@@ -34,6 +34,7 @@ import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
+import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 import com.squareup.picasso.Picasso;
 
@@ -147,9 +148,11 @@ public class MainActivity extends AppCompatActivity
             textViewUsername.setText(sessionUser.getName());
             setMyCollectionFragment();
 
+            int imageSize = (int) CodeUtils.convertDpToPixel(120, context);
+
             Picasso.with(context)
                     .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
-                    .resize(240, 240) //TODO create converter from dp to px in CodeUtils
+                    .resize(imageSize, imageSize)
                     .into(imageViewAvatar, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
