@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
     private void login() {
         //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn150", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
+        MFCRequest.getInstance().connect("spawn_test", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
                 loadUserProfile();
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadUserProfile() {
         //TODO Remove hardcode user
-        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn150");
+        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn_test");
         call.enqueue(new Callback<UserProfile>() {
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
