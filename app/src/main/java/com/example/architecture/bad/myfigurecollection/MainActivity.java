@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.bestpictures.LatestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheDayFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheMonthFragment;
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheWeekFragment;
@@ -189,6 +190,10 @@ public class MainActivity extends AppCompatActivity
                                 Log.d(TAG, "POD menu tapped!");
                                 setPODFragment();
                                 break;
+                            case R.id.latest_pictures_navigation_menu_item:
+                                setLatestPicturesFragment();
+                                break;
+                            /*
                             case R.id.pow_navigation_menu_item:
                                 Log.d(TAG, "POW menu tapped!");
                                 setPOWFragment();
@@ -197,6 +202,7 @@ public class MainActivity extends AppCompatActivity
                                 Log.d(TAG, "POM menu tapped!");
                                 setPOMFragment();
                                 break;
+                            */
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
                                 setTwitterFragment();
@@ -217,6 +223,15 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             figuresContainerFragment = FiguresContainerFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
+        }
+    }
+
+    private void setLatestPicturesFragment() {
+        LatestPicturesFragment latestPicturesFragment = (LatestPicturesFragment) getSupportFragmentManager().findFragmentByTag(LatestPicturesFragment.TAG);
+        if (latestPicturesFragment == null) {
+            // Create the fragment
+            latestPicturesFragment = LatestPicturesFragment.newInstance();
+            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), latestPicturesFragment, R.id.figures_container, LatestPicturesFragment.TAG);
         }
     }
 

@@ -4,6 +4,7 @@
     <string name="title_activity_figures">FiguresActivity</string>
     <string name="menu_title_settings">Settings</string>
     <string name="menu_title_mfc">My Figures Collection</string>
+    <string name="menu_title_latest_pictures">Latest Pictures</string>
     <string name="menu_title_pod">Pictures of the day</string>
     <string name="menu_title_pow">Pictures of the week</string>
     <string name="menu_title_pom">Pictures of the month</string>

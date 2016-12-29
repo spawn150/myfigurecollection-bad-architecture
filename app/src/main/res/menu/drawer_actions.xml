@@ -12,12 +12,18 @@
             android:title="@string/menu_title_pod" />
 
         <item
+            android:id="@+id/latest_pictures_navigation_menu_item"
+            android:title="@string/menu_title_latest_pictures" />
+
+        <!--
+        <item
             android:id="@+id/pow_navigation_menu_item"
             android:title="@string/menu_title_pow" />
 
         <item
             android:id="@+id/pom_navigation_menu_item"
             android:title="@string/menu_title_pom" />
+        -->
 
         <item
             android:id="@+id/twitter_navigation_menu_item"
