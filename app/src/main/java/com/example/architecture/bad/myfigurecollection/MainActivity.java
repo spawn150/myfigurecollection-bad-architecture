@@ -4,9 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -30,8 +28,8 @@ import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfThe
 import com.example.architecture.bad.myfigurecollection.bestpictures.PictureOfTheWeekFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.data.SessionUser;
+import com.example.architecture.bad.myfigurecollection.figures.CollectionFiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresContainerFragment;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
@@ -44,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements FiguresFragment.OnFragmentInteractionListener {
+        implements CollectionFiguresFragment.OnFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
     private void login() {
         //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn150", "pul78lce", new MFCRequest.MFCCallback<Boolean>() {
+        MFCRequest.getInstance().connect("spawn150", "pul78lce", this, new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
                 loadUserProfile();

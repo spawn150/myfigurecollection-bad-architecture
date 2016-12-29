@@ -3,65 +3,44 @@ package com.example.architecture.bad.myfigurecollection.figures;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.pojo.Mycollection;
+import com.example.architecture.bad.myfigurecollection.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link FiguresFragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FiguresFragment.OnFragmentInteractionListener} interface
+ * {@link CollectionFiguresFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public abstract class FiguresFragment extends Fragment {
+public abstract class CollectionFiguresFragment extends FiguresFragment {
 
-    private static final int LOADING = 0;
-    private static final int SUCCESS = 1;
-    private static final int ERROR = 2;
-
-    @IntDef({LOADING, SUCCESS, ERROR})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ViewState {
-    }
-
-    private static final int LAYOUT_COLUMNS = 2;
-    private ViewFlipper viewFlipper;
-    private TextView textViewErrorMessage;
-    private TextView textViewErrorTitle;
     OnFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
-    FigureItemListener figureItemListener = new FigureItemListener() {
+    CollectionFigureItemListener collectionFigureItemListener = new CollectionFigureItemListener() {
         @Override
-        public void onFigureItemClick(View view, Item figureItem) {
+        public void onCollectionFigureItemClick(View view, Item figureItem) {
 
             Data data = figureItem.getData();
             Category category = figureItem.getCategory();
@@ -87,18 +66,6 @@ public abstract class FiguresFragment extends Fragment {
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_figures, container, false);
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -115,68 +82,19 @@ public abstract class FiguresFragment extends Fragment {
         mListener = null;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
-        textViewErrorTitle = (TextView) view.findViewById(R.id.text_view_error_title);
-        textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
-        //performance optimization
-        recyclerView.setHasFixedSize(true);
-        figureAdapter = new FigureAdapter(new ArrayList<Item>(), figureItemListener);
-        recyclerView.setAdapter(figureAdapter);
-
-        StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(LAYOUT_COLUMNS, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-
-        loadCollection();
+    protected RecyclerView.Adapter createAdapter() {
+        figureAdapter = new FigureAdapter(new ArrayList<Item>(), collectionFigureItemListener);
+        return figureAdapter;
     }
-
-    protected abstract void loadCollection();
-
-    protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData(ItemState itemState) {
         setViewState(SUCCESS);
         figureAdapter.updateData(itemState.getItem());
     }
 
-    protected void showError(String title) {
-        showError(title, "");
-    }
-
-    protected void showError(String title, String message) {
-        textViewErrorTitle.setText(title);
-        textViewErrorMessage.setText(message);
-        setViewState(ERROR);
-    }
-
-    private void setViewState(@ViewState int viewState) {
-        viewFlipper.setDisplayedChild(viewState);
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(View view, DetailedFigure figureItem,
-                                   @ActivityUtils.FragmentType int fragmentType);
-    }
-
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
         private List<Item> mDataset;
-        private FigureItemListener mFigureItemListener;
+        private CollectionFigureItemListener mFigureItemListener;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -200,7 +118,7 @@ public abstract class FiguresFragment extends Fragment {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public FigureAdapter(List<Item> myDataset, FigureItemListener figureItemListener) {
+        public FigureAdapter(List<Item> myDataset, CollectionFigureItemListener figureItemListener) {
             mDataset = myDataset;
             mFigureItemListener = figureItemListener;
         }
@@ -225,14 +143,8 @@ public abstract class FiguresFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
 
             final Item figureItem = mDataset.get(position);
-            Category category = figureItem.getCategory();
-            category.getName();
 
             Data figureData = figureItem.getData();
-            figureData.getId();
-            figureData.getName();
-            figureData.getReleaseDate();
-
             final Context context = holder.imageViewFigure.getContext();
 
             String url = context.getString(R.string.figure_big_image_url, figureData.getId());
@@ -260,7 +172,7 @@ public abstract class FiguresFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mFigureItemListener.onFigureItemClick(holder.imageViewFigure, figureItem);
+                    mFigureItemListener.onCollectionFigureItemClick(holder.imageViewFigure, figureItem);
                 }
             });
         }
@@ -272,8 +184,8 @@ public abstract class FiguresFragment extends Fragment {
         }
     }
 
-    private interface FigureItemListener {
-        void onFigureItemClick(View view, Item figureItem);
+    private interface CollectionFigureItemListener {
+        void onCollectionFigureItemClick(View view, Item figureItem);
     }
 
 }

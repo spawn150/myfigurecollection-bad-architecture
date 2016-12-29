@@ -30,6 +30,7 @@
     <string name="ordered_items_value">ordered</string>
     <string name="owned_items_value">owned</string>
     <string name="wished_items_value">wished</string>
+    <string name="potd_items_value">wished</string>
     <string name="title_error_no_items_in_list">Get to your %s items</string>
     <string name="message_error_no_owned_items_in_list">Items you own will show up here.</string>
     <string name="message_error_no_ordered_items_in_list">Items you have ordered will show up here.</string>

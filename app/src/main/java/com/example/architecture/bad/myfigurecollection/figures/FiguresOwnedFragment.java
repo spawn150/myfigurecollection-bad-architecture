@@ -23,7 +23,7 @@ import retrofit2.Response;
  * Use the {@link FiguresOwnedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FiguresOwnedFragment extends FiguresFragment {
+public class FiguresOwnedFragment extends CollectionFiguresFragment {
 
     public FiguresOwnedFragment() {
         // Required empty public constructor

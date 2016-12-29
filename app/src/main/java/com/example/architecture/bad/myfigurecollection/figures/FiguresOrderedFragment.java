@@ -1,7 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +22,7 @@ import retrofit2.Response;
  * Use the {@link FiguresOrderedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FiguresOrderedFragment extends FiguresFragment {
+public class FiguresOrderedFragment extends CollectionFiguresFragment {
 
     public FiguresOrderedFragment() {
         // Required empty public constructor
@@ -37,11 +36,6 @@ public class FiguresOrderedFragment extends FiguresFragment {
      */
     public static FiguresOrderedFragment newInstance() {
         return new FiguresOrderedFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
