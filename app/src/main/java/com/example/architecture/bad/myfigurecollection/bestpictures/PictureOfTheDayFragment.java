@@ -11,8 +11,7 @@ public class PictureOfTheDayFragment extends BestPicturesFragment {
     }
 
     public static PictureOfTheDayFragment newInstance() {
-        PictureOfTheDayFragment fragment = new PictureOfTheDayFragment();
-        return fragment;
+        return new PictureOfTheDayFragment();
     }
 
     @Override

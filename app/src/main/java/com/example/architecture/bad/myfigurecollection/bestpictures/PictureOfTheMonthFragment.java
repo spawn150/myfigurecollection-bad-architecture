@@ -11,8 +11,7 @@ public class PictureOfTheMonthFragment extends BestPicturesFragment {
     }
 
     public static PictureOfTheMonthFragment newInstance() {
-        PictureOfTheMonthFragment fragment = new PictureOfTheMonthFragment();
-        return fragment;
+        return new PictureOfTheMonthFragment();
     }
 
     @Override
