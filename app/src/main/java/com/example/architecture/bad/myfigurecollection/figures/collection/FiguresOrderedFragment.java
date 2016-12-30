@@ -1,7 +1,6 @@
-package com.example.architecture.bad.myfigurecollection.figures;
+package com.example.architecture.bad.myfigurecollection.figures.collection;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +19,12 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FiguresOwnedFragment#newInstance} factory method to
+ * Use the {@link FiguresOrderedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FiguresOwnedFragment extends CollectionFiguresFragment {
+public class FiguresOrderedFragment extends CollectionFiguresFragment {
 
-    public FiguresOwnedFragment() {
+    public FiguresOrderedFragment() {
         // Required empty public constructor
     }
 
@@ -35,41 +34,33 @@ public class FiguresOwnedFragment extends CollectionFiguresFragment {
      *
      * @return A new instance of fragment FiguresOwnedFragment.
      */
-    public static FiguresOwnedFragment newInstance() {
-        return new FiguresOwnedFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static FiguresOrderedFragment newInstance() {
+        return new FiguresOrderedFragment();
     }
 
     @Override
     protected void loadCollection() {
-
-        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOwned(SessionHelper.getUserName(getContext()));
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOrdered(SessionHelper.getUserName(getContext()));
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {
                 ItemList itemList = response.body();
                 Log.d("MFC", itemList.toString());
-                ItemState itemState = itemList.getCollection().getOwned();
+                ItemState itemState = itemList.getCollection().getOrdered();
                 if (itemState.getItem() != null && !itemState.getItem().isEmpty()) {
                     showData(itemState);
                 } else {
-                    String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.owned_items_value));
-                    String message = getActivity().getString(R.string.message_error_no_owned_items_in_list);
-                    ;
+                    String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.ordered_items_value));
+                    String message = getActivity().getString(R.string.message_error_no_ordered_items_in_list);
                     showError(title, message);
                 }
-
             }
 
             @Override
             public void onFailure(Call<ItemList> call, Throwable t) {
-                Log.e("MFC", "Error on loading Owned items.", t);
+                Log.e("MFC", "Error on loading Ordered items.", t);
                 if (getActivity() != null) {
-                    String title = String.format(getActivity().getString(R.string.title_error_loading_items), getActivity().getString(R.string.owned_items_value));
+                    String title = String.format(getActivity().getString(R.string.title_error_loading_items), getActivity().getString(R.string.ordered_items_value));
                     showError(title);
                 }
             }
@@ -78,8 +69,7 @@ public class FiguresOwnedFragment extends CollectionFiguresFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT);
+        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.ORDERED_FRAGMENT);
     }
-
 
 }

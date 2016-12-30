@@ -1,4 +1,4 @@
-package com.example.architecture.bad.myfigurecollection;
+package com.example.architecture.bad.myfigurecollection.figures;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 

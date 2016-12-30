@@ -1,4 +1,4 @@
-package com.example.architecture.bad.myfigurecollection.figures;
+package com.example.architecture.bad.myfigurecollection.figures.collection;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

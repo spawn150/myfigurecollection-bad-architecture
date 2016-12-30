@@ -1,9 +1,9 @@
-package com.example.architecture.bad.myfigurecollection.bestpictures;
+package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.architecture.bad.myfigurecollection.FiguresFragment;
+import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 
 /**

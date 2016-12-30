@@ -1,4 +1,4 @@
-package com.example.architecture.bad.myfigurecollection.bestpictures;
+package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

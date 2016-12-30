@@ -1,9 +1,8 @@
-package com.example.architecture.bad.myfigurecollection.figures;
+package com.example.architecture.bad.myfigurecollection.figures.collection;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.pojo.Mycollection;
-import com.example.architecture.bad.myfigurecollection.FiguresFragment;
+import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
