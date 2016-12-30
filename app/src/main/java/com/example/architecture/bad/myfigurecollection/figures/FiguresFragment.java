@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.ant_robot.mfc.api.pojo.ItemState;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
@@ -97,7 +98,9 @@ public abstract class FiguresFragment extends Fragment {
 
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
-
+    protected void showData() {
+        setViewState(SUCCESS);
+    }
     protected void showError(String title) {
         showError(title, "");
     }

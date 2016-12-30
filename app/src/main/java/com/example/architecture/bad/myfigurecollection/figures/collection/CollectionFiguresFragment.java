@@ -87,8 +87,8 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     }
 
     protected void showData(ItemState itemState) {
-        setViewState(SUCCESS);
         figureAdapter.updateData(itemState.getItem());
+        showData();
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
