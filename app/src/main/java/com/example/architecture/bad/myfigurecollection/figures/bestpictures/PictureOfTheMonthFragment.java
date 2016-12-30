@@ -1,5 +1,9 @@
 package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 
+import android.view.View;
+
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -15,8 +19,12 @@ public class PictureOfTheMonthFragment extends BestPicturesFragment {
     }
 
     @Override
-    protected String getTextValue() {
-        return "Pictures of the month!";
+    protected void loadCollection() {
+
     }
 
+    @Override
+    protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
+
+    }
 }
