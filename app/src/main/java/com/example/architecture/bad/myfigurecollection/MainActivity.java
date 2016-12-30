@@ -22,12 +22,12 @@ import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.SessionUser;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.LatestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheDayFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheMonthFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheWeekFragment;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.data.SessionUser;
 import com.example.architecture.bad.myfigurecollection.figures.collection.CollectionFiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.collection.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
@@ -72,11 +72,6 @@ public class MainActivity extends AppCompatActivity
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onStart();
 
         if (!SessionHelper.isAuthenticated(this)) {
             login();
