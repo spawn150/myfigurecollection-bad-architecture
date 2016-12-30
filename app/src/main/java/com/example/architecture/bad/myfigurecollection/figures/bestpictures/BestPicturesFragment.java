@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.example.architecture.bad.myfigurecollection.R;
+import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
+import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -27,37 +30,50 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
 
     public static final String TAG = LatestPicturesFragment.class.getName();
+    OnFragmentInteractionListener mListener;
     private PictureAdapter pictureAdapter;
 
-    private PictureItemListener mPictureItemListener = new PictureItemListener() {
+    PictureItemListener mPictureItemListener = new PictureItemListener() {
         @Override
         public void onPictureItemClick(View view, Picture picture) {
 
             /*
-            Data data = figureItem.getData();
-            Category category = figureItem.getCategory();
-            Mycollection mycollection = figureItem.getMycollection();
-            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(data.getId())
-                    .setName(data.getName())
+            picture.getAuthor();
+            picture.getDate();
+            picture.getCategory().getName();
+            picture.getTitle();
+            picture.getMedium();
+            */
+
+            Category category = picture.getCategory();
+
+            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
+                    .setName(picture.getTitle())
                     .setCategory(category.getName())
                     .setReleaseDate(
-                            StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))
-                    .setScore(StringUtils.getFractionValue(mycollection.getScore(),
-                            getString(R.string.denominator_score_value), getString(R.string.not_available)))
-                    .setPrice(
-                            StringUtils.getCurrencyValue(data.getPrice(), getString(R.string.currency_symbol),
-                                    getString(R.string.not_available)))
-                    .setNumber(mycollection.getNumber())
-                    .setWishability(StringUtils.getFractionValue(mycollection.getWishability(),
-                            getString(R.string.denominator_wishability_value), getString(R.string.not_available)))
-                    .setBarcode(data.getBarcode())
+                            StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
                     .build();
 
             onFragmentInteraction(view, detailedFigure);
-            */
         }
     };
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(
+                    context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
@@ -103,7 +119,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         // Provide a suitable constructor (depends on the kind of dataset)
         PictureAdapter(List<Picture> myDataset, PictureItemListener pictureItemListener) {
             mDataset = myDataset;
-            pictureItemListener = pictureItemListener;
+            mPictureItemListener = pictureItemListener;
         }
 
         void updateData(List<Picture> myDataset) {

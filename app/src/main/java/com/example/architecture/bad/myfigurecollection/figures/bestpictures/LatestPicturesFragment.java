@@ -7,6 +7,7 @@ import com.ant_robot.mfc.api.pojo.BestPictureGallery;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class LatestPicturesFragment extends BestPicturesFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-
+        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT); //TODO Change Fragment!
     }
 
 }
