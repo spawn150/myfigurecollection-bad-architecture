@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             figuresContainerFragment = FiguresContainerFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), figuresContainerFragment, R.id.figures_container, FiguresContainerFragment.TAG);
+            setTitle(getString(R.string.menu_title_mfc));
         }
     }
 
@@ -225,6 +226,7 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             latestPicturesFragment = LatestPicturesFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), latestPicturesFragment, R.id.figures_container, LatestPicturesFragment.TAG);
+            setTitle(getString(R.string.menu_title_latest_pictures));
         }
     }
 
@@ -234,6 +236,7 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             pictureOfTheDayFragment = PictureOfTheDayFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheDayFragment, R.id.figures_container, PictureOfTheDayFragment.TAG);
+            setTitle(getString(R.string.menu_title_pod));
         }
     }
 
@@ -261,6 +264,7 @@ public class MainActivity extends AppCompatActivity
             // Create the fragment
             embeddedTwitterFragment = EmbeddedTwitterFragment.newInstance();
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
+            setTitle(getString(R.string.menu_title_twitter));
         }
     }
 
