@@ -36,15 +36,6 @@ public abstract class BestPicturesFragment extends FiguresFragment {
     PictureItemListener mPictureItemListener = new PictureItemListener() {
         @Override
         public void onPictureItemClick(View view, Picture picture) {
-
-            /*
-            picture.getAuthor();
-            picture.getDate();
-            picture.getCategory().getName();
-            picture.getTitle();
-            picture.getMedium();
-            */
-
             Category category = picture.getCategory();
 
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
