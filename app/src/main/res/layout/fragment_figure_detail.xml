@@ -33,6 +33,28 @@
             android:layout_height="wrap_content"
             tools:text="Categoria della figure" />
 
+        <LinearLayout
+            android:id="@+id/view_group_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_author" />
+
+            <TextView
+                android:id="@+id/text_view_detail_author"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Autore della figure" />
+        </LinearLayout>
+
         <TextView
             style="@style/Base.Labels"
             android:layout_width="match_parent"
@@ -46,19 +68,27 @@
             android:layout_height="wrap_content"
             tools:text="Release date della figure" />
 
-        <TextView
-            style="@style/Base.Labels"
+        <LinearLayout
+            android:id="@+id/view_group_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_price" />
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/text_view_detail_price"
-            style="@style/Base.Contents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="8000¥"
-            tools:visibility="visible" />
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_price" />
+
+            <TextView
+                android:id="@+id/text_view_detail_price"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="8000¥"
+                tools:visibility="visible" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/view_group_score"
@@ -129,19 +159,26 @@
 
         </LinearLayout>
 
-
-        <TextView
-            style="@style/Base.Labels"
+        <LinearLayout
+            android:id="@+id/view_group_barcode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_barcode" />
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/text_view_detail_barcode"
-            style="@style/Base.Contents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="12312312313" />
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_barcode" />
+
+            <TextView
+                android:id="@+id/text_view_detail_barcode"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="12312312313" />
+        </LinearLayout>
 
     </LinearLayout>
 

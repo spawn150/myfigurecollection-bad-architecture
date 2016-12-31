@@ -12,6 +12,7 @@ public class DetailedFigure implements Parcelable {
     private String name;
     private String imageUrl;
     private String category;
+    private String author;
     private String releaseDate;
     private String price;
     private String wishability;
@@ -19,11 +20,12 @@ public class DetailedFigure implements Parcelable {
     private String number;
     private String barcode;
 
-    private DetailedFigure(String id, String name, String imageUrl, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
+    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.category = category;
+        this.author = author;
         this.releaseDate = releaseDate;
         this.price = price;
         this.wishability = wishability;
@@ -46,6 +48,10 @@ public class DetailedFigure implements Parcelable {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public String getReleaseDate() {
@@ -79,6 +85,7 @@ public class DetailedFigure implements Parcelable {
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", category='" + category + '\'' +
+                ", author='" + author + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
                 ", price='" + price + '\'' +
                 ", wishability='" + wishability + '\'' +
@@ -93,6 +100,7 @@ public class DetailedFigure implements Parcelable {
         private String name;
         private String imageUrl;
         private String category;
+        private String author;
         private String releaseDate;
         private String price;
         private String wishability;
@@ -117,6 +125,11 @@ public class DetailedFigure implements Parcelable {
 
         public Builder setCategory(String category) {
             this.category = category;
+            return this;
+        }
+
+        public Builder setAuthor(String author) {
+            this.author = author;
             return this;
         }
 
@@ -151,7 +164,7 @@ public class DetailedFigure implements Parcelable {
         }
 
         public DetailedFigure build() {
-            return new DetailedFigure(id, name, imageUrl, category, releaseDate, price, wishability, score, number, barcode);
+            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode);
         }
     }
 
@@ -160,6 +173,7 @@ public class DetailedFigure implements Parcelable {
         name = in.readString();
         imageUrl = in.readString();
         category = in.readString();
+        author = in.readString();
         releaseDate = in.readString();
         price = in.readString();
         wishability = in.readString();
@@ -179,6 +193,7 @@ public class DetailedFigure implements Parcelable {
         dest.writeString(name);
         dest.writeString(imageUrl);
         dest.writeString(category);
+        dest.writeString(author);
         dest.writeString(releaseDate);
         dest.writeString(price);
         dest.writeString(wishability);

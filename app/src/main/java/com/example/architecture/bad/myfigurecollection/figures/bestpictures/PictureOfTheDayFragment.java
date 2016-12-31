@@ -55,7 +55,7 @@ public class PictureOfTheDayFragment extends BestPicturesFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT); //TODO Change Fragment!
+        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.BEST_PICTURES);
     }
 
 

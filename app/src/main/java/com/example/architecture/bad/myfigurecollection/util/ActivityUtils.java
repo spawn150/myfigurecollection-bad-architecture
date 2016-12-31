@@ -47,8 +47,9 @@ public class ActivityUtils {
     public static final int OWNED_FRAGMENT = 0;
     public static final int WISHED_FRAGMENT = 1;
     public static final int ORDERED_FRAGMENT = 2;
+    public static final int BEST_PICTURES = 3;
 
-    @IntDef({OWNED_FRAGMENT, WISHED_FRAGMENT, ORDERED_FRAGMENT})
+    @IntDef({OWNED_FRAGMENT, WISHED_FRAGMENT, ORDERED_FRAGMENT, BEST_PICTURES})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FragmentType {
     }
