@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.ant_robot.mfc.api.pojo.BestPictureGallery;
+import com.ant_robot.mfc.api.pojo.LatestPictureGallery;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
@@ -30,10 +31,10 @@ public class LatestPicturesFragment extends BestPicturesFragment {
     @Override
     protected void loadCollection() {
 
-        Call<BestPictureGallery> call = MFCRequest.getInstance().getBestPicturesService().getPicturesOfTheDay(0);
-        call.enqueue(new retrofit2.Callback<BestPictureGallery>() {
+        Call<LatestPictureGallery> call = MFCRequest.getInstance().getBestPicturesService().getLatestPictures(0);
+        call.enqueue(new retrofit2.Callback<LatestPictureGallery>() {
             @Override
-            public void onResponse(Call<BestPictureGallery> call, Response<BestPictureGallery> response) {
+            public void onResponse(Call<LatestPictureGallery> call, Response<LatestPictureGallery> response) {
                 List<Picture> pictures = response.body().getGallery().getPictures();
                 if (pictures != null && !pictures.isEmpty()) {
                     showData(pictures);
@@ -43,7 +44,7 @@ public class LatestPicturesFragment extends BestPicturesFragment {
             }
 
             @Override
-            public void onFailure(Call<BestPictureGallery> call, Throwable t) {
+            public void onFailure(Call<LatestPictureGallery> call, Throwable t) {
                 Log.e("MFC", "Error on loading Best Pictures items.", t);
                 if (getActivity() != null) {
                     showError();

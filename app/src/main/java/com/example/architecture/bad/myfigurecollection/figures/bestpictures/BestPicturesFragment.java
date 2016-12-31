@@ -49,7 +49,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
                     .setName(picture.getTitle())
-                    .setImageUrl(picture.getMedium())
+                    .setImageUrl(picture.getFull())
                     .setCategory(category.getName())
                     .setAuthor(picture.getAuthor())
                     .setReleaseDate(
@@ -159,6 +159,26 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
                         @Override
                         public void onError() {
+
+                            Picasso.with(context)
+                                    .load(picture.getFull())
+                                    .placeholder(R.drawable.placeholder)
+                                    .into(holder.imageViewFigure, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
+                                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                                            holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
+                                            holder.imageViewFigure.requestLayout();
+                                        }
+
+                                        @Override
+                                        public void onError() {
+
+                                        }
+                                    });
+
                         }
                     });
 
