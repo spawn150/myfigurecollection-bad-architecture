@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -43,7 +44,7 @@ public class FigureDetailActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(
                 StringUtils.extractStringBeforeSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2));
 
-        loadBackdrop(detailedFigure.getId());
+        loadBackdrop(detailedFigure);
 
         //Workaround to fix issue on NestedScrollView scrolling (http://stackoverflow.com/questions/31795483/collapsingtoolbarlayout-doesnt-recognize-scroll-fling)
         FrameLayout viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
@@ -77,10 +78,17 @@ public class FigureDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    private void loadBackdrop(final String figureId) {
+    private void loadBackdrop(final DetailedFigure detailedFigure) {
         imageView = (ImageView) findViewById(R.id.backdrop);
 
         if (imageView != null) {
+
+            final String figureId = detailedFigure.getId();
+            String url = getString(R.string.figure_large_image_url, figureId);
+            if (!TextUtils.isEmpty(detailedFigure.getImageUrl())) {
+                url = detailedFigure.getImageUrl();
+            }
+
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -89,7 +97,7 @@ public class FigureDetailActivity extends AppCompatActivity {
             });
 
             Picasso.with(this)
-                    .load(getString(R.string.figure_large_image_url, figureId))
+                    .load(url)
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {

@@ -49,6 +49,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
                     .setName(picture.getTitle())
+                    .setImageUrl(picture.getMedium())
                     .setCategory(category.getName())
                     .setReleaseDate(
                             StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
@@ -143,7 +144,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
             final Picture picture = mDataset.get(position);
 
             Picasso.with(context)
-                    .load(picture.getThumbnail())
+                    .load(picture.getMedium())
                     .placeholder(R.drawable.placeholder)
                     .into(holder.imageViewFigure, new Callback() {
                         @Override

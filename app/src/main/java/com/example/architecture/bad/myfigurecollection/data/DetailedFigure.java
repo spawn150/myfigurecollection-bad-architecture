@@ -10,6 +10,7 @@ public class DetailedFigure implements Parcelable {
 
     private String id;
     private String name;
+    private String imageUrl;
     private String category;
     private String releaseDate;
     private String price;
@@ -18,9 +19,10 @@ public class DetailedFigure implements Parcelable {
     private String number;
     private String barcode;
 
-    private DetailedFigure(String id, String name, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
+    private DetailedFigure(String id, String name, String imageUrl, String category, String releaseDate, String price, String wishability, String score, String number, String barcode) {
         this.id = id;
         this.name = name;
+        this.imageUrl = imageUrl;
         this.category = category;
         this.releaseDate = releaseDate;
         this.price = price;
@@ -36,6 +38,10 @@ public class DetailedFigure implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getCategory() {
@@ -71,6 +77,7 @@ public class DetailedFigure implements Parcelable {
         return "DetailedFigure{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", category='" + category + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
                 ", price='" + price + '\'' +
@@ -84,6 +91,7 @@ public class DetailedFigure implements Parcelable {
     public static class Builder {
         private String id;
         private String name;
+        private String imageUrl;
         private String category;
         private String releaseDate;
         private String price;
@@ -99,6 +107,11 @@ public class DetailedFigure implements Parcelable {
 
         public Builder setName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
             return this;
         }
 
@@ -138,13 +151,14 @@ public class DetailedFigure implements Parcelable {
         }
 
         public DetailedFigure build() {
-            return new DetailedFigure(id, name, category, releaseDate, price, wishability, score, number, barcode);
+            return new DetailedFigure(id, name, imageUrl, category, releaseDate, price, wishability, score, number, barcode);
         }
     }
 
     protected DetailedFigure(Parcel in) {
         id = in.readString();
         name = in.readString();
+        imageUrl = in.readString();
         category = in.readString();
         releaseDate = in.readString();
         price = in.readString();
@@ -163,6 +177,7 @@ public class DetailedFigure implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeString(imageUrl);
         dest.writeString(category);
         dest.writeString(releaseDate);
         dest.writeString(price);
