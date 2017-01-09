@@ -30,6 +30,7 @@ import com.example.architecture.bad.myfigurecollection.figures.bestpictures.Pict
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheWeekFragment;
 import com.example.architecture.bad.myfigurecollection.figures.collection.CollectionFiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.collection.FiguresContainerFragment;
+import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
@@ -172,9 +173,6 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
-                            case R.id.settings_navigation_menu_item:
-                                Log.d(TAG, "Settings menu tapped!");
-                                break;
                             case R.id.mfc_navigation_menu_item:
                                 Log.d(TAG, "MFC menu tapped!");
                                 setMyCollectionFragment();
@@ -199,11 +197,15 @@ public class MainActivity extends AppCompatActivity
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
                                 setTwitterFragment();
+                            case R.id.settings_navigation_menu_item:
+                                Log.d(TAG, "Settings menu tapped!");
+                                openSettings();
+                                break;
                             default:
                                 break;
                         }
                         // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
+                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -266,6 +268,10 @@ public class MainActivity extends AppCompatActivity
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
             setTitle(getString(R.string.menu_title_twitter));
         }
+    }
+
+    private void openSettings() {
+        ActivityUtils.startActivityInSameTask(this, SettingsActivity.class);
     }
 
     @Override

@@ -3,7 +3,7 @@
 
     <group
         android:id="@+id/first_section"
-        android:checkableBehavior="all">
+        android:checkableBehavior="single">
         <item
             android:id="@+id/mfc_navigation_menu_item"
             android:checked="true"
@@ -34,7 +34,7 @@
 
     <group
         android:id="@+id/second_section"
-        android:checkableBehavior="all">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/settings_navigation_menu_item"
             android:title="@string/menu_title_settings" />
