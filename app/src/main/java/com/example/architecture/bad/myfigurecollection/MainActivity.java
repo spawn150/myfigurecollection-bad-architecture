@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
                                 setTwitterFragment();
+                                break;
                             case R.id.settings_navigation_menu_item:
                                 Log.d(TAG, "Settings menu tapped!");
                                 openSettings();

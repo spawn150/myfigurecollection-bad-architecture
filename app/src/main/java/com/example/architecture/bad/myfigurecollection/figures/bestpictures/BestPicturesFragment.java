@@ -3,6 +3,7 @@ package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.ant_robot.mfc.api.pojo.Picture;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
+import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.Constants;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
@@ -77,14 +79,18 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
     protected void showData(List<Picture> pictures) {
 
-        //TODO change this code with JAVA 8 filter
-        List<Picture> sfwPictures = new ArrayList<>(pictures.size());
-        for (Picture picture : pictures) {
-            if(picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
-                sfwPictures.add(picture);
+        if (!PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(SettingsActivity.KEY_PREF_NSFW_CONTENT_ENABLED, false)) {
+            //TODO change this code with JAVA 8 filter
+            List<Picture> sfwPictures = new ArrayList<>(pictures.size());
+            for (Picture picture : pictures) {
+                if (picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
+                    sfwPictures.add(picture);
+                }
             }
+            pictureAdapter.updateData(sfwPictures);
+        } else {
+            pictureAdapter.updateData(pictures);
         }
-        pictureAdapter.updateData(sfwPictures);
         showData();
     }
 
