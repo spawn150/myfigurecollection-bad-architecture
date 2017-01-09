@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+
+        //set default value for settings (just once)
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         if (!SessionHelper.isAuthenticated(this)) {
             login();
