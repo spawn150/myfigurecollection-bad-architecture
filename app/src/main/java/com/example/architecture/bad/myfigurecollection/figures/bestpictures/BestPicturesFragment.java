@@ -16,6 +16,7 @@ import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
+import com.example.architecture.bad.myfigurecollection.util.Constants;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -75,7 +76,15 @@ public abstract class BestPicturesFragment extends FiguresFragment {
     }
 
     protected void showData(List<Picture> pictures) {
-        pictureAdapter.updateData(pictures);
+
+        //TODO change this code with JAVA 8 filter
+        List<Picture> sfwPictures = new ArrayList<>(pictures.size());
+        for (Picture picture : pictures) {
+            if(picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
+                sfwPictures.add(picture);
+            }
+        }
+        pictureAdapter.updateData(sfwPictures);
         showData();
     }
 
@@ -180,7 +189,6 @@ public abstract class BestPicturesFragment extends FiguresFragment {
                     mPictureItemListener.onPictureItemClick(holder.imageViewFigure, picture);
                 }
             });
-
         }
 
         // Return the size of your dataset (invoked by the layout manager)
