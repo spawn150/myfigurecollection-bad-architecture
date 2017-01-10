@@ -1,10 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/twitter_swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".timelinetwitter.EmbeddedTwitterFragment"
-    tools:showIn="@layout/activity_embedded_twitter">
+    tools:context=".timelinetwitter.EmbeddedTwitterFragment">
 
     <ListView
         android:id="@+id/list_view_twitter_timeline"
@@ -14,5 +14,5 @@
         android:divider="#e1e8ed"
         android:dividerHeight="1dp"
         android:drawSelectorOnTop="false" />
+</android.support.v4.widget.SwipeRefreshLayout>
 
-</LinearLayout>
