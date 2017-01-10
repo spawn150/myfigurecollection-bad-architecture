@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public abstract class FiguresFragment extends Fragment {
 
     private static final int LAYOUT_COLUMNS = 2;
     private ViewFlipper viewFlipper;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
     OnFragmentInteractionListener mListener;
@@ -90,6 +92,15 @@ public abstract class FiguresFragment extends Fragment {
         staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.figures_swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                loadCollection();
+            }
+        });
+
         loadCollection();
     }
 
@@ -112,6 +123,7 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected void setViewState(@ViewState int viewState) {
+        swipeRefreshLayout.setRefreshing(false);
         viewFlipper.setDisplayedChild(viewState);
     }
 
