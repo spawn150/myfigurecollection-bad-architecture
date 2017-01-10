@@ -29,10 +29,7 @@ public class EmbeddedTwitterFragment extends Fragment {
      * @return A new instance of fragment EmbeddedTwitterFragment.
      */
     public static EmbeddedTwitterFragment newInstance() {
-        EmbeddedTwitterFragment fragment = new EmbeddedTwitterFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new EmbeddedTwitterFragment();
     }
 
     @Override
