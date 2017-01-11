@@ -126,7 +126,7 @@ public class FigureGalleryFragment extends Fragment {
 
                 if (getActivity() != null && isAdded()) {
                     List<GalleryFigure> galleryFigures = new ArrayList<>();
-                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
+                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_big_image_url, figureId)));
 
                     PictureGallery pictureGallery = response.body();
                     if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
