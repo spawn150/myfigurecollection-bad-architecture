@@ -62,6 +62,7 @@ public class EmbeddedTwitterFragment extends Fragment {
         embeddedTwitterTimelineListView.setAdapter(adapter);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.twitter_swipe_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.accent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
