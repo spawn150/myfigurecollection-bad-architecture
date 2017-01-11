@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ant_robot.mfc.api.pojo.Picture;
@@ -18,6 +19,7 @@ import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.GalleryFigure;
+import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;
 
@@ -126,7 +128,7 @@ public class FigureGalleryFragment extends Fragment {
 
                 if (getActivity() != null && isAdded()) {
                     List<GalleryFigure> galleryFigures = new ArrayList<>();
-                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_big_image_url, figureId)));
+                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
 
                     PictureGallery pictureGallery = response.body();
                     if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
@@ -189,11 +191,16 @@ public class FigureGalleryFragment extends Fragment {
             GalleryFigure galleryFigure = galleryFigures.get(position);
 
             imgDisplay = (ImageView) viewLayout.findViewById(R.id.image_view_figure);
+            ProgressBar progressBar = (ProgressBar) viewLayout.findViewById(R.id.gallery_progressbar);
+
+            ProgressImageViewTarget target = new ProgressImageViewTarget(imgDisplay, progressBar);
+            //Fix Picasso WeakReference issue - http://stackoverflow.com/questions/24180805/onbitmaploaded-of-target-object-not-called-on-first-load
+            imgDisplay.setTag(target);
 
             Picasso
                     .with(container.getContext())
                     .load(galleryFigure.getUrl())
-                    .into(imgDisplay);
+                    .into(target);
 
             ((TextView) viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());
             ((TextView) viewLayout.findViewById(R.id.text_view_gallery_date)).setText(galleryFigure.getDate());
