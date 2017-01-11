@@ -10,6 +10,7 @@ import com.example.architecture.bad.myfigurecollection.R;
 public class SettingsActivity extends Activity {
 
     public static final String KEY_PREF_NSFW_CONTENT_ENABLED = "pref_nsfw_content_enabled";
+    public static final String KEY_PREF_VERSION = "pref_version";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

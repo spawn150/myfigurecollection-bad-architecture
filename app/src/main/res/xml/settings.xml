@@ -2,9 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreference
+        android:defaultValue="false"
         android:key="pref_nsfw_content_enabled"
-        android:title="@string/settings_label_nsfw_title"
         android:summary="@string/settings_label_nsfw_subtitle"
-        android:defaultValue="false" />
+        android:title="@string/settings_label_nsfw_title" />
+
+    <Preference
+        android:key="pref_version"
+        android:title="@string/settings_version"
+        android:persistent="false"/>
 
 </PreferenceScreen>

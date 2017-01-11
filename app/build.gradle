@@ -28,6 +28,7 @@ android {
     }
     buildTypes {
         debug {
+            versionNameSuffix "-debug-${getBuildString()}"
             //TODO enable them!
             //minifyEnabled true
             // Uses new built-in shrinker http://tools.android.com/tech-docs/new-build-system/built-in-shrinker
@@ -39,6 +40,12 @@ android {
         }
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
+}
+
+def getBuildString() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
 }
 
 dependencies {

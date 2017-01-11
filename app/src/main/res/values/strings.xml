@@ -28,6 +28,7 @@
     <string name="title_activity_embedded_twitter">EmbeddedTwitterActivity</string>
     <string name="settings_label_nsfw_title">Enable NSFW</string>
     <string name="settings_label_nsfw_subtitle">Show Not Safe for Work (NSFW) Content</string>
+    <string name="settings_version">Version</string>
 
     <!-- Error messages -->
     <string name="ordered_items_value">ordered</string>
