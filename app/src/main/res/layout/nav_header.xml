@@ -14,7 +14,7 @@
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:contentDescription="@string/content_description"
-        android:src="@drawable/ic_tsuko_color" />
+        android:src="@drawable/ic_tsuko_bn" />
 
     <TextView
         android:id="@+id/text_view_username"

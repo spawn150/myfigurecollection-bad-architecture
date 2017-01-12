@@ -98,15 +98,20 @@ public class MainActivity extends AppCompatActivity
 
     private void login() {
         //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn150", "pul78lce", this, new MFCRequest.MFCCallback<Boolean>() {
+        MFCRequest.getInstance().connect("spawn150", "Pu!78!ce!", this, new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
-                loadUserProfile();
+                if (aBoolean) {
+                    loadUserProfile();
+                } else {
+                    setupUserProfileData();
+                }
             }
 
             @Override
             public void error(Throwable throwable) {
                 Log.e(TAG, "Error in connect()", throwable);
+                setupUserProfileData();
             }
         });
     }
@@ -128,6 +133,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<UserProfile> call, Throwable t) {
                 Log.e(TAG, "Error in getUser()", t);
+                setupUserProfileData();
             }
         });
     }
@@ -140,33 +146,42 @@ public class MainActivity extends AppCompatActivity
             navigationView.addHeaderView(header);
 
             Context context = MainActivity.this;
-            SessionUser sessionUser = SessionHelper.getUserData(context);
 
-            final ImageView imageViewAvatar = (ImageView) header.findViewById(R.id.image_view_avatar);
-            TextView textViewUsername = (TextView) header.findViewById(R.id.text_view_username);
-            textViewUsername.setText(sessionUser.getName());
-            setMyCollectionFragment();
+            if (SessionHelper.isAuthenticated(this)) {
 
-            int imageSize = (int) CodeUtils.convertDpToPixel(120, context);
+                setupDrawerForUser();
 
-            Picasso.with(context)
-                    .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
-                    .resize(imageSize, imageSize)
-                    .into(imageViewAvatar, new com.squareup.picasso.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
-                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                            imageDrawable.setCircular(true);
-                            imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                            imageViewAvatar.setImageDrawable(imageDrawable);
-                        }
+                SessionUser sessionUser = SessionHelper.getUserData(context);
+                final ImageView imageViewAvatar = (ImageView) header.findViewById(R.id.image_view_avatar);
+                TextView textViewUsername = (TextView) header.findViewById(R.id.text_view_username);
+                textViewUsername.setText(sessionUser.getName());
 
-                        @Override
-                        public void onError() {
-                            imageViewAvatar.setImageResource(R.drawable.ic_tsuko_color);
-                        }
-                    });
+                setMyCollectionFragment();
+
+                int imageSize = (int) CodeUtils.convertDpToPixel(120, context);
+
+                Picasso.with(context)
+                        .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
+                        .resize(imageSize, imageSize)
+                        .into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                                RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                                imageDrawable.setCircular(true);
+                                imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                                imageViewAvatar.setImageDrawable(imageDrawable);
+                            }
+
+                            @Override
+                            public void onError() {
+                                imageViewAvatar.setImageResource(R.drawable.ic_tsuko_bn);
+                            }
+                        });
+            } else {
+                setPODFragment();
+                setupDrawerForGuest();
+            }
 
         }
     }
@@ -276,6 +291,15 @@ public class MainActivity extends AppCompatActivity
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
             setTitle(getString(R.string.menu_title_twitter));
         }
+    }
+
+    private void setupDrawerForGuest() {
+        navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(false);
+        navigationView.getMenu().findItem(R.id.pod_navigation_menu_item).setChecked(true);
+    }
+
+    private void setupDrawerForUser() {
+        navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(true);
     }
 
     private void openSettings() {
