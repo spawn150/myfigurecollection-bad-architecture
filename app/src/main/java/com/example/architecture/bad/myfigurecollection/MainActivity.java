@@ -206,11 +206,14 @@ public class MainActivity extends AppCompatActivity
                                 Log.d(TAG, "Settings menu tapped!");
                                 openSettings();
                                 break;
+                            case R.id.login_logout_menu_item:
+                                Log.d(TAG, "Settings menu tapped!");
+                                break;
                             default:
                                 break;
                         }
                         // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item);
+                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item && menuItem.getItemId() != R.id.login_logout_menu_item);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
