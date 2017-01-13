@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = LoginFragment.class.getName();
     private OnFragmentInteractionListener mListener;
+    private TextInputEditText editTextUsername;
+    private TextInputEditText editTextPassword;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -58,11 +61,14 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        editTextUsername = (TextInputEditText) view.findViewById(R.id.edit_text_username);
+        editTextPassword = (TextInputEditText) view.findViewById(R.id.edit_text_password);
+
         Button buttonSignin = (Button) view.findViewById(R.id.button_signin);
         buttonSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                login(editTextUsername.getText().toString(), editTextPassword.getText().toString());
             }
         });
     }
@@ -90,9 +96,11 @@ public class LoginFragment extends Fragment {
         mListener = null;
     }
 
-    private void login() {
-        //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn150", "Pu!78!ce!", getActivity(), new MFCRequest.MFCCallback<Boolean>() {
+    private void login(String username, String password) {
+
+        Log.d(TAG, "Username: " + username + " and Pwd: " + password);
+
+        MFCRequest.getInstance().connect(username, password, getActivity(), new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
                 if (aBoolean) {
