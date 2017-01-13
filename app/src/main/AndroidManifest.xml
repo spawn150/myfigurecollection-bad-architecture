@@ -31,15 +31,15 @@
         <activity
             android:name=".figuregallery.FigureGalleryActivity"
             android:theme="@style/AppTheme.Gallery" />
+        <activity android:name=".settings.SettingsActivity" />
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/AppTheme.Gallery" />
-
-        <activity android:name=".settings.SettingsActivity" />
+            android:noHistory="true" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f8bc8a7c2b7a740714261964ad4795c6df3a6a12" />
+
 
     </application>
 

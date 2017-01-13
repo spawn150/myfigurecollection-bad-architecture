@@ -31,6 +31,7 @@ import com.example.architecture.bad.myfigurecollection.figures.bestpictures.Pict
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheWeekFragment;
 import com.example.architecture.bad.myfigurecollection.figures.collection.CollectionFiguresFragment;
 import com.example.architecture.bad.myfigurecollection.figures.collection.FiguresContainerFragment;
+import com.example.architecture.bad.myfigurecollection.login.LoginActivity;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity
                                 break;
                             case R.id.login_logout_menu_item:
                                 Log.d(TAG, "Settings menu tapped!");
+                                ActivityUtils.startActivityInSameTask(MainActivity.this, LoginActivity.class);
                                 break;
                             default:
                                 break;
