@@ -40,7 +40,10 @@
             android:id="@+id/settings_navigation_menu_item"
             android:title="@string/menu_title_settings" />
         <item
-            android:id="@+id/login_logout_menu_item"
+            android:id="@+id/login_menu_item"
+            android:title="@string/menu_title_login" />
+        <item
+            android:id="@+id/logout_menu_item"
             android:title="@string/menu_title_logout" />
     </group>
 
