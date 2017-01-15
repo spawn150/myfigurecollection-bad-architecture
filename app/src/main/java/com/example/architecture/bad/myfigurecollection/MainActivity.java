@@ -79,11 +79,7 @@ public class MainActivity extends AppCompatActivity
         //set default value for settings (just once)
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
-        if (!SessionHelper.isAuthenticated(this)) {
-            login();
-        } else {
-            setupUserProfileData();
-        }
+        setupUserProfileData();
     }
 
     @Override
@@ -95,48 +91,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void login() {
-        //TODO Remove hardcode user/pwd
-        MFCRequest.getInstance().connect("spawn150", "Pu!78!ce!", this, new MFCRequest.MFCCallback<Boolean>() {
-            @Override
-            public void success(Boolean aBoolean) {
-                if (aBoolean) {
-                    loadUserProfile();
-                } else {
-                    setupUserProfileData();
-                }
-            }
-
-            @Override
-            public void error(Throwable throwable) {
-                Log.e(TAG, "Error in connect()", throwable);
-                setupUserProfileData();
-            }
-        });
-    }
-
-    private void loadUserProfile() {
-        //TODO Remove hardcode user
-        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser("spawn150");
-        call.enqueue(new Callback<UserProfile>() {
-            @Override
-            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-                UserProfile userProfile = response.body();
-                Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
-                Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
-
-                SessionHelper.createSession(MainActivity.this, userProfile.getUser());
-                setupUserProfileData();
-            }
-
-            @Override
-            public void onFailure(Call<UserProfile> call, Throwable t) {
-                Log.e(TAG, "Error in getUser()", t);
-                setupUserProfileData();
-            }
-        });
     }
 
     private void setupUserProfileData() {
@@ -222,15 +176,21 @@ public class MainActivity extends AppCompatActivity
                                 Log.d(TAG, "Settings menu tapped!");
                                 openSettings();
                                 break;
-                            case R.id.login_logout_menu_item:
+                            case R.id.login_menu_item:
                                 Log.d(TAG, "Settings menu tapped!");
-                                ActivityUtils.startActivityInSameTask(MainActivity.this, LoginActivity.class);
+                                openLogin();
+                                break;
+                            case R.id.logout_menu_item:
+                                Log.d(TAG, "Settings menu tapped!");
+                                logout();
                                 break;
                             default:
                                 break;
                         }
                         // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item && menuItem.getItemId() != R.id.login_logout_menu_item);
+                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item
+                                && menuItem.getItemId() != R.id.login_menu_item
+                                && menuItem.getItemId() != R.id.logout_menu_item);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -297,15 +257,28 @@ public class MainActivity extends AppCompatActivity
 
     private void setupDrawerForGuest() {
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(false);
+        navigationView.getMenu().findItem(R.id.login_menu_item).setVisible(true);
+        navigationView.getMenu().findItem(R.id.logout_menu_item).setVisible(false);
         navigationView.getMenu().findItem(R.id.pod_navigation_menu_item).setChecked(true);
     }
 
     private void setupDrawerForUser() {
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(true);
+        navigationView.getMenu().findItem(R.id.login_menu_item).setVisible(false);
+        navigationView.getMenu().findItem(R.id.logout_menu_item).setVisible(true);
     }
 
     private void openSettings() {
         ActivityUtils.startActivityInSameTask(this, SettingsActivity.class);
+    }
+
+    private void openLogin() {
+        ActivityUtils.startActivityInSameTask(MainActivity.this, LoginActivity.class);
+    }
+
+    private void logout() {
+        SessionHelper.removeSession(this);
+        ActivityUtils.startActivityWithNewTask(MainActivity.this, MainActivity.class);
     }
 
     @Override
