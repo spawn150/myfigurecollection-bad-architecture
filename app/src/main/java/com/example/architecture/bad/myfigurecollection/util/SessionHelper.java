@@ -43,6 +43,7 @@ public class SessionHelper {
 
     /**
      * Gets User data in session
+     *
      * @param context context
      * @return user's data
      */
@@ -68,6 +69,15 @@ public class SessionHelper {
         edit.putString(USER_HOMEPAGE_PREFS, user.getHomepage());
 
         edit.commit();
+    }
+
+    public static void removeSession(Context context) {
+
+        SharedPreferences prefs = context.getSharedPreferences(APP_ACCOUNT_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.clear();
+        edit.apply();
+
     }
 
 }
