@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.R;
+import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,7 +109,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void success(Boolean aBoolean) {
                 if (aBoolean) {
-                    signinSuccess();
+                    loadUserProfile();
                 } else {
                     if (isAdded() && getActivity() != null) {
                         Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_SHORT).show();
@@ -118,6 +123,30 @@ public class LoginFragment extends Fragment {
                 if (isAdded() && getActivity() != null) {
                     Toast.makeText(getActivity(), "Connection error: " + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    private void loadUserProfile() {
+        //TODO Remove hardcode user
+        Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser(editTextUsername.getText().toString());
+        call.enqueue(new Callback<UserProfile>() {
+            @Override
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                if (isAdded() && getActivity() != null) {
+                    UserProfile userProfile = response.body();
+                    Log.d(TAG, "Login Data [Name]: " + userProfile.getUser().getName());
+                    Log.d(TAG, "Login Data [Pic ]: " + userProfile.getUser().getPicture());
+
+                    SessionHelper.createSession(getActivity(), userProfile.getUser());
+                    signinSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfile> call, Throwable t) {
+                Log.e(TAG, "Error in getUser()", t);
+                signinSuccess(); //TODO Reviews error management
             }
         });
     }
