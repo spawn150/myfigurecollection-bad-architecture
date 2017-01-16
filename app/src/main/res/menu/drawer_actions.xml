@@ -7,14 +7,17 @@
         <item
             android:id="@+id/mfc_navigation_menu_item"
             android:checked="true"
+            android:icon="@drawable/ic_mycollection_black_24"
             android:title="@string/menu_title_mfc" />
 
         <item
-            android:id="@+id/pod_navigation_menu_item"
+            android:id="@+id/potd_navigation_menu_item"
+            android:icon="@drawable/ic_potd_black_24dp"
             android:title="@string/menu_title_pod" />
 
         <item
             android:id="@+id/latest_pictures_navigation_menu_item"
+            android:icon="@drawable/ic_latest_pictures_black_24dp"
             android:title="@string/menu_title_latest_pictures" />
 
         <!--
@@ -34,15 +37,19 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/twitter_navigation_menu_item"
+            android:icon="@drawable/ic_twitter_logo_silhouette"
             android:title="@string/menu_title_twitter" />
         <item
             android:id="@+id/settings_navigation_menu_item"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/menu_title_settings" />
         <item
             android:id="@+id/login_menu_item"
+            android:icon="@drawable/ic_login_black_24dp"
             android:title="@string/menu_title_login" />
         <item
             android:id="@+id/logout_menu_item"
+            android:icon="@drawable/ic_logout_black_24dp"
             android:title="@string/menu_title_logout" />
     </group>
 
