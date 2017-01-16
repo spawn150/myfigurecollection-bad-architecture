@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
@@ -277,8 +278,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void logout() {
-        SessionHelper.removeSession(this);
-        ActivityUtils.startActivityWithNewTask(MainActivity.this, MainActivity.class);
+        MFCRequest.getInstance().disconnect(MainActivity.this, new MFCRequest.MFCCallback<Boolean>() {
+            @Override
+            public void success(Boolean aBoolean) {
+                SessionHelper.removeSession(MainActivity.this);
+                ActivityUtils.startActivityWithNewTask(MainActivity.this, MainActivity.class);
+            }
+
+            @Override
+            public void error(Throwable throwable) {
+                Toast.makeText(MainActivity.this, "Error on logout: " + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
