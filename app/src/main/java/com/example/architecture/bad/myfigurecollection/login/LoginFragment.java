@@ -1,5 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.login;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -81,6 +82,18 @@ public class LoginFragment extends Fragment {
     public void signinSuccess() {
         if (mListener != null) {
             mListener.onSignin();
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
