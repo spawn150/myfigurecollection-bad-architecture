@@ -10,11 +10,13 @@
     <string name="menu_title_pod">Pictures of the day</string>
     <string name="menu_title_pow">Pictures of the week</string>
     <string name="menu_title_pom">Pictures of the month</string>
-    <string name="menu_title_twitter">MFC on Twitter</string>
+    <string name="menu_title_twitter">\@MFC on Twitter</string>
     <string name="navigation_view_header_title">MFC</string>
     <string name="title_activity_best_pictures">BestPicturesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_figure_detail">FigureDetailActivity</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
     <string name="label_category">Category</string>
     <string name="label_author">Author</string>
     <string name="label_release_date">Release Date</string>
@@ -31,7 +33,9 @@
     <string name="settings_label_nsfw_title">Enable NSFW</string>
     <string name="settings_label_nsfw_subtitle">Show Not Safe for Work (NSFW) Content</string>
     <string name="settings_version">Version</string>
-    <string name="button_title_signin">Signin</string>
+    <string name="button_title_signin">Login</string>
+    <string name="button_signup">Don\'t have an account? <b>Sign up!</b></string>
+    <string name="button_forgot_password">Forgot password?</string>
 
     <!-- Error messages -->
     <string name="ordered_items_value">ordered</string>

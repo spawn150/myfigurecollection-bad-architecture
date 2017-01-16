@@ -3,14 +3,18 @@ package com.example.architecture.bad.myfigurecollection.login;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
@@ -34,8 +38,10 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = LoginFragment.class.getName();
     private OnFragmentInteractionListener mListener;
-    private TextInputEditText editTextUsername;
-    private TextInputEditText editTextPassword;
+    private TextInputLayout inputLayoutUsername;
+    private TextInputLayout inputLayoutPassword;
+    private EditText editTextUsername;
+    private EditText editTextPassword;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -67,16 +73,78 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editTextUsername = (TextInputEditText) view.findViewById(R.id.edit_text_username);
-        editTextPassword = (TextInputEditText) view.findViewById(R.id.edit_text_password);
+        inputLayoutUsername = (TextInputLayout) view.findViewById(R.id.input_layout_username);
+        inputLayoutPassword = (TextInputLayout) view.findViewById(R.id.input_layout_password);
+        editTextUsername = (EditText) view.findViewById(R.id.edit_text_username);
+        editTextPassword = (EditText) view.findViewById(R.id.edit_text_password);
 
         Button buttonSignin = (Button) view.findViewById(R.id.button_signin);
         buttonSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                loginButtonClicked();
             }
         });
+
+        Button buttonSignup = (Button) view.findViewById(R.id.button_signup);
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signupButtonClicked();
+            }
+        });
+
+        Button buttonForgotPassword = (Button) view.findViewById(R.id.button_forgot_password);
+        buttonForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPasswordButtonClicked();
+            }
+        });
+
+    }
+
+    private void loginButtonClicked() {
+
+        // First, clear errors
+        inputLayoutUsername.setError(null);
+        inputLayoutPassword.setError(null);
+
+        String username = editTextUsername.getText().toString();
+        String password = editTextPassword.getText().toString();
+
+        // Set errors, if they exist
+        boolean error = false;
+        if (TextUtils.isEmpty(username)) {
+            inputLayoutUsername.setError("This field is required");
+            error = true;
+        }
+        if (TextUtils.isEmpty(password)) {
+            inputLayoutPassword.setError("This field is required");
+            error = true;
+        }
+
+        if (!error) {
+            login(username, password);
+        }
+    }
+
+    private void signupButtonClicked() {
+        openMFCSite(getString(R.string.signup_url));
+    }
+
+    private void forgotPasswordButtonClicked() {
+        openMFCSite(getString(R.string.forgotten_password_url));
+    }
+
+    private void openMFCSite(String url) {
+
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+
     }
 
     public void signinSuccess() {
@@ -115,7 +183,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(String username, String password) {
-
         Log.d(TAG, "Username: " + username + " and Pwd: " + password);
 
         MFCRequest.getInstance().connect(username, password, getActivity(), new MFCRequest.MFCCallback<Boolean>() {

@@ -64,4 +64,20 @@
         <item name="android:layout_marginBottom">@dimen/default_xs_margin</item>
     </style>
 
+    <style name="Base.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_height">@dimen/buttonHeight</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">@dimen/medium_padding</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
+    </style>
+
+    <style name="Base.Button.Transparent" parent="Base.Button">
+        <item name="android:background">@drawable/button_transparent</item>
+    </style>
+
+    <style name="Button.Hyperlink" parent="Base.Button.Transparent">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@drawable/button_text_type</item>
+    </style>
+
 </resources>

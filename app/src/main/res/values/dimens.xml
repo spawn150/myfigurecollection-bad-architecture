@@ -32,4 +32,6 @@
     <dimen name="font_large_size">16sp</dimen>
     <dimen name="font_xlarge_size">20sp</dimen>
 
+    <dimen name="buttonHeight">32dp</dimen>
+
 </resources>
