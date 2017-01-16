@@ -34,6 +34,7 @@ import com.example.architecture.bad.myfigurecollection.figures.collection.Collec
 import com.example.architecture.bad.myfigurecollection.figures.collection.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.login.LoginActivity;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
+import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
@@ -147,16 +148,18 @@ public class MainActivity extends AppCompatActivity
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        boolean checkMenuItem = false;
                         switch (menuItem.getItemId()) {
                             case R.id.mfc_navigation_menu_item:
-                                Log.d(TAG, "MFC menu tapped!");
+                                checkMenuItem = true;
                                 setMyCollectionFragment();
                                 break;
                             case R.id.pod_navigation_menu_item:
-                                Log.d(TAG, "POD menu tapped!");
+                                checkMenuItem = true;
                                 setPODFragment();
                                 break;
                             case R.id.latest_pictures_navigation_menu_item:
+                                checkMenuItem = true;
                                 setLatestPicturesFragment();
                                 break;
                             /*
@@ -171,7 +174,7 @@ public class MainActivity extends AppCompatActivity
                             */
                             case R.id.twitter_navigation_menu_item:
                                 Log.d(TAG, "Twitter menu tapped!");
-                                setTwitterFragment();
+                                openTwitterTimeline();
                                 break;
                             case R.id.settings_navigation_menu_item:
                                 Log.d(TAG, "Settings menu tapped!");
@@ -189,9 +192,7 @@ public class MainActivity extends AppCompatActivity
                                 break;
                         }
                         // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(menuItem.getItemId() != R.id.settings_navigation_menu_item
-                                && menuItem.getItemId() != R.id.login_menu_item
-                                && menuItem.getItemId() != R.id.logout_menu_item);
+                        menuItem.setChecked(checkMenuItem);
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -246,6 +247,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /*
     private void setTwitterFragment() {
         EmbeddedTwitterFragment embeddedTwitterFragment = (EmbeddedTwitterFragment) getSupportFragmentManager().findFragmentByTag(EmbeddedTwitterFragment.TAG);
         if (embeddedTwitterFragment == null) {
@@ -254,7 +256,7 @@ public class MainActivity extends AppCompatActivity
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
             setTitle(getString(R.string.menu_title_twitter));
         }
-    }
+    }*/
 
     private void setupDrawerForGuest() {
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(false);
@@ -267,6 +269,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(true);
         navigationView.getMenu().findItem(R.id.login_menu_item).setVisible(false);
         navigationView.getMenu().findItem(R.id.logout_menu_item).setVisible(true);
+    }
+
+    private void openTwitterTimeline() {
+        ActivityUtils.startActivityInSameTask(this, EmbeddedTwitterActivity.class);
     }
 
     private void openSettings() {

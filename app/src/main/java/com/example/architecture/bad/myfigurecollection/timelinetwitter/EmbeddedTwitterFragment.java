@@ -1,8 +1,8 @@
 package com.example.architecture.bad.myfigurecollection.timelinetwitter;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +49,12 @@ public class EmbeddedTwitterFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         final UserTimeline userTimeline = new UserTimeline.Builder()
-                .screenName(getContext().getString(R.string.mfc_twitter_screename))
+                .screenName(getActivity().getString(R.string.mfc_twitter_screename))
                 .includeRetweets(true)
                 .includeReplies(true)
                 .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getContext())
+        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getActivity())
                 .setTimeline(userTimeline)
                 .build();
         ListView embeddedTwitterTimelineListView = (ListView) view.findViewById(R.id.list_view_twitter_timeline);
