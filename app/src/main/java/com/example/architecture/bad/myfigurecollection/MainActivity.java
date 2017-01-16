@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.data.SessionUser;
@@ -35,16 +34,11 @@ import com.example.architecture.bad.myfigurecollection.figures.collection.Figure
 import com.example.architecture.bad.myfigurecollection.login.LoginActivity;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
-import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 import com.squareup.picasso.Picasso;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements CollectionFiguresFragment.OnFragmentInteractionListener {
@@ -154,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                                 checkMenuItem = true;
                                 setMyCollectionFragment();
                                 break;
-                            case R.id.pod_navigation_menu_item:
+                            case R.id.potd_navigation_menu_item:
                                 checkMenuItem = true;
                                 setPODFragment();
                                 break;
@@ -262,7 +256,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(false);
         navigationView.getMenu().findItem(R.id.login_menu_item).setVisible(true);
         navigationView.getMenu().findItem(R.id.logout_menu_item).setVisible(false);
-        navigationView.getMenu().findItem(R.id.pod_navigation_menu_item).setChecked(true);
+        navigationView.getMenu().findItem(R.id.potd_navigation_menu_item).setChecked(true);
     }
 
     private void setupDrawerForUser() {
