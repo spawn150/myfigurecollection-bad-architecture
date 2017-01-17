@@ -20,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextInputLayout.TextAppearance.ErrorText"
         android:hint="@string/label_username">
 
         <EditText
@@ -38,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
         android:hint="@string/label_password"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextInputLayout.TextAppearance.ErrorText"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white_opaque">
 
