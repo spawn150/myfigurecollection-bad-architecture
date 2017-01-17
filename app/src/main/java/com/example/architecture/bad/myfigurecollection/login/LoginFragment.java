@@ -192,7 +192,7 @@ public class LoginFragment extends Fragment {
                     loadUserProfile();
                 } else {
                     if (isAdded() && getActivity() != null) {
-                        Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_SHORT).show();
+                        inputLayoutPassword.setError("Username or Password is incorrect");
                     }
                 }
             }
