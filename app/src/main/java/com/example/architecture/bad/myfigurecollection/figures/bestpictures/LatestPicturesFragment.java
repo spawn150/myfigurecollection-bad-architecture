@@ -6,7 +6,7 @@ import android.view.View;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import java.util.List;

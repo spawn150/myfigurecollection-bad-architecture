@@ -17,7 +17,7 @@ import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;

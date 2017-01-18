@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.ant_robot.mfc.api.pojo.ItemState;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import java.lang.annotation.Retention;

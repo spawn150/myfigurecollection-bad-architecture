@@ -23,8 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.data.SessionUser;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.user.SessionUser;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.LatestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheDayFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheMonthFragment;

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.ant_robot.mfc.api.pojo.User;
-import com.example.architecture.bad.myfigurecollection.data.SessionUser;
+import com.example.architecture.bad.myfigurecollection.data.user.SessionUser;
 
 /**
  * Helper to manage session info into SharedPreferences

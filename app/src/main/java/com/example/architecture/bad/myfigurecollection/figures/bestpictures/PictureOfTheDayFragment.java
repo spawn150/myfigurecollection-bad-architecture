@@ -3,11 +3,10 @@ package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 import android.util.Log;
 import android.view.View;
 
-import com.ant_robot.mfc.api.pojo.BestPictureGallery;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PotdPictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import java.util.List;

@@ -18,7 +18,7 @@ import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.GalleryFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.GalleryFigure;
 import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;

@@ -4,8 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.util.StringUtils;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 
 /**
  * Created by spawn on 29/06/16.

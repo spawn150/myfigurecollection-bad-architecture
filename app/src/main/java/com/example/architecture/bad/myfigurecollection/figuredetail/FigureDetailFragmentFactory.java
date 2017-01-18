@@ -1,6 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 

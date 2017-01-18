@@ -1,4 +1,4 @@
-package com.example.architecture.bad.myfigurecollection.data;
+package com.example.architecture.bad.myfigurecollection.data.figures;
 
 import android.os.Parcel;
 import android.os.Parcelable;

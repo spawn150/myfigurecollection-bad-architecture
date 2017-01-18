@@ -2,7 +2,7 @@ package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 
 import android.view.View;
 
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 
 /**
  * A placeholder fragment containing a simple view.

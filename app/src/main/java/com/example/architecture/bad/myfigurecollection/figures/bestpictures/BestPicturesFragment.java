@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.ant_robot.mfc.api.pojo.Category;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.example.architecture.bad.myfigurecollection.R;
-import com.example.architecture.bad.myfigurecollection.data.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
