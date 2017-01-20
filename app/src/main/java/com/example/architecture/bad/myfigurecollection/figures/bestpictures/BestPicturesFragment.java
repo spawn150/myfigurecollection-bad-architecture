@@ -22,6 +22,7 @@ import com.example.architecture.bad.myfigurecollection.util.Constants;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,19 +79,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
     }
 
     protected void showData(List<Picture> pictures) {
-
-        if (!PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(SettingsActivity.KEY_PREF_NSFW_CONTENT_ENABLED, false)) {
-            //TODO change this code with JAVA 8 filter
-            List<Picture> sfwPictures = new ArrayList<>(pictures.size());
-            for (Picture picture : pictures) {
-                if (picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
-                    sfwPictures.add(picture);
-                }
-            }
-            pictureAdapter.updateData(sfwPictures);
-        } else {
-            pictureAdapter.updateData(pictures);
-        }
+        pictureAdapter.updateData(pictures);
         showData();
     }
 
@@ -150,51 +139,81 @@ public abstract class BestPicturesFragment extends FiguresFragment {
             final Context context = holder.imageViewFigure.getContext();
             final Picture picture = mDataset.get(position);
 
-            Picasso.with(context)
-                    .load(picture.getMedium())
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.imageViewFigure, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                            holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                            holder.imageViewFigure.requestLayout();
-                        }
+            Picasso picasso = Picasso.with(context);
+            RequestCreator requestCreator;
+            Callback callback;
+            if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SettingsActivity.KEY_PREF_NSFW_CONTENT_ENABLED, false) &&
+                    !picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
 
-                        @Override
-                        public void onError() {
+                //nsfw content obfuscated
+                requestCreator = picasso.load(R.drawable.ic_tsuko_bn).error(R.drawable.ic_tsuko_bn);
+                callback = new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
+                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
+                        holder.imageViewFigure.requestLayout();
+                    }
 
-                            Picasso.with(context)
-                                    .load(picture.getFull())
-                                    .placeholder(R.drawable.placeholder)
-                                    .into(holder.imageViewFigure, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                                            holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                                            holder.imageViewFigure.requestLayout();
-                                        }
+                    @Override
+                    public void onError() {
+                    }
+                };
+                holder.itemView.setOnClickListener(null);
 
-                                        @Override
-                                        public void onError() {
+            } else {
 
-                                        }
-                                    });
+                //in case it is nsfw, the content is not obfuscated
+                requestCreator = picasso.load(picture.getMedium()).placeholder(R.drawable.placeholder);
+                callback = new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
+                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
+                        holder.imageViewFigure.requestLayout();
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onError() {
 
+                        Picasso.with(context)
+                                .load(picture.getFull())
+                                .placeholder(R.drawable.placeholder)
+                                .into(holder.imageViewFigure, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
+                                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
+                                        holder.imageViewFigure.requestLayout();
+                                    }
+
+                                    @Override
+                                    public void onError() {
+
+                                    }
+                                });
+
+                    }
+                };
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPictureItemListener.onPictureItemClick(holder.imageViewFigure, picture);
+                    }
+                });
+
+            }
+
+            requestCreator.into(holder.imageViewFigure, callback);
             holder.textViewFigureName.setText(picture.getTitle());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mPictureItemListener.onPictureItemClick(holder.imageViewFigure, picture);
-                }
-            });
+
         }
 
         // Return the size of your dataset (invoked by the layout manager)
