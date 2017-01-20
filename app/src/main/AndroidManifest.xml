@@ -37,6 +37,7 @@
             android:noHistory="true"
             android:theme="@style/AppTheme.Login" />
         <activity android:name=".timelinetwitter.EmbeddedTwitterActivity" />
+        <activity android:name=".timelinetwitter.TwitterTimelineActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

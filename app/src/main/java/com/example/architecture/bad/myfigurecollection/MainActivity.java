@@ -34,6 +34,7 @@ import com.example.architecture.bad.myfigurecollection.figures.collection.Figure
 import com.example.architecture.bad.myfigurecollection.login.LoginActivity;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
+import com.example.architecture.bad.myfigurecollection.timelinetwitter.TwitterTimelineActivity;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
@@ -266,7 +267,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openTwitterTimeline() {
-        ActivityUtils.startActivityInSameTask(this, EmbeddedTwitterActivity.class);
+        ActivityUtils.startActivityInSameTask(this, TwitterTimelineActivity.class);
     }
 
     private void openSettings() {
