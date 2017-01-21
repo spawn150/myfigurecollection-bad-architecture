@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
@@ -16,11 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.ant_robot.mfc.api.pojo.UserProfile;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,10 +43,19 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = LoginFragment.class.getName();
     private OnFragmentInteractionListener mListener;
+    private ViewFlipper viewFlipper;
     private TextInputLayout inputLayoutUsername;
     private TextInputLayout inputLayoutPassword;
     private EditText editTextUsername;
     private EditText editTextPassword;
+
+    private static final int EDITING = 0;
+    private static final int LOADING = 1;
+
+    @IntDef({LOADING, EDITING})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ViewState {
+    }
 
     public LoginFragment() {
         // Required empty public constructor
@@ -77,6 +91,7 @@ public class LoginFragment extends Fragment {
         inputLayoutPassword = (TextInputLayout) view.findViewById(R.id.input_layout_password);
         editTextUsername = (EditText) view.findViewById(R.id.edit_text_username);
         editTextPassword = (EditText) view.findViewById(R.id.edit_text_password);
+        viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_login);
 
         Button buttonSignin = (Button) view.findViewById(R.id.button_signin);
         buttonSignin.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +200,8 @@ public class LoginFragment extends Fragment {
     private void login(String username, String password) {
         Log.d(TAG, "Username: " + username + " and Pwd: " + password);
 
+        setLoginState(LOADING);
+
         MFCRequest.getInstance().connect(username, password, getActivity(), new MFCRequest.MFCCallback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
@@ -192,6 +209,7 @@ public class LoginFragment extends Fragment {
                     loadUserProfile();
                 } else {
                     if (isAdded() && getActivity() != null) {
+                        setLoginState(EDITING);
                         inputLayoutPassword.setError("Username or Password is incorrect");
                     }
                 }
@@ -201,6 +219,7 @@ public class LoginFragment extends Fragment {
             public void error(Throwable throwable) {
                 Log.e(TAG, "Error in connect()", throwable);
                 if (isAdded() && getActivity() != null) {
+                    setLoginState(EDITING);
                     Toast.makeText(getActivity(), "Connection error: " + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -208,7 +227,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadUserProfile() {
-        //TODO Remove hardcode user
         Call<UserProfile> call = MFCRequest.getInstance().getUserService().getUser(editTextUsername.getText().toString());
         call.enqueue(new Callback<UserProfile>() {
             @Override
@@ -229,6 +247,10 @@ public class LoginFragment extends Fragment {
                 signinSuccess(); //TODO Reviews error management
             }
         });
+    }
+
+    private void setLoginState(@ViewState int viewState) {
+        viewFlipper.setDisplayedChild(viewState);
     }
 
     /**
