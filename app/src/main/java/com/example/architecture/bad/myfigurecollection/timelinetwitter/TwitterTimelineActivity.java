@@ -39,6 +39,7 @@ public class TwitterTimelineActivity extends ListActivity {
         final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
                 .setTimeline(userTimeline)
                 .build();
+        getListView().setEmptyView(findViewById(android.R.id.empty));
         setListAdapter(adapter);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.twitter_swipe_layout);
@@ -62,7 +63,6 @@ public class TwitterTimelineActivity extends ListActivity {
             }
         });
     }
-
 
     @Override
     public boolean onNavigateUp() {
