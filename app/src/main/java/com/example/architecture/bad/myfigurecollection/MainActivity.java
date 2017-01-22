@@ -33,7 +33,6 @@ import com.example.architecture.bad.myfigurecollection.figures.collection.Collec
 import com.example.architecture.bad.myfigurecollection.figures.collection.FiguresContainerFragment;
 import com.example.architecture.bad.myfigurecollection.login.LoginActivity;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
-import com.example.architecture.bad.myfigurecollection.timelinetwitter.EmbeddedTwitterActivity;
 import com.example.architecture.bad.myfigurecollection.timelinetwitter.TwitterTimelineActivity;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils.FragmentType;
@@ -241,17 +240,6 @@ public class MainActivity extends AppCompatActivity
             ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), pictureOfTheMonthFragment, R.id.figures_container, PictureOfTheMonthFragment.TAG);
         }
     }
-
-    /*
-    private void setTwitterFragment() {
-        EmbeddedTwitterFragment embeddedTwitterFragment = (EmbeddedTwitterFragment) getSupportFragmentManager().findFragmentByTag(EmbeddedTwitterFragment.TAG);
-        if (embeddedTwitterFragment == null) {
-            // Create the fragment
-            embeddedTwitterFragment = EmbeddedTwitterFragment.newInstance();
-            ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), embeddedTwitterFragment, R.id.figures_container, EmbeddedTwitterFragment.TAG);
-            setTitle(getString(R.string.menu_title_twitter));
-        }
-    }*/
 
     private void setupDrawerForGuest() {
         navigationView.getMenu().findItem(R.id.mfc_navigation_menu_item).setVisible(false);
