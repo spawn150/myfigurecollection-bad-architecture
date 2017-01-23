@@ -180,6 +180,50 @@
                 tools:text="12312312313" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/view_group_resolution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_resolution" />
+
+            <TextView
+                android:id="@+id/text_view_resolution"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="1920x1080" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_group_image_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_size" />
+
+            <TextView
+                android:id="@+id/text_view_size"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="1024 kb" />
+        </LinearLayout>
+
     </LinearLayout>
 
 

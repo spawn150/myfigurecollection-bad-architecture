@@ -51,6 +51,9 @@ public abstract class BestPicturesFragment extends FiguresFragment {
                     .setAuthor(picture.getAuthor())
                     .setReleaseDate(
                             StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
+                    .setWidthResolution(picture.getResolution().getWidth())
+                    .setHeightResolution(picture.getResolution().getHeight())
+                    .setSize(picture.getSize())
                     .build();
 
             onFragmentInteraction(view, detailedFigure);

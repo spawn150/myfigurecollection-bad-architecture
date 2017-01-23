@@ -19,8 +19,11 @@ public class DetailedFigure implements Parcelable {
     private String score;
     private String number;
     private String barcode;
+    private String widthResolution;
+    private String heightResolution;
+    private String size;
 
-    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode) {
+    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode, String widthResolution, String heightResolution, String size) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -32,6 +35,9 @@ public class DetailedFigure implements Parcelable {
         this.score = score;
         this.number = number;
         this.barcode = barcode;
+        this.widthResolution = widthResolution;
+        this.heightResolution = heightResolution;
+        this.size = size;
     }
 
     public String getId() {
@@ -78,6 +84,18 @@ public class DetailedFigure implements Parcelable {
         return barcode;
     }
 
+    public String getWidthResolution() {
+        return widthResolution;
+    }
+
+    public String getHeightResolution() {
+        return heightResolution;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
         return "DetailedFigure{" +
@@ -92,6 +110,9 @@ public class DetailedFigure implements Parcelable {
                 ", score='" + score + '\'' +
                 ", number='" + number + '\'' +
                 ", barcode='" + barcode + '\'' +
+                ", widthResolution='" + widthResolution + '\'' +
+                ", heightResolution='" + heightResolution + '\'' +
+                ", size='" + size + '\'' +
                 '}';
     }
 
@@ -107,6 +128,9 @@ public class DetailedFigure implements Parcelable {
         private String score;
         private String number;
         private String barcode;
+        private String widthResolution;
+        private String heightResolution;
+        private String size;
 
         public Builder setId(String id) {
             this.id = id;
@@ -163,23 +187,24 @@ public class DetailedFigure implements Parcelable {
             return this;
         }
 
-        public DetailedFigure build() {
-            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode);
+        public Builder setWidthResolution(String widthResolution) {
+            this.widthResolution = widthResolution;
+            return this;
         }
-    }
 
-    protected DetailedFigure(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        imageUrl = in.readString();
-        category = in.readString();
-        author = in.readString();
-        releaseDate = in.readString();
-        price = in.readString();
-        wishability = in.readString();
-        score = in.readString();
-        number = in.readString();
-        barcode = in.readString();
+        public Builder setHeightResolution(String heightResolution) {
+            this.heightResolution = heightResolution;
+            return this;
+        }
+
+        public Builder setSize(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public DetailedFigure build() {
+            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode, widthResolution, heightResolution, size);
+        }
     }
 
     @Override
@@ -189,24 +214,43 @@ public class DetailedFigure implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(imageUrl);
-        dest.writeString(category);
-        dest.writeString(author);
-        dest.writeString(releaseDate);
-        dest.writeString(price);
-        dest.writeString(wishability);
-        dest.writeString(score);
-        dest.writeString(number);
-        dest.writeString(barcode);
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.category);
+        dest.writeString(this.author);
+        dest.writeString(this.releaseDate);
+        dest.writeString(this.price);
+        dest.writeString(this.wishability);
+        dest.writeString(this.score);
+        dest.writeString(this.number);
+        dest.writeString(this.barcode);
+        dest.writeString(this.widthResolution);
+        dest.writeString(this.heightResolution);
+        dest.writeString(this.size);
     }
 
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<DetailedFigure> CREATOR = new Parcelable.Creator<DetailedFigure>() {
+    protected DetailedFigure(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.imageUrl = in.readString();
+        this.category = in.readString();
+        this.author = in.readString();
+        this.releaseDate = in.readString();
+        this.price = in.readString();
+        this.wishability = in.readString();
+        this.score = in.readString();
+        this.number = in.readString();
+        this.barcode = in.readString();
+        this.widthResolution = in.readString();
+        this.heightResolution = in.readString();
+        this.size = in.readString();
+    }
+
+    public static final Creator<DetailedFigure> CREATOR = new Creator<DetailedFigure>() {
         @Override
-        public DetailedFigure createFromParcel(Parcel in) {
-            return new DetailedFigure(in);
+        public DetailedFigure createFromParcel(Parcel source) {
+            return new DetailedFigure(source);
         }
 
         @Override

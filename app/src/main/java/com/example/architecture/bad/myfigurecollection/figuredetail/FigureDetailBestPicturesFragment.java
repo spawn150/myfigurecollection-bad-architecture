@@ -1,5 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,9 +31,18 @@ public class FigureDetailBestPicturesFragment extends FigureDetailFragment {
     @Override
     protected void setExtraViews(View view) {
         view.findViewById(R.id.view_group_author).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.view_group_image_size).setVisibility(View.VISIBLE);
         view.findViewById(R.id.view_group_price).setVisibility(View.GONE);
         view.findViewById(R.id.view_group_barcode).setVisibility(View.GONE);
         TextView textViewAuthor = (TextView) view.findViewById(R.id.text_view_detail_author);
         textViewAuthor.setText(detailedFigure.getAuthor());
+
+        TextView textViewSize = (TextView) view.findViewById(R.id.text_view_size);
+        textViewSize.setText(detailedFigure.getSize());
+        if (!TextUtils.isEmpty(detailedFigure.getWidthResolution()) && !TextUtils.isEmpty(detailedFigure.getHeightResolution())) {
+            view.findViewById(R.id.view_group_resolution).setVisibility(View.VISIBLE);
+            TextView textViewResolution = (TextView) view.findViewById(R.id.text_view_resolution);
+            textViewResolution.setText(view.getContext().getString(R.string.image_resolution_pattern, detailedFigure.getWidthResolution(), detailedFigure.getHeightResolution()));
+        }
     }
 }
