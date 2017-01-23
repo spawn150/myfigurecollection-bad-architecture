@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A simple {@link FiguresFragment} subclass.
  */
 public abstract class BestPicturesFragment extends FiguresFragment {
 
@@ -46,7 +47,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
                     .setName(picture.getTitle())
                     .setImageUrl(picture.getFull())
-                    .setCategory(category.getName())
+                    .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
                     .setAuthor(picture.getAuthor())
                     .setReleaseDate(
                             StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))

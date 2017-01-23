@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,9 @@ import com.ant_robot.mfc.api.pojo.Data;
 import com.ant_robot.mfc.api.pojo.Item;
 import com.ant_robot.mfc.api.pojo.ItemState;
 import com.ant_robot.mfc.api.pojo.Mycollection;
-import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
@@ -29,9 +30,6 @@ import java.util.List;
 
 /**
  * A simple {@link FiguresFragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CollectionFiguresFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  */
 public abstract class CollectionFiguresFragment extends FiguresFragment {
 
@@ -47,7 +45,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
             Mycollection mycollection = figureItem.getMycollection();
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(data.getId())
                     .setName(data.getName())
-                    .setCategory(category.getName())
+                    .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
                     .setReleaseDate(
                             StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))
                     .setScore(StringUtils.getFractionValue(mycollection.getScore(),
