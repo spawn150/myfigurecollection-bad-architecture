@@ -1,7 +1,6 @@
 package com.example.architecture.bad.myfigurecollection.util;
 
-import android.content.Context;
-
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -64,6 +63,14 @@ public class StringUtils {
 
     public static String getFractionValue(String value, String denominator, String defaultValue) {
         return (value == null || "".equals(value) || "0".equals(value) || "-1".equals(value)) ? defaultValue : value.concat("/").concat(denominator);
+    }
+
+    public static String getFileSize(long size) {
+        if (size <= 0)
+            return "0";
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
 }

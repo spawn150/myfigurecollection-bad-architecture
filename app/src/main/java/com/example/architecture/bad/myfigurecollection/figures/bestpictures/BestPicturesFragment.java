@@ -53,7 +53,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
                             StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
                     .setWidthResolution(picture.getResolution().getWidth())
                     .setHeightResolution(picture.getResolution().getHeight())
-                    .setSize(picture.getSize())
+                    .setSize(StringUtils.getFileSize(Long.valueOf(picture.getSize())))
                     .build();
 
             onFragmentInteraction(view, detailedFigure);
@@ -234,6 +234,6 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
     public interface OnBestPicturesFragmentInteractionListener {
         void onBestPicturesFragmentInteraction(View view, DetailedFigure figureItem,
-                                   @ActivityUtils.FragmentType int fragmentType);
+                                               @ActivityUtils.FragmentType int fragmentType);
     }
 }
