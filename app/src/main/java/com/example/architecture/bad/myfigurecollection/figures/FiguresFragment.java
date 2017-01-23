@@ -1,6 +1,5 @@
 package com.example.architecture.bad.myfigurecollection.figures;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
@@ -16,16 +15,12 @@ import android.widget.ViewFlipper;
 
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FiguresFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  */
 public abstract class FiguresFragment extends Fragment {
 
@@ -43,7 +38,7 @@ public abstract class FiguresFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
-    OnFragmentInteractionListener mListener;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,23 +50,6 @@ public abstract class FiguresFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_figures, container, false);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(
-                    context.toString() + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -91,7 +69,7 @@ public abstract class FiguresFragment extends Fragment {
         staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.figures_swipe_layout);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.figures_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -105,6 +83,7 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected abstract void loadCollection();
+
     protected abstract RecyclerView.Adapter createAdapter();
 
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
@@ -112,6 +91,7 @@ public abstract class FiguresFragment extends Fragment {
     protected void showData() {
         setViewState(SUCCESS);
     }
+
     protected void showError(String title) {
         showError(title, "");
     }
@@ -125,21 +105,6 @@ public abstract class FiguresFragment extends Fragment {
     protected void setViewState(@ViewState int viewState) {
         swipeRefreshLayout.setRefreshing(false);
         viewFlipper.setDisplayedChild(viewState);
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(View view, DetailedFigure figureItem,
-                                   @ActivityUtils.FragmentType int fragmentType);
     }
 
 }

@@ -30,7 +30,11 @@ import android.view.View;
 
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
+import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailBestPictureActivity;
+import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailCollectionFigureActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
+import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryBestPicturesActivity;
+import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryCollectionFiguresActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -43,6 +47,7 @@ public class ActivityUtils {
     public static final String ARG_FIGURE_DETAIL = "figuredetailargument";
     public static final String ARG_FRAGMENT_TYPE = "fragmenttype";
     public static final String ARG_FIGURE_ID = "figureid";
+    public static final String ARG_PICTURE_URL = "pictureurl";
 
     public static final int OWNED_FRAGMENT = 0;
     public static final int WISHED_FRAGMENT = 1;
@@ -62,6 +67,7 @@ public class ActivityUtils {
                                              @NonNull Fragment fragment, int frameId) {
         addFragmentToActivity(fragmentManager, fragment, frameId, null);
     }
+
     public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
                                              @NonNull Fragment fragment, int frameId, String tag) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -70,7 +76,7 @@ public class ActivityUtils {
     }
 
     public static void replaceFragmentToActivity(@NonNull FragmentManager fragmentManager,
-                                             @NonNull Fragment fragment, int frameId, String tag) {
+                                                 @NonNull Fragment fragment, int frameId, String tag) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(frameId, fragment, tag);
         transaction.commit();
@@ -88,18 +94,37 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void startItemFigureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType) {
-        Intent intent = new Intent(activity, FigureDetailActivity.class);
+    public static void startItemCollectionFigureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType) {
+        Intent intent = new Intent(activity, FigureDetailCollectionFigureActivity.class);
         intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
         intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
 
+        startItemFigureDetailActivity(intent, activity, view);
+    }
+
+    public static void startItemBestPictureDetailActivity(@NonNull Activity activity, DetailedFigure detailedFigure, View view, @FragmentType int fragmentType) {
+        Intent intent = new Intent(activity, FigureDetailBestPictureActivity.class);
+        intent.putExtra(ARG_FIGURE_DETAIL, detailedFigure);
+        intent.putExtra(ARG_FRAGMENT_TYPE, fragmentType);
+
+        startItemFigureDetailActivity(intent, activity, view);
+    }
+
+    private static void startItemFigureDetailActivity(Intent intent, Activity activity, View view) {
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, view, "detail");
         activity.startActivity(intent, options.toBundle());
     }
 
-    public static void startItemFigureGalleryActivity(@NonNull Context context, @NonNull String figureId) {
-        Intent intent = new Intent(context, FigureGalleryActivity.class);
+    public static void startItemCollectionFiguresGalleryActivity(@NonNull Context context, @NonNull String figureId) {
+        Intent intent = new Intent(context, FigureGalleryCollectionFiguresActivity.class);
+        intent.putExtra(ARG_FIGURE_ID, figureId);
+        context.startActivity(intent);
+    }
+
+    public static void startItemBestPicturesGalleryActivity(@NonNull Context context, @NonNull String figureId, @NonNull String pictureUrl) {
+        Intent intent = new Intent(context, FigureGalleryBestPicturesActivity.class);
+        intent.putExtra(ARG_PICTURE_URL, pictureUrl);
         intent.putExtra(ARG_FIGURE_ID, figureId);
         context.startActivity(intent);
     }

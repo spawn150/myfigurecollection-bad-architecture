@@ -19,7 +19,7 @@ import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class FigureDetailActivity extends AppCompatActivity {
+public abstract class FigureDetailActivity extends AppCompatActivity {
 
     private ImageView imageView;
 
@@ -80,21 +80,10 @@ public class FigureDetailActivity extends AppCompatActivity {
 
         if (imageView != null) {
 
-            final String figureId = detailedFigure.getId();
-            String url = getString(R.string.figure_large_image_url, figureId);
-            if (!TextUtils.isEmpty(detailedFigure.getImageUrl())) {
-                url = detailedFigure.getImageUrl();
-            }
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ActivityUtils.startItemFigureGalleryActivity(v.getContext(), figureId);
-                }
-            });
+            imageView.setOnClickListener(getImageViewClickListener(detailedFigure));
 
             Picasso.with(this)
-                    .load(url)
+                    .load(getImageUrl(detailedFigure))
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -122,4 +111,8 @@ public class FigureDetailActivity extends AppCompatActivity {
         imageView = null;
         super.onStop();
     }
+
+    protected abstract String getImageUrl(DetailedFigure detailedFigure);
+
+    protected abstract View.OnClickListener getImageViewClickListener(DetailedFigure detailedFigure);
 }

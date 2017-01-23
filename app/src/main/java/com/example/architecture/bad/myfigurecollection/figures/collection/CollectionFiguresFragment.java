@@ -18,6 +18,7 @@ import com.ant_robot.mfc.api.pojo.Mycollection;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public abstract class CollectionFiguresFragment extends FiguresFragment {
 
-    OnFragmentInteractionListener mListener;
+    OnCollectionFiguresFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
     CollectionFigureItemListener collectionFigureItemListener = new CollectionFigureItemListener() {
@@ -67,11 +68,11 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnCollectionFiguresFragmentInteractionListener) {
+            mListener = (OnCollectionFiguresFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(
-                    context.toString() + " must implement OnFragmentInteractionListener");
+                    context.toString() + " must implement OnCollectionFiguresFragmentInteractionListener");
         }
     }
 
@@ -185,6 +186,11 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
 
     private interface CollectionFigureItemListener {
         void onCollectionFigureItemClick(View view, Item figureItem);
+    }
+
+    public interface OnCollectionFiguresFragmentInteractionListener {
+        void onCollectionFiguresFragmentInteraction(View view, DetailedFigure figureItem,
+                                                    @ActivityUtils.FragmentType int fragmentType);
     }
 
 }

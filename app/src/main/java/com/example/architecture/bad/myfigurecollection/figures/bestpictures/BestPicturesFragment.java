@@ -17,6 +17,7 @@ import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figures.FiguresFragment;
 import com.example.architecture.bad.myfigurecollection.settings.SettingsActivity;
+import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.Constants;
 import com.example.architecture.bad.myfigurecollection.util.StringUtils;
@@ -34,7 +35,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
 
     public static final String TAG = LatestPicturesFragment.class.getName();
-    OnFragmentInteractionListener mListener;
+    OnBestPicturesFragmentInteractionListener mListener;
     private PictureAdapter pictureAdapter;
 
     PictureItemListener mPictureItemListener = new PictureItemListener() {
@@ -58,11 +59,11 @@ public abstract class BestPicturesFragment extends FiguresFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnBestPicturesFragmentInteractionListener) {
+            mListener = (OnBestPicturesFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(
-                    context.toString() + " must implement OnFragmentInteractionListener");
+                    context.toString() + " must implement OnBestPicturesFragmentInteractionListener");
         }
     }
 
@@ -227,4 +228,8 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         void onPictureItemClick(View view, Picture picture);
     }
 
+    public interface OnBestPicturesFragmentInteractionListener {
+        void onBestPicturesFragmentInteraction(View view, DetailedFigure figureItem,
+                                   @ActivityUtils.FragmentType int fragmentType);
+    }
 }

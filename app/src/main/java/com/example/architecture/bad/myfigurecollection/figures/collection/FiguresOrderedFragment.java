@@ -69,7 +69,7 @@ public class FiguresOrderedFragment extends CollectionFiguresFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.ORDERED_FRAGMENT);
+        mListener.onCollectionFiguresFragmentInteraction(view, detailedFigure, ActivityUtils.ORDERED_FRAGMENT);
     }
 
 }

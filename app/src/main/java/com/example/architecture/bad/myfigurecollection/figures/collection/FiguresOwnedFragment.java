@@ -78,7 +78,7 @@ public class FiguresOwnedFragment extends CollectionFiguresFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT);
+        mListener.onCollectionFiguresFragmentInteraction(view, detailedFigure, ActivityUtils.OWNED_FRAGMENT);
     }
 
 

@@ -14,34 +14,25 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ant_robot.mfc.api.pojo.Picture;
-import com.ant_robot.mfc.api.pojo.PictureGallery;
-import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.GalleryFigure;
 import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
-import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class FigureGalleryFragment extends Fragment {
+public abstract class FigureGalleryFragment extends Fragment {
 
-    private static final String ARG_FIGURE_ID = "figureid";
-    private static final String TAG = FigureGalleryFragment.class.getSimpleName();
+    protected static final String TAG = FigureGalleryFragment.class.getSimpleName();
+    protected static final String ARG_FIGURE_ID = "figureid";
 
-    private String figureId;
-    private int gallerySize;
-    private ViewPager galleryPager;
-    private OnGalleryListener galleryListener;
+    protected String figureId;
+    protected int gallerySize;
+    protected ViewPager galleryPager;
+    protected OnGalleryListener galleryListener;
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -62,20 +53,6 @@ public class FigureGalleryFragment extends Fragment {
     };
 
     public FigureGalleryFragment() {
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment FigureGalleryFragment.
-     */
-    public static FigureGalleryFragment newInstance(String figureId) {
-        FigureGalleryFragment fragment = new FigureGalleryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_FIGURE_ID, figureId);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -102,10 +79,6 @@ public class FigureGalleryFragment extends Fragment {
 
         // retain this fragment
         setRetainInstance(true);
-
-        if (getArguments() != null) {
-            figureId = getArguments().getString(ARG_FIGURE_ID);
-        }
     }
 
     @Override
@@ -121,37 +94,7 @@ public class FigureGalleryFragment extends Fragment {
         galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
         galleryPager.addOnPageChangeListener(onPageChangeListener);
 
-        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, 0);
-        call.enqueue(new Callback<PictureGallery>() {
-            @Override
-            public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {
-
-                if (getActivity() != null && isAdded()) {
-                    List<GalleryFigure> galleryFigures = new ArrayList<>();
-                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
-
-                    PictureGallery pictureGallery = response.body();
-                    if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
-                        List<Picture> pictures = pictureGallery.getGallery().getPicture();
-
-                        Picture picture;
-                        int size = pictures.size();
-                        for (int i = 0; i < size; i++) {
-                            picture = pictures.get(i);
-                            galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
-                        }
-                    }
-                    gallerySize = galleryFigures.size();
-                    galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
-                    galleryListener.onFigureChanged(1, gallerySize);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PictureGallery> call, Throwable t) {
-                Log.e(TAG, "Error loading Gallery", t);
-            }
-        });
+        loadGallery();
     }
 
     @Override
@@ -161,7 +104,9 @@ public class FigureGalleryFragment extends Fragment {
         galleryPager.removeOnPageChangeListener(onPageChangeListener);
     }
 
-    private static class FullScreenImageAdapter extends PagerAdapter {
+    protected abstract void loadGallery();
+
+    protected static class FullScreenImageAdapter extends PagerAdapter {
 
         private List<GalleryFigure> galleryFigures;
         private LayoutInflater inflater;

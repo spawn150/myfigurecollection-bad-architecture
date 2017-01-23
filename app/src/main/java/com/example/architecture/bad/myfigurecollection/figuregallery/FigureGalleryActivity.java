@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
-public class FigureGalleryActivity extends AppCompatActivity implements FigureGalleryFragment.OnGalleryListener {
+public abstract class FigureGalleryActivity extends AppCompatActivity implements FigureGalleryFragment.OnGalleryListener {
 
     private TextView textViewGalleryCounter;
 
@@ -17,11 +17,7 @@ public class FigureGalleryActivity extends AppCompatActivity implements FigureGa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_figure_gallery);
 
-        FigureGalleryFragment figureGalleryFragment = (FigureGalleryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_figure_detail);
-        if (figureGalleryFragment == null) {
-            figureGalleryFragment = FigureGalleryFragment.newInstance(getIntent().getStringExtra(ActivityUtils.ARG_FIGURE_ID));
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), figureGalleryFragment, R.id.fragment_figure_gallery);
-        }
+        loadFragment();
 
         //noinspection ConstantConditions
         findViewById(R.id.image_button_clear).setOnClickListener(new View.OnClickListener() {
@@ -35,6 +31,8 @@ public class FigureGalleryActivity extends AppCompatActivity implements FigureGa
         textViewGalleryCounter = (TextView)findViewById(R.id.text_view_gallery_counter);
 
     }
+
+    protected abstract void loadFragment();
 
     @Override
     public void onFigureChanged(int position, int total) {

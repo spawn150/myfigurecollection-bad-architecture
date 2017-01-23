@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.data.user.SessionUser;
+import com.example.architecture.bad.myfigurecollection.figures.bestpictures.BestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.LatestPicturesFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheDayFragment;
 import com.example.architecture.bad.myfigurecollection.figures.bestpictures.PictureOfTheMonthFragment;
@@ -41,7 +42,8 @@ import com.example.architecture.bad.myfigurecollection.util.SessionHelper;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
-        implements CollectionFiguresFragment.OnFragmentInteractionListener {
+        implements CollectionFiguresFragment.OnCollectionFiguresFragmentInteractionListener,
+        BestPicturesFragment.OnBestPicturesFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
@@ -282,9 +284,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(View view, DetailedFigure figureItem,
-                                      @FragmentType int fragmentType) {
+    public void onBestPicturesFragmentInteraction(View view, DetailedFigure figureItem, @FragmentType int fragmentType) {
         Log.d(TAG, "Figure Item: " + figureItem.toString());
-        ActivityUtils.startItemFigureDetailActivity(this, figureItem, view, fragmentType);
+        ActivityUtils.startItemBestPictureDetailActivity(this, figureItem, view, fragmentType);
+    }
+
+    @Override
+    public void onCollectionFiguresFragmentInteraction(View view, DetailedFigure figureItem, @FragmentType int fragmentType) {
+        Log.d(TAG, "Figure Item: " + figureItem.toString());
+        ActivityUtils.startItemCollectionFigureDetailActivity(this, figureItem, view, fragmentType);
     }
 }

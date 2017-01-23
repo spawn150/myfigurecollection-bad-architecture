@@ -54,7 +54,7 @@ public class LatestPicturesFragment extends BestPicturesFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.BEST_PICTURES);
+        mListener.onBestPicturesFragmentInteraction(view, detailedFigure, ActivityUtils.BEST_PICTURES);
     }
 
 }

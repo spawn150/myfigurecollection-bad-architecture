@@ -76,6 +76,6 @@ public class FiguresWishedFragment extends CollectionFiguresFragment {
 
     @Override
     protected void onFragmentInteraction(View view, DetailedFigure detailedFigure) {
-        mListener.onFragmentInteraction(view, detailedFigure, ActivityUtils.WISHED_FRAGMENT);
+        mListener.onCollectionFiguresFragmentInteraction(view, detailedFigure, ActivityUtils.WISHED_FRAGMENT);
     }
 }
