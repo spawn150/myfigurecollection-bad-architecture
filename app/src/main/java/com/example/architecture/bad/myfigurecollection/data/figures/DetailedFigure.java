@@ -22,8 +22,9 @@ public class DetailedFigure implements Parcelable {
     private String widthResolution;
     private String heightResolution;
     private String size;
+    private String hits;
 
-    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode, String widthResolution, String heightResolution, String size) {
+    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode, String widthResolution, String heightResolution, String size, String hits) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -96,6 +97,10 @@ public class DetailedFigure implements Parcelable {
         return size;
     }
 
+    public String getHits() {
+        return hits;
+    }
+
     @Override
     public String toString() {
         return "DetailedFigure{" +
@@ -113,6 +118,7 @@ public class DetailedFigure implements Parcelable {
                 ", widthResolution='" + widthResolution + '\'' +
                 ", heightResolution='" + heightResolution + '\'' +
                 ", size='" + size + '\'' +
+                ", hits='" + hits + '\'' +
                 '}';
     }
 
@@ -131,6 +137,7 @@ public class DetailedFigure implements Parcelable {
         private String widthResolution;
         private String heightResolution;
         private String size;
+        private String hits;
 
         public Builder setId(String id) {
             this.id = id;
@@ -202,8 +209,13 @@ public class DetailedFigure implements Parcelable {
             return this;
         }
 
+        public Builder setHits(String hits) {
+            this.hits = hits;
+            return this;
+        }
+
         public DetailedFigure build() {
-            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode, widthResolution, heightResolution, size);
+            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode, widthResolution, heightResolution, size, hits);
         }
     }
 
@@ -228,6 +240,7 @@ public class DetailedFigure implements Parcelable {
         dest.writeString(this.widthResolution);
         dest.writeString(this.heightResolution);
         dest.writeString(this.size);
+        dest.writeString(this.hits);
     }
 
     protected DetailedFigure(Parcel in) {
@@ -245,6 +258,7 @@ public class DetailedFigure implements Parcelable {
         this.widthResolution = in.readString();
         this.heightResolution = in.readString();
         this.size = in.readString();
+        this.hits= in.readString();
     }
 
     public static final Creator<DetailedFigure> CREATOR = new Creator<DetailedFigure>() {

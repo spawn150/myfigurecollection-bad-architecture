@@ -181,6 +181,28 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/view_group_hits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                style="@style/Base.Labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_hits" />
+
+            <TextView
+                android:id="@+id/text_view_hits"
+                style="@style/Base.Contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="320" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/view_group_resolution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -26,6 +26,7 @@
     <string name="label_number_of_items">Items #</string>
     <string name="label_barcode">Barcode</string>
     <string name="label_resolution">Resolution</string>
+    <string name="label_hits">Hit(s)</string>
     <string name="image_resolution_pattern">%1$s x %2$s</string>
     <string name="label_size">Size</string>
     <string name="label_file_extension">File Extension</string>

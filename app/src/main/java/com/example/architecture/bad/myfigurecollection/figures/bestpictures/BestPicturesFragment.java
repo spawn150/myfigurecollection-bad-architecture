@@ -54,6 +54,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
                     .setWidthResolution(picture.getResolution().getWidth())
                     .setHeightResolution(picture.getResolution().getHeight())
                     .setSize(StringUtils.getFileSize(Long.valueOf(picture.getSize())))
+                    .setHits(picture.getHits())
                     .build();
 
             onFragmentInteraction(view, detailedFigure);
