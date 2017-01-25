@@ -31,18 +31,20 @@ public class FigureDetailBestPicturesFragment extends FigureDetailFragment {
     @Override
     protected void setExtraViews(View view) {
         view.findViewById(R.id.view_group_author).setVisibility(View.VISIBLE);
-        view.findViewById(R.id.view_group_hits).setVisibility(View.VISIBLE);
         view.findViewById(R.id.view_group_image_size).setVisibility(View.VISIBLE);
         view.findViewById(R.id.view_group_price).setVisibility(View.GONE);
         view.findViewById(R.id.view_group_barcode).setVisibility(View.GONE);
+
         TextView textViewAuthor = (TextView) view.findViewById(R.id.text_view_detail_author);
         textViewAuthor.setText(detailedFigure.getAuthor());
-
         TextView textViewSize = (TextView) view.findViewById(R.id.text_view_size);
         textViewSize.setText(detailedFigure.getSize());
-        TextView textViewHits = (TextView) view.findViewById(R.id.text_view_hits);
-        textViewHits.setText(detailedFigure.getHits());
 
+        if(!TextUtils.isEmpty(detailedFigure.getHits())) {
+            view.findViewById(R.id.view_group_hits).setVisibility(View.VISIBLE);
+            TextView textViewHits = (TextView) view.findViewById(R.id.text_view_hits);
+            textViewHits.setText(detailedFigure.getHits());
+        }
         if (!TextUtils.isEmpty(detailedFigure.getWidthResolution()) && !TextUtils.isEmpty(detailedFigure.getHeightResolution())) {
             view.findViewById(R.id.view_group_resolution).setVisibility(View.VISIBLE);
             TextView textViewResolution = (TextView) view.findViewById(R.id.text_view_resolution);

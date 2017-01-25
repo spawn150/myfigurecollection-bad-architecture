@@ -39,6 +39,7 @@ public class DetailedFigure implements Parcelable {
         this.widthResolution = widthResolution;
         this.heightResolution = heightResolution;
         this.size = size;
+        this.hits = hits;
     }
 
     public String getId() {
