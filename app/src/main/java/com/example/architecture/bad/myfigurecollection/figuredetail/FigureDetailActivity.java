@@ -19,6 +19,9 @@ import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Abstract Activity to centralize code for figures details.
+ */
 public abstract class FigureDetailActivity extends AppCompatActivity {
 
     private ImageView imageView;
