@@ -3,6 +3,7 @@ package com.example.architecture.bad.myfigurecollection.figuredetail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public abstract class FigureDetailFragment extends Fragment {
 
     protected DetailedFigure detailedFigure;
 
-    static Bundle createBundle(DetailedFigure detailedFigure){
+    static Bundle createBundle(DetailedFigure detailedFigure) {
         Bundle args = new Bundle();
         args.putParcelable(ARG_FIGURE_DETAIL_PARAM, detailedFigure);
         return args;
@@ -49,17 +50,24 @@ public abstract class FigureDetailFragment extends Fragment {
         setupViews(view);
     }
 
-    private void setupViews(View view){
+    private void setupViews(View view) {
         TextView textViewDetailFigureName = (TextView) view.findViewById(R.id.text_view_detail_figure_name);
         TextView textViewDetailCategory = (TextView) view.findViewById(R.id.text_view_detail_category);
         TextView textViewDetailReleaseDate = (TextView) view.findViewById(R.id.text_view_detail_release_date);
         TextView textViewDetailPrice = (TextView) view.findViewById(R.id.text_view_detail_price);
         TextView textViewDetailBarcode = (TextView) view.findViewById(R.id.text_view_detail_barcode);
-        textViewDetailFigureName.setText(StringUtils.extractStringAfterSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2));
+
         textViewDetailCategory.setText(detailedFigure.getCategory());
         textViewDetailReleaseDate.setText(detailedFigure.getReleaseDate());
         textViewDetailPrice.setText(StringUtils.getStringValue(detailedFigure.getPrice(), getString(R.string.not_available)));
         textViewDetailBarcode.setText(StringUtils.getStringValue(detailedFigure.getBarcode(), getString(R.string.not_available)));
+
+        String figureName = StringUtils.extractStringAfterSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2);
+        if (!TextUtils.isEmpty(figureName)) {
+            textViewDetailFigureName.setText(figureName);
+        } else {
+            textViewDetailFigureName.setVisibility(View.GONE);
+        }
 
         setExtraViews(view);
     }
