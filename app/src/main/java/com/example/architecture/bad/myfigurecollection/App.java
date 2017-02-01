@@ -1,6 +1,7 @@
 package com.example.architecture.bad.myfigurecollection;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.ant_robot.mfc.api.request.MFCRequest;
 import com.facebook.stetho.Stetho;
@@ -25,7 +26,23 @@ public class App extends Application {
 
         MFCRequest.initialize(this);
 
-        initializeStetho();
+        if(BuildConfig.DEBUG){
+            initializeStetho();
+
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyLog()
+                    .penaltyFlashScreen()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectActivityLeaks()
+                    .detectLeakedRegistrationObjects()
+                    .penaltyLog()
+                    .build());
+        }
+
 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
