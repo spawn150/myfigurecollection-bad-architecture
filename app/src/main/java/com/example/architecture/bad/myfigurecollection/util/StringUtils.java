@@ -12,7 +12,7 @@ public class StringUtils {
 
     public static String extractStringBeforeSeparatorRepeatedNTimes(String value, char separator, int times) {
 
-        if (value == null || "".equals(value)) {
+        if (isEmptyValue(value)) {
             return "";
         }
 
@@ -25,7 +25,7 @@ public class StringUtils {
 
     public static String extractStringAfterSeparatorRepeatedNTimes(String value, char separator, int times) {
 
-        if (value == null || "".equals(value)) {
+        if (isEmptyValue(value)) {
             return "";
         }
 
@@ -34,6 +34,10 @@ public class StringUtils {
         if (index == -1) return value;
 
         return value.substring(++index).trim();
+    }
+
+    private static boolean isEmptyValue(String value) {
+        return value == null || "".equals(value);
     }
 
     private static int extractIndexOfSeparatorRepeatedNTimes(String name, char separator, int start, int times, int acc) {
@@ -58,11 +62,11 @@ public class StringUtils {
     }
 
     public static String getCurrencyValue(String value, String currencySymbol, String defaultValue) {
-        return (value == null || "".equals(value) || "0".equals(value) || "-1".equals(value)) ? defaultValue : value.concat(currencySymbol);
+        return (isEmptyValue(value) || "0".equals(value) || "-1".equals(value)) ? defaultValue : value.concat(currencySymbol);
     }
 
     public static String getFractionValue(String value, String denominator, String defaultValue) {
-        return (value == null || "".equals(value) || "0".equals(value) || "-1".equals(value)) ? defaultValue : value.concat("/").concat(denominator);
+        return (isEmptyValue(value) || "0".equals(value) || "-1".equals(value)) ? defaultValue : value.concat("/").concat(denominator);
     }
 
     public static String getFileSize(long size) {
