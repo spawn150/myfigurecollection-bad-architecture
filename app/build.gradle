@@ -63,6 +63,10 @@ dependencies {
     compile 'com.facebook.stetho:stetho:1.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0' //waiting new Picasso version supporting OkHttp3 with OkHttpDownloader class
+    //LeakCanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
     //TODO Remove when new version of MFC-SDK is published
     compile project(':MFC-SDK')
