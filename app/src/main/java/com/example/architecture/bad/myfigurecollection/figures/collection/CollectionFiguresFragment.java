@@ -41,10 +41,13 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
         public void onCollectionFigureItemClick(View view, Item figureItem) {
 
             Data data = figureItem.getData();
+            String figureId = data.getId();
             Category category = figureItem.getCategory();
             Mycollection mycollection = figureItem.getMycollection();
-            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(data.getId())
+            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(figureId)
                     .setName(data.getName())
+                    .setImageUrlMedium(getString(R.string.figure_big_image_url, figureId))
+                    .setImageUrlFull(getString(R.string.figure_large_image_url, figureId))
                     .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
                     .setReleaseDate(
                             StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))

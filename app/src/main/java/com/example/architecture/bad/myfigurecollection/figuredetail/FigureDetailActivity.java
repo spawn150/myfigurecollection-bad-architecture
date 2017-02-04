@@ -3,9 +3,12 @@ package com.example.architecture.bad.myfigurecollection.figuredetail;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,11 +21,14 @@ import com.example.architecture.bad.myfigurecollection.util.StringUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 /**
  * Abstract Activity to centralize code for figures details.
  */
 public abstract class FigureDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = FigureDetailActivity.class.getName();
     private ImageView imageView;
 
     @Override
@@ -86,26 +92,37 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
             imageView.setOnClickListener(getImageViewClickListener(detailedFigure));
 
             Picasso.with(this)
-                    .load(getImageUrl(detailedFigure))
+                    .load(detailedFigure.getImageUrlMedium() /*getImageUrl(detailedFigure)*/)
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
                             if (imageView != null) {
-                                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                                double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                                double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
-                                imageView.getLayoutParams().height = (int) newWidth;
-                                imageView.requestLayout();
+                                resizeImage(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+                                Log.d("Detail", "Thread info: " + Thread.currentThread().getName());
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loadFullImage(detailedFigure.getImageUrlFull());
+                                    }
+                                }, 1000);
                             }
                         }
 
                         @Override
                         public void onError() {
-
+                            loadFullImage(detailedFigure.getImageUrlFull());
                         }
                     });
         }
 
+    }
+
+    private void resizeImage(Bitmap bitmap) {
+        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+        double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
+        imageView.getLayoutParams().height = (int) newWidth;
+        imageView.requestLayout();
     }
 
     @Override
@@ -113,6 +130,30 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
         imageView.setImageBitmap(null);
         imageView = null;
         super.onStop();
+    }
+
+    private void loadFullImage(final String imageUrl) {
+        HandlerThread fullImageLoaderThread = new HandlerThread("Full Image loader thread");
+        fullImageLoaderThread.start();
+        new Handler(fullImageLoaderThread.getLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final Bitmap bitmap = Picasso.with(FigureDetailActivity.this).load(imageUrl).get();
+                    if (bitmap != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bitmap);
+                                resizeImage(bitmap);
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    Log.w(TAG, "Full Image not loaded.");
+                }
+            }
+        });
     }
 
     protected abstract String getImageUrl(DetailedFigure detailedFigure);

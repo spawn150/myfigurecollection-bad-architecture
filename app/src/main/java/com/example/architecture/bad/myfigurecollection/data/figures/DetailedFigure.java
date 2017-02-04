@@ -10,7 +10,8 @@ public class DetailedFigure implements Parcelable {
 
     private String id;
     private String name;
-    private String imageUrl;
+    private String imageUrlMedium;
+    private String imageUrlFull;
     private String category;
     private String author;
     private String releaseDate;
@@ -24,10 +25,11 @@ public class DetailedFigure implements Parcelable {
     private String size;
     private String hits;
 
-    private DetailedFigure(String id, String name, String imageUrl, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode, String widthResolution, String heightResolution, String size, String hits) {
+    private DetailedFigure(String id, String name, String imageUrlMedium, String imageUrlFull, String category, String author, String releaseDate, String price, String wishability, String score, String number, String barcode, String widthResolution, String heightResolution, String size, String hits) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageUrlMedium = imageUrlMedium;
+        this.imageUrlFull = imageUrlFull;
         this.category = category;
         this.author = author;
         this.releaseDate = releaseDate;
@@ -50,8 +52,12 @@ public class DetailedFigure implements Parcelable {
         return name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageUrlMedium() {
+        return imageUrlMedium;
+    }
+
+    public String getImageUrlFull() {
+        return imageUrlFull;
     }
 
     public String getCategory() {
@@ -107,7 +113,8 @@ public class DetailedFigure implements Parcelable {
         return "DetailedFigure{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", imageUrlMedium='" + imageUrlMedium + '\'' +
+                ", imageUrlFull='" + imageUrlFull + '\'' +
                 ", category='" + category + '\'' +
                 ", author='" + author + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
@@ -126,7 +133,8 @@ public class DetailedFigure implements Parcelable {
     public static class Builder {
         private String id;
         private String name;
-        private String imageUrl;
+        private String imageUrlMedium;
+        private String imageUrlFull;
         private String category;
         private String author;
         private String releaseDate;
@@ -150,8 +158,13 @@ public class DetailedFigure implements Parcelable {
             return this;
         }
 
-        public Builder setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
+        public Builder setImageUrlMedium(String imageUrlMedium) {
+            this.imageUrlMedium = imageUrlMedium;
+            return this;
+        }
+
+        public Builder setImageUrlFull(String imageUrlFull) {
+            this.imageUrlFull = imageUrlFull;
             return this;
         }
 
@@ -216,7 +229,7 @@ public class DetailedFigure implements Parcelable {
         }
 
         public DetailedFigure build() {
-            return new DetailedFigure(id, name, imageUrl, category, author, releaseDate, price, wishability, score, number, barcode, widthResolution, heightResolution, size, hits);
+            return new DetailedFigure(id, name, imageUrlMedium, imageUrlFull, category, author, releaseDate, price, wishability, score, number, barcode, widthResolution, heightResolution, size, hits);
         }
     }
 
@@ -229,7 +242,8 @@ public class DetailedFigure implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.imageUrl);
+        dest.writeString(this.imageUrlMedium);
+        dest.writeString(this.imageUrlFull);
         dest.writeString(this.category);
         dest.writeString(this.author);
         dest.writeString(this.releaseDate);
@@ -247,7 +261,8 @@ public class DetailedFigure implements Parcelable {
     protected DetailedFigure(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
-        this.imageUrl = in.readString();
+        this.imageUrlMedium = in.readString();
+        this.imageUrlFull = in.readString();
         this.category = in.readString();
         this.author = in.readString();
         this.releaseDate = in.readString();
@@ -259,7 +274,7 @@ public class DetailedFigure implements Parcelable {
         this.widthResolution = in.readString();
         this.heightResolution = in.readString();
         this.size = in.readString();
-        this.hits= in.readString();
+        this.hits = in.readString();
     }
 
     public static final Creator<DetailedFigure> CREATOR = new Creator<DetailedFigure>() {

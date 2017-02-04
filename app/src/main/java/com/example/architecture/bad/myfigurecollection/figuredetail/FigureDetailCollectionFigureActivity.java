@@ -14,7 +14,8 @@ public class FigureDetailCollectionFigureActivity extends FigureDetailActivity {
 
     @Override
     protected String getImageUrl(DetailedFigure detailedFigure) {
-        return getString(R.string.figure_large_image_url, detailedFigure.getId());
+        //return getString(R.string.figure_large_image_url, detailedFigure.getId());
+        return getString(R.string.figure_big_image_url, detailedFigure.getId());
     }
 
     @Override

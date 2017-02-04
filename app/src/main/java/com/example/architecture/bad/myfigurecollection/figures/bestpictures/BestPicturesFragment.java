@@ -46,7 +46,8 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
             DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
                     .setName(picture.getTitle())
-                    .setImageUrl(picture.getFull())
+                    .setImageUrlMedium(picture.getMedium())
+                    .setImageUrlFull(picture.getFull())
                     .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
                     .setAuthor(picture.getAuthor())
                     .setReleaseDate(

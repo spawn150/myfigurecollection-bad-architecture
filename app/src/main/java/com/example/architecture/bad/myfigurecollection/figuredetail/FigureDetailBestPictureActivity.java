@@ -13,7 +13,7 @@ public class FigureDetailBestPictureActivity extends FigureDetailActivity {
 
     @Override
     protected String getImageUrl(DetailedFigure detailedFigure) {
-        return detailedFigure.getImageUrl();
+        return detailedFigure.getImageUrlMedium();
     }
 
     @Override
@@ -21,7 +21,7 @@ public class FigureDetailBestPictureActivity extends FigureDetailActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startItemBestPicturesGalleryActivity(FigureDetailBestPictureActivity.this, detailedFigure.getId(), detailedFigure.getImageUrl());
+                ActivityUtils.startItemBestPicturesGalleryActivity(FigureDetailBestPictureActivity.this, detailedFigure.getId(), detailedFigure.getImageUrlFull());
             }
         };
     }
