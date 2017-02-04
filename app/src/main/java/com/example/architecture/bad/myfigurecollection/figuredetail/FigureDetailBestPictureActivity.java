@@ -12,11 +12,6 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 public class FigureDetailBestPictureActivity extends FigureDetailActivity {
 
     @Override
-    protected String getImageUrl(DetailedFigure detailedFigure) {
-        return detailedFigure.getImageUrlMedium();
-    }
-
-    @Override
     protected View.OnClickListener getImageViewClickListener(final DetailedFigure detailedFigure) {
         return new View.OnClickListener() {
             @Override

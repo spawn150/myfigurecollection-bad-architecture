@@ -2,7 +2,6 @@ package com.example.architecture.bad.myfigurecollection.figuredetail;
 
 import android.view.View;
 
-import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
@@ -11,12 +10,6 @@ import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
  */
 
 public class FigureDetailCollectionFigureActivity extends FigureDetailActivity {
-
-    @Override
-    protected String getImageUrl(DetailedFigure detailedFigure) {
-        //return getString(R.string.figure_large_image_url, detailedFigure.getId());
-        return getString(R.string.figure_big_image_url, detailedFigure.getId());
-    }
 
     @Override
     protected View.OnClickListener getImageViewClickListener(final DetailedFigure detailedFigure) {
