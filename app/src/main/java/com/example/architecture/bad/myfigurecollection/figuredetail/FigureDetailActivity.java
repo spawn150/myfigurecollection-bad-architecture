@@ -29,6 +29,7 @@ import java.io.IOException;
 public abstract class FigureDetailActivity extends AppCompatActivity {
 
     private static final String TAG = FigureDetailActivity.class.getName();
+    private HandlerThread fullImageLoaderThread;
     private ImageView imageView;
 
     @Override
@@ -49,6 +50,9 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(
                 StringUtils.extractStringBeforeSeparatorRepeatedNTimes(detailedFigure.getName(), '-', 2));
+
+        fullImageLoaderThread = new HandlerThread("Full Image loader thread");
+        fullImageLoaderThread.start();
 
         loadBackdrop(detailedFigure);
 
@@ -127,14 +131,15 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (fullImageLoaderThread != null) {
+            fullImageLoaderThread.quit();
+        }
         imageView.setImageBitmap(null);
-        imageView = null;
         super.onStop();
     }
 
     private void loadFullImage(final String imageUrl) {
-        HandlerThread fullImageLoaderThread = new HandlerThread("Full Image loader thread");
-        fullImageLoaderThread.start();
+
         new Handler(fullImageLoaderThread.getLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -155,8 +160,6 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
             }
         });
     }
-
-    protected abstract String getImageUrl(DetailedFigure detailedFigure);
 
     protected abstract View.OnClickListener getImageViewClickListener(DetailedFigure detailedFigure);
 }
