@@ -27,9 +27,7 @@ public abstract class FigureGalleryActivity extends AppCompatActivity implements
             }
         });
 
-
         textViewGalleryCounter = (TextView)findViewById(R.id.text_view_gallery_counter);
-
     }
 
     protected abstract void loadFragment();
