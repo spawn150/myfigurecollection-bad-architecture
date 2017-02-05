@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "208473343018",
+    "firebase_url": "https://myfigurecollection-46ee9.firebaseio.com",
+    "project_id": "myfigurecollection-46ee9",
+    "storage_bucket": "myfigurecollection-46ee9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208473343018:android:f166f9b955fb2a42",
+        "android_client_info": {
+          "package_name": "com.example.architecture.bad.myfigurecollection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208473343018-rvil5mvujc99h1ulim0g71pmaai1pabh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6-9psbWJ--xJX9-Hr3ZaQYo61P0ImNmM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

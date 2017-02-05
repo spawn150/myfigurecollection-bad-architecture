@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
 
 buildscript {
     repositories {
@@ -67,6 +68,8 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //Firebase
+    compile 'com.google.firebase:firebase-crash:10.0.1'
 
     //TODO Remove when new version of MFC-SDK is published
     compile project(':MFC-SDK')
