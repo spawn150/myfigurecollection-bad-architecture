@@ -44,6 +44,9 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //delays entering transition
+        postponeEnterTransition();
+
         DetailedFigure detailedFigure = getIntent().getParcelableExtra(ActivityUtils.ARG_FIGURE_DETAIL);
 
         CollapsingToolbarLayout collapsingToolbar =
@@ -102,6 +105,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
                         public void onSuccess() {
                             if (imageView != null) {
                                 resizeImage(((BitmapDrawable) imageView.getDrawable()).getBitmap());
+                                startPostponedEnterTransition();
                                 Log.d("Detail", "Thread info: " + Thread.currentThread().getName());
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -115,6 +119,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onError() {
+                            startPostponedEnterTransition();
                             loadFullImage(detailedFigure.getImageUrlFull());
                         }
                     });
