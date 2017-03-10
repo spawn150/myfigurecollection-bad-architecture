@@ -43,7 +43,7 @@ android {
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
 }
 
-def getBuildString() {
+static def getBuildString() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMdd')
     return formattedDate
@@ -61,7 +61,7 @@ dependencies {
     {
         transitive = true;
     }
-    compile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.facebook.stetho:stetho:1.4.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0' //waiting new Picasso version supporting OkHttp3 with OkHttpDownloader class
     //LeakCanary
@@ -80,5 +80,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'io.reactivex:rxjava:1.0.8'
-    compile 'com.google.guava:guava:18.0'
+    compile 'com.google.guava:guava:20.0'
 }
