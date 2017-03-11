@@ -101,21 +101,18 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            public ImageView imageViewFigure;
-            public TextView textViewFigureName;
-            private CollectionFigureItemListener mFigureItemListener;
+            private ImageView imageViewFigure;
+            private TextView textViewFigureName;
             private Item figureItem;
 
-            public ViewHolder(View v, CollectionFigureItemListener figureItemListener) {
+            public ViewHolder(View v, final CollectionFigureItemListener figureItemListener) {
                 super(v);
-                mFigureItemListener = figureItemListener;
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFigureItemListener.onCollectionFigureItemClick(imageViewFigure, figureItem);
+                        figureItemListener.onCollectionFigureItemClick(imageViewFigure, figureItem);
                     }
                 });
             }
