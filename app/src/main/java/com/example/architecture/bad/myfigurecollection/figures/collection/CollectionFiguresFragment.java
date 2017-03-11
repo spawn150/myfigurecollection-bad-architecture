@@ -104,17 +104,47 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
             // each data item is just a string in this case
             public ImageView imageViewFigure;
             public TextView textViewFigureName;
+            private CollectionFigureItemListener mFigureItemListener;
+            private Item figureItem;
 
-            public ViewHolder(View v) {
+            public ViewHolder(View v, CollectionFigureItemListener figureItemListener) {
                 super(v);
+                mFigureItemListener = figureItemListener;
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        mFigureItemListener.onCollectionFigureItemClick(imageViewFigure, figureItem);
                     }
                 });
+            }
+
+            public void setItem(Item figureItem) {
+                this.figureItem = figureItem;
+                Data figureData = figureItem.getData();
+                textViewFigureName.setText(figureData.getName());
+
+                final Context context = imageViewFigure.getContext();
+                String url = context.getString(R.string.figure_big_image_url, figureData.getId());
+                Picasso.with(context)
+                        .load(url)
+                        .placeholder(R.drawable.placeholder)
+                        .into(imageViewFigure, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Bitmap bitmap = ((BitmapDrawable) imageViewFigure.getDrawable()).getBitmap();
+                                double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                                double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                                imageViewFigure.getLayoutParams().height = (int) newWidth;
+                                imageViewFigure.requestLayout();
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
             }
         }
 
@@ -136,46 +166,14 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_card_view_collection_figure, parent, false);
 
-            return new ViewHolder(v);
+            return new ViewHolder(v, mFigureItemListener);
         }
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-
             final Item figureItem = mDataset.get(position);
-
-            Data figureData = figureItem.getData();
-            final Context context = holder.imageViewFigure.getContext();
-
-            String url = context.getString(R.string.figure_big_image_url, figureData.getId());
-
-            Picasso.with(context)
-                    .load(url)
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.imageViewFigure, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                            holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                            holder.imageViewFigure.requestLayout();
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-                    });
-
-            holder.textViewFigureName.setText(figureData.getName());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mFigureItemListener.onCollectionFigureItemClick(holder.imageViewFigure, figureItem);
-                }
-            });
+            holder.setItem(figureItem);
         }
 
         // Return the size of your dataset (invoked by the layout manager)
