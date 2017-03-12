@@ -103,21 +103,100 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
         static class ViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            ImageView imageViewFigure;
-            TextView textViewFigureName;
+            private Picture mPicture;
+            private ImageView imageViewFigure;
+            private TextView textViewFigureName;
 
-            ViewHolder(View v) {
+            ViewHolder(View v, final PictureItemListener pictureItemListener) {
                 super(v);
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (!isContentObfuscated(v.getContext())) {
+                            pictureItemListener.onPictureItemClick(imageViewFigure, mPicture);
+                        }
                     }
                 });
             }
+
+            public void setPicture(Picture picture) {
+                this.mPicture = picture;
+
+                textViewFigureName.setText(picture.getTitle());
+
+                final Context context = imageViewFigure.getContext();
+
+                Picasso picasso = Picasso.with(context);
+                RequestCreator requestCreator;
+                Callback callback;
+                if (isContentObfuscated(context)) {
+
+                    //nsfw content obfuscated
+                    requestCreator = picasso.load(R.drawable.ic_tsuko_bn).error(R.drawable.ic_tsuko_bn);
+                    callback = new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) imageViewFigure.getDrawable()).getBitmap();
+                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                            imageViewFigure.getLayoutParams().height = (int) newWidth;
+                            imageViewFigure.requestLayout();
+                        }
+
+                        @Override
+                        public void onError() {
+                        }
+                    };
+
+                } else {
+
+                    //in case it is nsfw, the content is not obfuscated
+                    requestCreator = picasso.load(picture.getMedium()).placeholder(R.drawable.placeholder);
+                    callback = new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) imageViewFigure.getDrawable()).getBitmap();
+                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                            imageViewFigure.getLayoutParams().height = (int) newWidth;
+                            imageViewFigure.requestLayout();
+                        }
+
+                        @Override
+                        public void onError() {
+
+                            Picasso.with(context)
+                                    .load(mPicture.getFull())
+                                    .placeholder(R.drawable.placeholder)
+                                    .into(imageViewFigure, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Bitmap bitmap = ((BitmapDrawable) imageViewFigure.getDrawable()).getBitmap();
+                                            double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+                                            double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
+                                            imageViewFigure.getLayoutParams().height = (int) newWidth;
+                                            imageViewFigure.requestLayout();
+                                        }
+
+                                        @Override
+                                        public void onError() {
+
+                                        }
+                                    });
+
+                        }
+                    };
+                }
+                requestCreator.into(imageViewFigure, callback);
+            }
+
+            private boolean isContentObfuscated(Context context) {
+                return !PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SettingsActivity.KEY_PREF_NSFW_CONTENT_ENABLED, false) &&
+                        !mPicture.getNsfw().equals(Constants.SAFE_CONTENT);
+            }
+
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
@@ -138,89 +217,12 @@ public abstract class BestPicturesFragment extends FiguresFragment {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_card_view_collection_figure, parent, false);
 
-            return new ViewHolder(v);
+            return new ViewHolder(v, mPictureItemListener);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            final Context context = holder.imageViewFigure.getContext();
-            final Picture picture = mDataset.get(position);
-
-            Picasso picasso = Picasso.with(context);
-            RequestCreator requestCreator;
-            Callback callback;
-            if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SettingsActivity.KEY_PREF_NSFW_CONTENT_ENABLED, false) &&
-                    !picture.getNsfw().equals(Constants.SAFE_CONTENT)) {
-
-                //nsfw content obfuscated
-                requestCreator = picasso.load(R.drawable.ic_tsuko_bn).error(R.drawable.ic_tsuko_bn);
-                callback = new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                        holder.imageViewFigure.requestLayout();
-                    }
-
-                    @Override
-                    public void onError() {
-                    }
-                };
-                holder.itemView.setOnClickListener(null);
-
-            } else {
-
-                //in case it is nsfw, the content is not obfuscated
-                requestCreator = picasso.load(picture.getMedium()).placeholder(R.drawable.placeholder);
-                callback = new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                        holder.imageViewFigure.requestLayout();
-                    }
-
-                    @Override
-                    public void onError() {
-
-                        Picasso.with(context)
-                                .load(picture.getFull())
-                                .placeholder(R.drawable.placeholder)
-                                .into(holder.imageViewFigure, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        Bitmap bitmap = ((BitmapDrawable) holder.imageViewFigure.getDrawable()).getBitmap();
-                                        double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-                                        double newWidth = (CodeUtils.getScreenWidth(context) / 2) * ratio;
-                                        holder.imageViewFigure.getLayoutParams().height = (int) newWidth;
-                                        holder.imageViewFigure.requestLayout();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
-                                    }
-                                });
-
-                    }
-                };
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mPictureItemListener.onPictureItemClick(holder.imageViewFigure, picture);
-                    }
-                });
-
-            }
-
-            requestCreator.into(holder.imageViewFigure, callback);
-            holder.textViewFigureName.setText(picture.getTitle());
-
+            holder.setPicture(mDataset.get(position));
         }
 
         // Return the size of your dataset (invoked by the layout manager)
