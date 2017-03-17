@@ -69,13 +69,13 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     //Firebase
-    compile 'com.google.firebase:firebase-crash:10.0.1'
+    compile 'com.google.firebase:firebase-crash:10.2.0'
 
     //TODO Remove when new version of MFC-SDK is published
     compile project(':MFC-SDK')
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
