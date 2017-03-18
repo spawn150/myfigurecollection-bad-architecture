@@ -3,6 +3,7 @@ package com.example.architecture.bad.myfigurecollection.figuredetail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,10 @@ public abstract class FigureDetailFragment extends Fragment {
         }
 
         setExtraViews(view);
+
+        CardView cardViewContainer = (CardView) view.findViewById(R.id.card_view_container);
+        //TODO Gestire transition
+        cardViewContainer.setVisibility(View.VISIBLE);
     }
 
     protected abstract void setExtraViews(View view);
