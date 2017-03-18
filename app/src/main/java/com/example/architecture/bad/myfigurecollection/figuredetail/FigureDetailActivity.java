@@ -140,7 +140,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
             fullImageLoaderThread.quit();
         }
         imageView.setImageBitmap(null);
-        super.onStop();
+        super.onDestroy();
     }
 
     private void loadFullImage(final String imageUrl) {
