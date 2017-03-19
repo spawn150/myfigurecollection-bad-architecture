@@ -8,6 +8,9 @@ import android.os.HandlerThread;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -31,6 +34,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
     private static final String TAG = FigureDetailActivity.class.getName();
     private HandlerThread fullImageLoaderThread;
     private ImageView imageView;
+    private FrameLayout viewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
         loadBackdrop(detailedFigure);
 
         //Workaround to fix issue on NestedScrollView scrolling (http://stackoverflow.com/questions/31795483/collapsingtoolbarlayout-doesnt-recognize-scroll-fling)
-        FrameLayout viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
+        viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
         viewGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +86,15 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
                     R.id.fragment_figure_detail);
         }
 
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+
+        TransitionSet set = new TransitionSet().addTransition(new Slide()).setDuration(300L);
+        TransitionManager.beginDelayedTransition(viewGroup, set);
+        viewGroup.setVisibility(View.VISIBLE);
     }
 
     @Override
