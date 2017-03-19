@@ -150,25 +150,27 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
 
     private void loadFullImage(final String imageUrl) {
 
-        new Handler(fullImageLoaderThread.getLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final Bitmap bitmap = Picasso.with(FigureDetailActivity.this).load(imageUrl).get();
-                    if (bitmap != null) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(bitmap);
-                                resizeImage(bitmap);
-                            }
-                        });
+        if (fullImageLoaderThread != null && fullImageLoaderThread.isAlive()) {
+            new Handler(fullImageLoaderThread.getLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        final Bitmap bitmap = Picasso.with(FigureDetailActivity.this).load(imageUrl).get();
+                        if (bitmap != null) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    imageView.setImageBitmap(bitmap);
+                                    resizeImage(bitmap);
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        Log.w(TAG, "Full Image not loaded.");
                     }
-                } catch (IOException e) {
-                    Log.w(TAG, "Full Image not loaded.");
                 }
-            }
-        });
+            });
+        }
     }
 
     protected abstract View.OnClickListener getImageViewClickListener(DetailedFigure detailedFigure);
