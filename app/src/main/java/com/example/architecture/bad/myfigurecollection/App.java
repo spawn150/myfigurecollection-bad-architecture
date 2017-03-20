@@ -34,7 +34,7 @@ public class App extends Application {
 
         MFCRequest.initialize(this);
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             initializeStetho();
 
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -51,15 +51,27 @@ public class App extends Application {
                     .build());
         }
 
+        initializeTwitter();
+        initializePicasso();
+    }
+
+    private void initializeTwitter() {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+    }
 
+    private void initializePicasso() {
         //Initialize Picasso library
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE));
         Picasso built = builder.build();
         built.setLoggingEnabled(BuildConfig.DEBUG);
-        Picasso.setSingletonInstance(built);
+        try {
+            Picasso.setSingletonInstance(built);
+        } catch (IllegalStateException exceptionIgnored) {
+            // Picasso instance was already set
+            // cannot set it after Picasso.with(Context) was already in use
+        }
     }
 
     private void initializeStetho() {
