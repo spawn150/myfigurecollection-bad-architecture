@@ -98,13 +98,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
-        //onBackPressed();
         supportFinishAfterTransition();
         return true;
     }
