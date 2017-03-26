@@ -38,6 +38,10 @@
     <style name="AppTheme.Detail" parent="Base.AppTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowReturnTransition">@transition/transition_set_detail_activity
+        </item>
     </style>
 
     <style name="AppTheme.NoActionBar">
