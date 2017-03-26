@@ -8,11 +8,13 @@ import android.os.HandlerThread;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -87,6 +89,18 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+
+        TransitionSet set = new TransitionSet().addTransition(new Fade()).setDuration(2000L);
+        TransitionManager.beginDelayedTransition((ViewGroup) findViewById(R.id.collapsing_toolbar), set);
+        findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+        findViewById(R.id.scrim_top).setVisibility(View.VISIBLE);
+        findViewById(R.id.scrim_bottom).setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
