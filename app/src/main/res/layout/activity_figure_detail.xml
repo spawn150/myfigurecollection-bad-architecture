@@ -63,16 +63,15 @@
         android:id="@+id/container_figure_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
         android:fitsSystemWindows="true"
+        android:scrollbars="none"
         android:transitionGroup="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
             android:id="@+id/fragment_figure_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"/>
+            android:layout_height="match_parent" />
 
     </android.support.v4.widget.NestedScrollView>
 

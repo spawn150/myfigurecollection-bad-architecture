@@ -40,8 +40,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowReturnTransition">@transition/transition_set_detail_activity
-        </item>
+        <item name="android:windowEnterTransition">@transition/transition_set_detail_activity</item>
+        <item name="android:windowReturnTransition">@transition/transition_set_detail_activity</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

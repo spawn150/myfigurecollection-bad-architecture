@@ -89,15 +89,6 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onEnterAnimationComplete() {
-        super.onEnterAnimationComplete();
-
-        TransitionSet set = new TransitionSet().addTransition(new Slide()).setDuration(300L);
-        TransitionManager.beginDelayedTransition(viewGroup, set);
-        viewGroup.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
         supportFinishAfterTransition();
         return true;
