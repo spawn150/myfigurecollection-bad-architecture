@@ -25,14 +25,11 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-
 import android.view.View;
 
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
-import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailActivity;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailBestPictureActivity;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailCollectionFigureActivity;
-import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryBestPicturesActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryCollectionFiguresActivity;
 
