@@ -26,3 +26,5 @@
 .idea/vcs.xml
 
 projectFilesBackup/.idea/workspace.xml
+
+.idea/gradle_extensions.xml
