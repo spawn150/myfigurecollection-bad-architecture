@@ -82,7 +82,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'io.reactivex:rxjava:1.0.8'
     compile 'com.google.guava:guava:20.0'
