@@ -71,12 +71,9 @@ public abstract class FiguresFragment extends Fragment {
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.figures_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                loadCollection();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            loadCollection();
         });
 
         loadCollection();
@@ -97,6 +94,10 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected void showError(String title, String message) {
+        textViewErrorTitle.setOnClickListener(v -> {
+            setViewState(LOADING);
+            loadCollection();
+        });
         textViewErrorTitle.setText(title);
         textViewErrorMessage.setText(message);
         setViewState(ERROR);
