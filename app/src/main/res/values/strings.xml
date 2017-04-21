@@ -52,7 +52,7 @@
     <string name="message_error_no_owned_items_in_list">Items you own will show up here.</string>
     <string name="message_error_no_ordered_items_in_list">Items you have ordered will show up here.</string>
     <string name="message_error_no_wished_items_in_list">Items you wish will show up here.</string>
-    <string name="title_error_loading_items">Sorry, I had trouble loading %s items. Try reloading them.</string>
-    <string name="title_error_loading_pictures">Sorry, I had trouble loading %s. Try reloading them.</string>
+    <string name="title_error_loading_items">Sorry, I had trouble loading %s items. Tap to reload them.</string>
+    <string name="title_error_loading_pictures">Sorry, I had trouble loading %s. Tap to reload them.</string>
 
 </resources>
