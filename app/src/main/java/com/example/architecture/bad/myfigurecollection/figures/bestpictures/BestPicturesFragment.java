@@ -39,27 +39,24 @@ public abstract class BestPicturesFragment extends FiguresFragment {
     OnBestPicturesFragmentInteractionListener mListener;
     private PictureAdapter pictureAdapter;
 
-    PictureItemListener mPictureItemListener = new PictureItemListener() {
-        @Override
-        public void onPictureItemClick(View view, Picture picture) {
-            Category category = picture.getCategory();
+    PictureItemListener mPictureItemListener = (view, picture) -> {
+        Category category = picture.getCategory();
 
-            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
-                    .setName(picture.getTitle())
-                    .setImageUrlMedium(picture.getMedium())
-                    .setImageUrlFull(picture.getFull())
-                    .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
-                    .setAuthor(picture.getAuthor())
-                    .setReleaseDate(
-                            StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
-                    .setWidthResolution(picture.getResolution().getWidth())
-                    .setHeightResolution(picture.getResolution().getHeight())
-                    .setSize(StringUtils.getFileSize(Long.valueOf(picture.getSize())))
-                    .setHits(picture.getHits())
-                    .build();
+        DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(picture.getId())
+                .setName(picture.getTitle())
+                .setImageUrlMedium(picture.getMedium())
+                .setImageUrlFull(picture.getFull())
+                .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
+                .setAuthor(picture.getAuthor())
+                .setReleaseDate(
+                        StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)))
+                .setWidthResolution(picture.getResolution().getWidth())
+                .setHeightResolution(picture.getResolution().getHeight())
+                .setSize(StringUtils.getFileSize(Long.valueOf(picture.getSize())))
+                .setHits(picture.getHits())
+                .build();
 
-            onFragmentInteraction(view, detailedFigure);
-        }
+        onFragmentInteraction(view, detailedFigure);
     };
 
     @Override
@@ -81,7 +78,7 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        pictureAdapter = new PictureAdapter(new ArrayList<Picture>(), mPictureItemListener);
+        pictureAdapter = new PictureAdapter(new ArrayList<>(), mPictureItemListener);
         return pictureAdapter;
     }
 
@@ -106,12 +103,9 @@ public abstract class BestPicturesFragment extends FiguresFragment {
                 super(v);
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!isContentObfuscated(v.getContext())) {
-                            pictureItemListener.onPictureItemClick(imageViewFigure, mPicture);
-                        }
+                v.setOnClickListener(viewClicked -> {
+                    if (!isContentObfuscated(viewClicked.getContext())) {
+                        pictureItemListener.onPictureItemClick(imageViewFigure, mPicture);
                     }
                 });
             }
