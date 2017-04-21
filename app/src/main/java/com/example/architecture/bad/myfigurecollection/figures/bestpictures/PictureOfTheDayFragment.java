@@ -6,6 +6,7 @@ import android.view.View;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PotdPictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
@@ -51,6 +52,11 @@ public class PictureOfTheDayFragment extends BestPicturesFragment {
                 }
             }
         });
+    }
+
+    private void showError() {
+        String title = String.format(getActivity().getString(R.string.title_error_loading_pictures), getActivity().getString(R.string.potd_items_value));
+        showError(title);
     }
 
     @Override

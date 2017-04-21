@@ -6,6 +6,7 @@ import android.view.View;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
+import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.util.ActivityUtils;
 
@@ -44,12 +45,17 @@ public class LatestPicturesFragment extends BestPicturesFragment {
 
             @Override
             public void onFailure(Call<PictureGallery> call, Throwable t) {
-                Log.e("MFC", "Error on loading Best Pictures items.", t);
+                Log.e("MFC", "Error on loading Latest Pictures items.", t);
                 if (getActivity() != null) {
                     showError();
                 }
             }
         });
+    }
+
+    private void showError(){
+        String title = String.format(getActivity().getString(R.string.title_error_loading_pictures), getActivity().getString(R.string.latest_items_value));
+        showError(title);
     }
 
     @Override

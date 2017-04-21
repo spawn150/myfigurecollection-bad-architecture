@@ -90,11 +90,6 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         showData();
     }
 
-    protected void showError() {
-        String title = String.format(getActivity().getString(R.string.title_error_loading_items), getActivity().getString(R.string.potd_items_value));
-        showError(title);
-    }
-
     static class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
         private List<Picture> mDataset;
         private PictureItemListener mPictureItemListener;
