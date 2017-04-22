@@ -41,7 +41,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/transition_set_detail_activity</item>
-        <item name="android:windowReturnTransition">@transition/transition_set_detail_activity</item>
+        <item name="android:windowReturnTransition">@transition/transition_set_detail_activity
+        </item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -49,12 +50,10 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/black</item>
     </style>
 
-    <style name="AppTheme.Gallery" parent="AppTheme.NoActionBar">
-        <item name="android:background">@android:color/black</item>
-    </style>
+    <style name="AppTheme.Gallery" parent="AppTheme.NoActionBar" />
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

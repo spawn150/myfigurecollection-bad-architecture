@@ -9,6 +9,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -82,6 +85,8 @@ public abstract class FigureGalleryFragment extends Fragment {
 
         // retain this fragment
         setRetainInstance(true);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -98,6 +103,23 @@ public abstract class FigureGalleryFragment extends Fragment {
         galleryPager.addOnPageChangeListener(onPageChangeListener);
 
         loadGallery();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_figure_detail, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_download:
+                Log.d(TAG, "Download clicked!");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
