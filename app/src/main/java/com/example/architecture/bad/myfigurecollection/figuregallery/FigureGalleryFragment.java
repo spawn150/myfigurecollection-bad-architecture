@@ -149,6 +149,7 @@ public abstract class FigureGalleryFragment extends Fragment {
             Picasso
                     .with(container.getContext())
                     .load(galleryFigure.getUrl())
+                    .error(R.drawable.ic_tsuko_bn)
                     .transform(new BitmapResizeTransformation(screenSize.x, screenSize.y))
                     .into(target);
 
