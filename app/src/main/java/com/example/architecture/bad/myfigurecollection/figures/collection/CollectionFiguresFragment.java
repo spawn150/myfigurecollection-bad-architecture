@@ -116,6 +116,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
 
                 final Context context = imageViewFigure.getContext();
                 String url = context.getString(R.string.figure_big_image_url, figureData.getId());
+
                 Picasso.with(context)
                         .load(url)
                         .placeholder(R.drawable.placeholder)
@@ -134,6 +135,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
 
                             }
                         });
+
             }
         }
 
