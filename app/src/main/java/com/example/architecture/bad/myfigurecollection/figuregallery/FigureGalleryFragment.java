@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,10 +21,13 @@ import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.GalleryFigure;
+import com.example.architecture.bad.myfigurecollection.download.DownloadService;
 import com.example.architecture.bad.myfigurecollection.util.BitmapResizeTransformation;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -39,6 +43,7 @@ public abstract class FigureGalleryFragment extends Fragment {
     protected int gallerySize;
     protected ViewPager galleryPager;
     protected OnGalleryListener galleryListener;
+    private int currentItemSelected;
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -49,6 +54,7 @@ public abstract class FigureGalleryFragment extends Fragment {
         @Override
         public void onPageSelected(int position) {
             Log.d(TAG, "onPageSelected");
+            currentItemSelected = position;
             galleryListener.onFigureChanged(++position, gallerySize);
         }
 
@@ -84,7 +90,7 @@ public abstract class FigureGalleryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // retain this fragment
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
         setHasOptionsMenu(true);
     }
@@ -116,7 +122,7 @@ public abstract class FigureGalleryFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.action_download:
-                Log.d(TAG, "Download clicked!");
+                downloadImage();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -130,6 +136,17 @@ public abstract class FigureGalleryFragment extends Fragment {
     }
 
     protected abstract void loadGallery();
+
+    private void downloadImage() {
+        FullScreenImageAdapter adapter = (FullScreenImageAdapter) galleryPager.getAdapter();
+        GalleryFigure figureToDownload = adapter.getItemByPosition(currentItemSelected);
+        if (figureToDownload != null) {
+            String imageUrl = figureToDownload.getUrl();
+            String id = figureToDownload.getId();
+            if(!TextUtils.isEmpty(id) && !TextUtils.isEmpty(imageUrl))
+            DownloadService.startActionDownload(getContext(), id, imageUrl);
+        }
+    }
 
     protected static class FullScreenImageAdapter extends PagerAdapter {
 
@@ -186,6 +203,10 @@ public abstract class FigureGalleryFragment extends Fragment {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+        }
+
+        public GalleryFigure getItemByPosition(int position) {
+            return galleryFigures.get(position);
         }
     }
 

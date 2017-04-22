@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.Launcher"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +24,8 @@
         <activity
             android:name=".figuredetail.FigureDetailCollectionFigureActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.Detail"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.architecture.bad.myfigurecollection.MainActivity" />
@@ -33,27 +33,32 @@
         <activity
             android:name=".figuredetail.FigureDetailBestPictureActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.Detail"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.architecture.bad.myfigurecollection.MainActivity" />
         </activity>
         <activity
             android:name=".figuregallery.FigureGalleryCollectionFiguresActivity"
-            android:theme="@style/AppTheme.Gallery"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Gallery" />
         <activity
             android:name=".figuregallery.FigureGalleryBestPicturesActivity"
             android:theme="@style/AppTheme.Gallery" />
-        <activity android:name=".settings.SettingsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.LoginActivity"
             android:noHistory="true"
-            android:theme="@style/AppTheme.Login"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Login" />
         <activity android:name=".timelinetwitter.TwitterTimelineActivity" />
+
+        <service
+            android:name=".download.DownloadService"
+            android:exported="false" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

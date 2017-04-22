@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 
@@ -16,8 +15,6 @@ public abstract class FigureGalleryActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_figure_gallery);
 
-        loadFragment();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar_gallery);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -27,9 +24,7 @@ public abstract class FigureGalleryActivity extends AppCompatActivity implements
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        //noinspection ConstantConditions
-//        findViewById(R.id.image_button_clear).setOnClickListener(v -> finish());
-//        findViewById(R.id.image_button_download).setOnClickListener(v -> );
+        loadFragment();
     }
 
     @Override
