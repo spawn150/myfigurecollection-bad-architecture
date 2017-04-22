@@ -36,34 +36,31 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     OnCollectionFiguresFragmentInteractionListener mListener;
     FigureAdapter figureAdapter;
 
-    CollectionFigureItemListener collectionFigureItemListener = new CollectionFigureItemListener() {
-        @Override
-        public void onCollectionFigureItemClick(View view, Item figureItem) {
+    CollectionFigureItemListener collectionFigureItemListener = (view, figureItem) -> {
 
-            Data data = figureItem.getData();
-            String figureId = data.getId();
-            Category category = figureItem.getCategory();
-            Mycollection mycollection = figureItem.getMycollection();
-            DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(figureId)
-                    .setName(data.getName())
-                    .setImageUrlMedium(getString(R.string.figure_big_image_url, figureId))
-                    .setImageUrlFull(getString(R.string.figure_large_image_url, figureId))
-                    .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
-                    .setReleaseDate(
-                            StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))
-                    .setScore(StringUtils.getFractionValue(mycollection.getScore(),
-                            getString(R.string.denominator_score_value), getString(R.string.not_available)))
-                    .setPrice(
-                            StringUtils.getCurrencyValue(data.getPrice(), getString(R.string.currency_symbol),
-                                    getString(R.string.not_available)))
-                    .setNumber(mycollection.getNumber())
-                    .setWishability(StringUtils.getFractionValue(mycollection.getWishability(),
-                            getString(R.string.denominator_wishability_value), getString(R.string.not_available)))
-                    .setBarcode(data.getBarcode())
-                    .build();
+        Data data = figureItem.getData();
+        String figureId = data.getId();
+        Category category = figureItem.getCategory();
+        Mycollection mycollection = figureItem.getMycollection();
+        DetailedFigure detailedFigure = new DetailedFigure.Builder().setId(figureId)
+                .setName(data.getName())
+                .setImageUrlMedium(getString(R.string.figure_big_image_url, figureId))
+                .setImageUrlFull(getString(R.string.figure_large_image_url, figureId))
+                .setCategory(TextUtils.isEmpty(category.getName()) ? getString(R.string.not_available) : category.getName())
+                .setReleaseDate(
+                        StringUtils.formatDate(data.getReleaseDate(), getString(R.string.not_available)))
+                .setScore(StringUtils.getFractionValue(mycollection.getScore(),
+                        getString(R.string.denominator_score_value), getString(R.string.not_available)))
+                .setPrice(
+                        StringUtils.getCurrencyValue(data.getPrice(), getString(R.string.currency_symbol),
+                                getString(R.string.not_available)))
+                .setNumber(mycollection.getNumber())
+                .setWishability(StringUtils.getFractionValue(mycollection.getWishability(),
+                        getString(R.string.denominator_wishability_value), getString(R.string.not_available)))
+                .setBarcode(data.getBarcode())
+                .build();
 
-            onFragmentInteraction(view, detailedFigure);
-        }
+        onFragmentInteraction(view, detailedFigure);
     };
 
     @Override
@@ -84,7 +81,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     }
 
     protected RecyclerView.Adapter createAdapter() {
-        figureAdapter = new FigureAdapter(new ArrayList<Item>(), collectionFigureItemListener);
+        figureAdapter = new FigureAdapter(new ArrayList<>(), collectionFigureItemListener);
         return figureAdapter;
     }
 
@@ -109,12 +106,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
                 super(v);
                 imageViewFigure = (ImageView) v.findViewById(R.id.image_view_figure);
                 textViewFigureName = (TextView) v.findViewById(R.id.text_view_figure_name);
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        figureItemListener.onCollectionFigureItemClick(imageViewFigure, figureItem);
-                    }
-                });
+                v.setOnClickListener(v1 -> figureItemListener.onCollectionFigureItemClick(imageViewFigure, figureItem));
             }
 
             public void setItem(Item figureItem) {
