@@ -1,6 +1,8 @@
 package com.example.architecture.bad.myfigurecollection.figuredetail;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +11,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.util.Log;
@@ -34,9 +35,9 @@ import java.io.IOException;
 public abstract class FigureDetailActivity extends AppCompatActivity {
 
     private static final String TAG = FigureDetailActivity.class.getName();
+    private static final int MAX_HEIGHT_OFFSET = 150;
     private HandlerThread fullImageLoaderThread;
     private ImageView imageView;
-    private FrameLayout viewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +67,8 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
         loadBackdrop(detailedFigure);
 
         //Workaround to fix issue on NestedScrollView scrolling (http://stackoverflow.com/questions/31795483/collapsingtoolbarlayout-doesnt-recognize-scroll-fling)
-        viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
-        viewGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.getId();
-            }
-        });
+        FrameLayout viewGroup = (FrameLayout) findViewById(R.id.fragment_figure_detail);
+        viewGroup.setOnClickListener(View::getId);
 
         FigureDetailFragment figureDetailFragment =
                 (FigureDetailFragment) getSupportFragmentManager().findFragmentById(
@@ -125,12 +121,7 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
                                 startPostponedEnterTransition();
                                 Log.d("Detail", "Thread info: " + Thread.currentThread().getName());
                                 final Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        loadFullImage(detailedFigure.getImageUrlFull());
-                                    }
-                                }, 1000);
+                                handler.postDelayed(() -> loadFullImage(detailedFigure.getImageUrlFull()), 1000);
                             }
                         }
 
@@ -145,9 +136,13 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
     }
 
     private void resizeImage(Bitmap bitmap) {
+        Context context = FigureDetailActivity.this;
+        Point screenSize = CodeUtils.getScreenSize(context);
+        int maxHeight = screenSize.y - (int) CodeUtils.convertDpToPixel(MAX_HEIGHT_OFFSET, context);
         double ratio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-        double newWidth = CodeUtils.getScreenWidth(FigureDetailActivity.this) * ratio;
-        imageView.getLayoutParams().height = (int) newWidth;
+        int newWidth = (int) (screenSize.x * ratio);
+        Log.d(TAG, "height: " + newWidth + " maxHeight: " + maxHeight);
+        imageView.getLayoutParams().height = newWidth > maxHeight ? maxHeight : newWidth;
         imageView.requestLayout();
     }
 
@@ -163,23 +158,17 @@ public abstract class FigureDetailActivity extends AppCompatActivity {
     private void loadFullImage(final String imageUrl) {
 
         if (fullImageLoaderThread != null && fullImageLoaderThread.isAlive()) {
-            new Handler(fullImageLoaderThread.getLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        final Bitmap bitmap = Picasso.with(FigureDetailActivity.this).load(imageUrl).get();
-                        if (bitmap != null) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imageView.setImageBitmap(bitmap);
-                                    resizeImage(bitmap);
-                                }
-                            });
-                        }
-                    } catch (IOException e) {
-                        Log.w(TAG, "Full Image not loaded.");
+            new Handler(fullImageLoaderThread.getLooper()).post(() -> {
+                try {
+                    final Bitmap bitmap = Picasso.with(FigureDetailActivity.this).load(imageUrl).get();
+                    if (bitmap != null) {
+                        runOnUiThread(() -> {
+                            imageView.setImageBitmap(bitmap);
+                            resizeImage(bitmap);
+                        });
                     }
+                } catch (IOException e) {
+                    Log.w(TAG, "Full Image not loaded.");
                 }
             });
         }
