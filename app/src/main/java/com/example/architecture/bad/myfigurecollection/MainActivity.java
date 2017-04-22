@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -141,57 +140,54 @@ public class MainActivity extends AppCompatActivity
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        boolean checkMenuItem = false;
-                        switch (menuItem.getItemId()) {
-                            case R.id.mfc_navigation_menu_item:
-                                checkMenuItem = true;
-                                setMyCollectionFragment();
-                                break;
-                            case R.id.potd_navigation_menu_item:
-                                checkMenuItem = true;
-                                setPODFragment();
-                                break;
-                            case R.id.latest_pictures_navigation_menu_item:
-                                checkMenuItem = true;
-                                setLatestPicturesFragment();
-                                break;
-                            /*
-                            case R.id.pow_navigation_menu_item:
-                                Log.d(TAG, "POW menu tapped!");
-                                setPOWFragment();
-                                break;
-                            case R.id.pom_navigation_menu_item:
-                                Log.d(TAG, "POM menu tapped!");
-                                setPOMFragment();
-                                break;
-                            */
-                            case R.id.twitter_navigation_menu_item:
-                                Log.d(TAG, "Twitter menu tapped!");
-                                openTwitterTimeline();
-                                break;
-                            case R.id.settings_navigation_menu_item:
-                                Log.d(TAG, "Settings menu tapped!");
-                                openSettings();
-                                break;
-                            case R.id.login_menu_item:
-                                Log.d(TAG, "Settings menu tapped!");
-                                openLogin();
-                                break;
-                            case R.id.logout_menu_item:
-                                Log.d(TAG, "Settings menu tapped!");
-                                logout();
-                                break;
-                            default:
-                                break;
-                        }
-                        // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(checkMenuItem);
-                        mDrawerLayout.closeDrawers();
-                        return true;
+                menuItem -> {
+                    boolean checkMenuItem = false;
+                    switch (menuItem.getItemId()) {
+                        case R.id.mfc_navigation_menu_item:
+                            checkMenuItem = true;
+                            setMyCollectionFragment();
+                            break;
+                        case R.id.potd_navigation_menu_item:
+                            checkMenuItem = true;
+                            setPODFragment();
+                            break;
+                        case R.id.latest_pictures_navigation_menu_item:
+                            checkMenuItem = true;
+                            setLatestPicturesFragment();
+                            break;
+                        /*
+                        case R.id.pow_navigation_menu_item:
+                            Log.d(TAG, "POW menu tapped!");
+                            setPOWFragment();
+                            break;
+                        case R.id.pom_navigation_menu_item:
+                            Log.d(TAG, "POM menu tapped!");
+                            setPOMFragment();
+                            break;
+                        */
+                        case R.id.twitter_navigation_menu_item:
+                            Log.d(TAG, "Twitter menu tapped!");
+                            openTwitterTimeline();
+                            break;
+                        case R.id.settings_navigation_menu_item:
+                            Log.d(TAG, "Settings menu tapped!");
+                            openSettings();
+                            break;
+                        case R.id.login_menu_item:
+                            Log.d(TAG, "Settings menu tapped!");
+                            openLogin();
+                            break;
+                        case R.id.logout_menu_item:
+                            Log.d(TAG, "Settings menu tapped!");
+                            logout();
+                            break;
+                        default:
+                            break;
                     }
+                    // Close the navigation drawer when an item is selected.
+                    menuItem.setChecked(checkMenuItem);
+                    mDrawerLayout.closeDrawers();
+                    return true;
                 });
     }
 
