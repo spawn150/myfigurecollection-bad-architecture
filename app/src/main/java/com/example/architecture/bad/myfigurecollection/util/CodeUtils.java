@@ -14,10 +14,10 @@ import android.view.WindowManager;
 public class CodeUtils {
 
     /**
-     * Gets the size of the screen, in pixels.
+     * Gets the size width of the screen, in pixels.
      *
      * @param context context
-     * @return size of the screen in pixels
+     * @return size of the screen width in pixels
      */
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -26,6 +26,21 @@ public class CodeUtils {
         display.getSize(size);
         return size.x;
     }
+
+    /**
+     * Gets the size of the screen, in pixels.
+     *
+     * @param context context
+     * @return size of the screen in pixels
+     */
+    public static Point getScreenSize(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
 
     /**
      * This method converts dp unit to equivalent pixels, depending on device density.

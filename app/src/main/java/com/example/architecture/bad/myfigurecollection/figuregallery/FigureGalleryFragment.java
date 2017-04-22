@@ -1,6 +1,7 @@
 package com.example.architecture.bad.myfigurecollection.figuregallery;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.GalleryFigure;
+import com.example.architecture.bad.myfigurecollection.util.BitmapResizeTransformation;
+import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
 import com.squareup.picasso.Picasso;
 
@@ -142,9 +145,11 @@ public abstract class FigureGalleryFragment extends Fragment {
             //Fix Picasso WeakReference issue - http://stackoverflow.com/questions/24180805/onbitmaploaded-of-target-object-not-called-on-first-load
             imgDisplay.setTag(target);
 
+            Point screenSize = CodeUtils.getScreenSize(container.getContext());
             Picasso
                     .with(container.getContext())
                     .load(galleryFigure.getUrl())
+                    .transform(new BitmapResizeTransformation(screenSize.x, screenSize.y))
                     .into(target);
 
             ((TextView) viewLayout.findViewById(R.id.text_view_gallery_username)).setText(galleryFigure.getAuthor());
