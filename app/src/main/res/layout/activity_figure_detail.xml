@@ -11,7 +11,7 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@android:color/black"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:contentScrim="@color/primary"
             app:expandedTitleMarginEnd="@dimen/xlarge_margin"
             app:expandedTitleMarginStart="@dimen/xlarge_margin"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
