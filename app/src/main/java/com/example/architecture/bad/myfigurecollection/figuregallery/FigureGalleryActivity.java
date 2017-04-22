@@ -20,12 +20,7 @@ public abstract class FigureGalleryActivity extends AppCompatActivity implements
         loadFragment();
 
         //noinspection ConstantConditions
-        findViewById(R.id.image_button_clear).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.image_button_clear).setOnClickListener(v -> finish());
 
         textViewGalleryCounter = (TextView)findViewById(R.id.text_view_gallery_counter);
     }
