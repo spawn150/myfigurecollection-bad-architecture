@@ -86,6 +86,7 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     }
 
     protected void showData(ItemState itemState) {
+        mMaxNumPages = Integer.valueOf(itemState.getNumPages());
         figureAdapter.updateData(itemState.getItem());
         showData();
     }

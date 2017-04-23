@@ -49,7 +49,7 @@ public class FiguresWishedFragment extends CollectionFiguresFragment {
          * "STARlock"
          * "climbatize"
          * */
-        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getWished("climbatize"/*SessionHelper.getUserName(getContext())*/, page);
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getWished(SessionHelper.getUserName(getContext()), page);
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {

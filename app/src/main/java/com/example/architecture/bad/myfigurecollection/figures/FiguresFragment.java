@@ -25,17 +25,20 @@ import java.lang.annotation.RetentionPolicy;
  */
 public abstract class FiguresFragment extends Fragment {
 
+    private static final String TAG = FiguresFragment.class.getName();
+    private static final int LAYOUT_COLUMNS = 2;
+    private static final int ITEM_OFFSET = 15;
+
     protected static final int LOADING = 0;
     protected static final int SUCCESS = 1;
     protected static final int ERROR = 2;
-    private static final String TAG = FiguresFragment.class.getName();
 
     @IntDef({LOADING, SUCCESS, ERROR})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ViewState {
     }
 
-    private static final int LAYOUT_COLUMNS = 2;
+    private boolean loading;
     private int mPage;
     private ViewFlipper viewFlipper;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -43,11 +46,8 @@ public abstract class FiguresFragment extends Fragment {
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
-
-    int visibleItemCount, totalItemCount;
-    int[] firstVisibleItemPositions = new int[LAYOUT_COLUMNS];
-    private static final int ITEM_OFFSET = 5;
-    private boolean loading;
+    protected int mMaxNumPages;
+    private int[] firstVisibleItemPositions = new int[LAYOUT_COLUMNS];
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -56,8 +56,8 @@ public abstract class FiguresFragment extends Fragment {
 
             if (dy > 0) {
 
-                visibleItemCount = mRecyclerView.getChildCount();
-                totalItemCount = mStaggeredGridLayoutManager.getItemCount();
+                int visibleItemCount = mRecyclerView.getChildCount();
+                int totalItemCount = mStaggeredGridLayoutManager.getItemCount();
                 mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
 
                 int lastItemVisible = visibleItemCount + firstVisibleItemPositions[0];
@@ -66,13 +66,14 @@ public abstract class FiguresFragment extends Fragment {
                 Log.v(TAG, "lastItemVisible: " + lastItemVisible);
                 Log.v(TAG, "totalItemCount: " + totalItemCount);
                 if (!loading && lastItemVisible + ITEM_OFFSET > totalItemCount) {
-                    Log.d(TAG, "Must be loaded more items!");
-                    loading = true;
-                    loadCollection(++mPage);
+                    int nextPage = ++mPage;
+                    if(nextPage <= mMaxNumPages) {
+                        Log.d(TAG, "Must be loaded more items!");
+                        loading = true;
+                        loadCollection(nextPage);
+                    }
                 }
 
-            } else {
-                Log.v(TAG, "Scrolling up...");
             }
         }
     };
