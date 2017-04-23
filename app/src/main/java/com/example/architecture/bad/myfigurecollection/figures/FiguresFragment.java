@@ -44,9 +44,11 @@ public abstract class FiguresFragment extends Fragment {
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            if(dy > 0){
+            super.onScrolled(recyclerView, dx, dy);
+            
+            if (dy > 0) {
                 Log.d(TAG, "Scrolling down...");
-            }else{
+            } else {
                 Log.d(TAG, "Scrolling up...");
             }
         }
