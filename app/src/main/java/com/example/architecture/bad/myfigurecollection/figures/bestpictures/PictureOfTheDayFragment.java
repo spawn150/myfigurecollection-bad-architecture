@@ -3,6 +3,8 @@ package com.example.architecture.bad.myfigurecollection.figures.bestpictures;
 import android.util.Log;
 import android.view.View;
 
+import com.ant_robot.mfc.api.pojo.BestGallery;
+import com.ant_robot.mfc.api.pojo.Gallery;
 import com.ant_robot.mfc.api.pojo.Picture;
 import com.ant_robot.mfc.api.pojo.PotdPictureGallery;
 import com.ant_robot.mfc.api.request.MFCRequest;
@@ -38,7 +40,7 @@ public class PictureOfTheDayFragment extends BestPicturesFragment {
             public void onResponse(Call<PotdPictureGallery> call, Response<PotdPictureGallery> response) {
                 List<Picture> pictures = response.body().getGallery().getPictures();
                 if (pictures != null && !pictures.isEmpty()) {
-                    showData(pictures);
+                    showData(pictures, 0); //there is no pagination
                 } else {
                     showError();
                 }
