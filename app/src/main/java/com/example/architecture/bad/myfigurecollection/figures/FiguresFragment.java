@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public abstract class FiguresFragment extends Fragment {
     protected static final int LOADING = 0;
     protected static final int SUCCESS = 1;
     protected static final int ERROR = 2;
+    private static final String TAG = FiguresFragment.class.getName();
 
     @IntDef({LOADING, SUCCESS, ERROR})
     @Retention(RetentionPolicy.SOURCE)
@@ -39,6 +41,16 @@ public abstract class FiguresFragment extends Fragment {
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
 
+    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if(dy > 0){
+                Log.d(TAG, "Scrolling down...");
+            }else{
+                Log.d(TAG, "Scrolling up...");
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,7 @@ public abstract class FiguresFragment extends Fragment {
         textViewErrorTitle = (TextView) view.findViewById(R.id.text_view_error_title);
         textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
+        recyclerView.addOnScrollListener(scrollListener);
         //performance optimization
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(createAdapter());
