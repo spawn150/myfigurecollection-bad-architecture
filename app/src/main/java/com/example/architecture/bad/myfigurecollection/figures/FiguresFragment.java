@@ -38,16 +38,27 @@ public abstract class FiguresFragment extends Fragment {
     private static final int LAYOUT_COLUMNS = 2;
     private ViewFlipper viewFlipper;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
+
+    int visibleItemCount, totalItemCount;
+    int[] firstVisibleItemPositions = new int[2];
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            
+
+            visibleItemCount = mRecyclerView.getChildCount();
+            totalItemCount = mStaggeredGridLayoutManager.getItemCount();
+            mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
+
             if (dy > 0) {
-                Log.d(TAG, "Scrolling down...");
+                Log.d(TAG, "visibleItemCount: "+visibleItemCount);
+                Log.d(TAG, "totalItemCount: "+totalItemCount);
+                Log.d(TAG, "firstVisibleItemPositions: "+firstVisibleItemPositions[0] + "-" + firstVisibleItemPositions[1] );
             } else {
                 Log.d(TAG, "Scrolling up...");
             }
@@ -73,16 +84,16 @@ public abstract class FiguresFragment extends Fragment {
         viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
         textViewErrorTitle = (TextView) view.findViewById(R.id.text_view_error_title);
         textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
-        recyclerView.addOnScrollListener(scrollListener);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
+        mRecyclerView.addOnScrollListener(scrollListener);
         //performance optimization
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(createAdapter());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(createAdapter());
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager =
+        mStaggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(LAYOUT_COLUMNS, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.figures_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
