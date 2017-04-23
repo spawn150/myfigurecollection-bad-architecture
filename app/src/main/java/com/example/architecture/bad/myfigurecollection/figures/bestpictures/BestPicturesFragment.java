@@ -82,6 +82,11 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         return pictureAdapter;
     }
 
+    @Override
+    protected void resetCollection() {
+        pictureAdapter.resetData();
+    }
+
     protected void showData(List<Picture> pictures) {
         pictureAdapter.updateData(pictures);
         showData();
@@ -196,6 +201,11 @@ public abstract class BestPicturesFragment extends FiguresFragment {
 
         void updateData(List<Picture> myDataset) {
             mDataset = myDataset;
+            notifyDataSetChanged();
+        }
+
+        void resetData(){
+            mDataset.clear();
             notifyDataSetChanged();
         }
 

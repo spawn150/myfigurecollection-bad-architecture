@@ -90,6 +90,11 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
         showData();
     }
 
+    @Override
+    protected void resetCollection() {
+        figureAdapter.resetData();
+    }
+
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
         private List<Item> mDataset;
         private CollectionFigureItemListener mFigureItemListener;
@@ -145,8 +150,14 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
             mFigureItemListener = figureItemListener;
         }
 
-        public void updateData(List<Item> myDataset) {
-            mDataset = myDataset;
+        public void updateData(List<Item> newDataset) {
+            int lastIndex = mDataset.size() > 0 ? mDataset.size() - 1 : 0;
+            mDataset.addAll(newDataset);
+            notifyItemInserted(lastIndex);
+        }
+
+        public void resetData() {
+            mDataset.clear();
             notifyDataSetChanged();
         }
 

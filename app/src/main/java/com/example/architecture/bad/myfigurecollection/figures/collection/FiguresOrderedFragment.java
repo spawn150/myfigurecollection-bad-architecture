@@ -39,8 +39,8 @@ public class FiguresOrderedFragment extends CollectionFiguresFragment {
     }
 
     @Override
-    protected void loadCollection() {
-        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOrdered(SessionHelper.getUserName(getContext()));
+    protected void loadCollection(int page) {
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOrdered(SessionHelper.getUserName(getContext()), page);
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {

@@ -29,9 +29,9 @@ public class LatestPicturesFragment extends BestPicturesFragment {
     }
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
-        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getLatestPictures(0);
+        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getLatestPictures(page);
         call.enqueue(new retrofit2.Callback<PictureGallery>() {
             @Override
             public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {

@@ -30,9 +30,9 @@ public class PictureOfTheDayFragment extends BestPicturesFragment {
     }
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
-        Call<PotdPictureGallery> call = MFCRequest.getInstance().getBestPicturesService().getPicturesOfTheDay(0);
+        Call<PotdPictureGallery> call = MFCRequest.getInstance().getBestPicturesService().getPicturesOfTheDay(page);
         call.enqueue(new retrofit2.Callback<PotdPictureGallery>() {
             @Override
             public void onResponse(Call<PotdPictureGallery> call, Response<PotdPictureGallery> response) {

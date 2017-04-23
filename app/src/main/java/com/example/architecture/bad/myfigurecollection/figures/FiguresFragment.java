@@ -36,6 +36,7 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     private static final int LAYOUT_COLUMNS = 2;
+    private int mPage;
     private ViewFlipper viewFlipper;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -44,7 +45,8 @@ public abstract class FiguresFragment extends Fragment {
     private TextView textViewErrorTitle;
 
     int visibleItemCount, totalItemCount;
-    int[] firstVisibleItemPositions = new int[2];
+    int[] firstVisibleItemPositions = new int[LAYOUT_COLUMNS];
+    private static final int ITEM_OFFSET = 5;
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -56,9 +58,17 @@ public abstract class FiguresFragment extends Fragment {
             mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
 
             if (dy > 0) {
-                Log.d(TAG, "visibleItemCount: "+visibleItemCount);
-                Log.d(TAG, "totalItemCount: "+totalItemCount);
-                Log.d(TAG, "firstVisibleItemPositions: "+firstVisibleItemPositions[0] + "-" + firstVisibleItemPositions[1] );
+
+                int lastItemVisible = visibleItemCount + firstVisibleItemPositions[0];
+                Log.d(TAG, "visibleItemCount: " + visibleItemCount);
+                Log.d(TAG, "firstVisibleItemPositions: " + firstVisibleItemPositions[LAYOUT_COLUMNS - 1]);
+                Log.d(TAG, "lastItemVisible: " + lastItemVisible);
+                Log.d(TAG, "totalItemCount: " + totalItemCount);
+                if (lastItemVisible + ITEM_OFFSET > totalItemCount) {
+                    Log.d(TAG, "Must be loaded more items!");
+                    loadCollection(++mPage);
+                }
+
             } else {
                 Log.d(TAG, "Scrolling up...");
             }
@@ -99,13 +109,19 @@ public abstract class FiguresFragment extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
-            loadCollection();
+            loadCollectionFromBeginning();
         });
-
-        loadCollection();
+        loadCollectionFromBeginning();
     }
 
-    protected abstract void loadCollection();
+    private void loadCollectionFromBeginning() {
+        mPage = 0;
+        resetCollection();
+        loadCollection(mPage);
+    }
+
+    protected abstract void loadCollection(int page);
+    protected abstract void resetCollection();
 
     protected abstract RecyclerView.Adapter createAdapter();
 
@@ -120,13 +136,15 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected void showError(String title, String message) {
-        textViewErrorTitle.setOnClickListener(v -> {
-            setViewState(LOADING);
-            loadCollection();
-        });
-        textViewErrorTitle.setText(title);
-        textViewErrorMessage.setText(message);
-        setViewState(ERROR);
+        if (mRecyclerView.getAdapter().getItemCount() == 0) {
+            textViewErrorTitle.setOnClickListener(v -> {
+                setViewState(LOADING);
+                loadCollectionFromBeginning();
+            });
+            textViewErrorTitle.setText(title);
+            textViewErrorMessage.setText(message);
+            setViewState(ERROR);
+        }
     }
 
     protected void setViewState(@ViewState int viewState) {
