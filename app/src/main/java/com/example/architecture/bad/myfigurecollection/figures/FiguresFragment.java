@@ -47,30 +47,32 @@ public abstract class FiguresFragment extends Fragment {
     int visibleItemCount, totalItemCount;
     int[] firstVisibleItemPositions = new int[LAYOUT_COLUMNS];
     private static final int ITEM_OFFSET = 5;
+    private boolean loading;
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            visibleItemCount = mRecyclerView.getChildCount();
-            totalItemCount = mStaggeredGridLayoutManager.getItemCount();
-            mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
-
             if (dy > 0) {
 
+                visibleItemCount = mRecyclerView.getChildCount();
+                totalItemCount = mStaggeredGridLayoutManager.getItemCount();
+                mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
+
                 int lastItemVisible = visibleItemCount + firstVisibleItemPositions[0];
-                Log.d(TAG, "visibleItemCount: " + visibleItemCount);
-                Log.d(TAG, "firstVisibleItemPositions: " + firstVisibleItemPositions[LAYOUT_COLUMNS - 1]);
-                Log.d(TAG, "lastItemVisible: " + lastItemVisible);
-                Log.d(TAG, "totalItemCount: " + totalItemCount);
-                if (lastItemVisible + ITEM_OFFSET > totalItemCount) {
+                Log.v(TAG, "visibleItemCount: " + visibleItemCount);
+                Log.v(TAG, "firstVisibleItemPositions: " + firstVisibleItemPositions[LAYOUT_COLUMNS - 1]);
+                Log.v(TAG, "lastItemVisible: " + lastItemVisible);
+                Log.v(TAG, "totalItemCount: " + totalItemCount);
+                if (!loading && lastItemVisible + ITEM_OFFSET > totalItemCount) {
                     Log.d(TAG, "Must be loaded more items!");
+                    loading = true;
                     loadCollection(++mPage);
                 }
 
             } else {
-                Log.d(TAG, "Scrolling up...");
+                Log.v(TAG, "Scrolling up...");
             }
         }
     };
@@ -115,7 +117,7 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     private void loadCollectionFromBeginning() {
-        mPage = 0;
+        mPage = 1;
         resetCollection();
         loadCollection(mPage);
     }
@@ -128,6 +130,7 @@ public abstract class FiguresFragment extends Fragment {
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData() {
+        setNotLoadingState();
         setViewState(SUCCESS);
     }
 
@@ -136,6 +139,7 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected void showError(String title, String message) {
+
         if (mRecyclerView.getAdapter().getItemCount() == 0) {
             textViewErrorTitle.setOnClickListener(v -> {
                 setViewState(LOADING);
@@ -145,6 +149,11 @@ public abstract class FiguresFragment extends Fragment {
             textViewErrorMessage.setText(message);
             setViewState(ERROR);
         }
+        setNotLoadingState();
+    }
+
+    private void setNotLoadingState(){
+        loading = false;
     }
 
     protected void setViewState(@ViewState int viewState) {
