@@ -45,9 +45,9 @@ public class FiguresOwnedFragment extends CollectionFiguresFragment {
     }
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
-        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOwned(SessionHelper.getUserName(getContext()));
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getOwned(SessionHelper.getUserName(getContext()), page);
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {
@@ -59,10 +59,8 @@ public class FiguresOwnedFragment extends CollectionFiguresFragment {
                 } else {
                     String title = String.format(getActivity().getString(R.string.title_error_no_items_in_list), getActivity().getString(R.string.owned_items_value));
                     String message = getActivity().getString(R.string.message_error_no_owned_items_in_list);
-                    ;
                     showError(title, message);
                 }
-
             }
 
             @Override

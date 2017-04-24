@@ -19,7 +19,7 @@ public class PictureOfTheMonthFragment extends BestPicturesFragment {
     }
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
     }
 

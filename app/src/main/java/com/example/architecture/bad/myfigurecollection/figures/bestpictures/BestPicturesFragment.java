@@ -34,7 +34,6 @@ import java.util.List;
  */
 public abstract class BestPicturesFragment extends FiguresFragment {
 
-
     public static final String TAG = LatestPicturesFragment.class.getName();
     OnBestPicturesFragmentInteractionListener mListener;
     private PictureAdapter pictureAdapter;
@@ -82,7 +81,13 @@ public abstract class BestPicturesFragment extends FiguresFragment {
         return pictureAdapter;
     }
 
-    protected void showData(List<Picture> pictures) {
+    @Override
+    protected void resetCollection() {
+        pictureAdapter.resetData();
+    }
+
+    protected void showData(List<Picture> pictures, int numPages) {
+        mMaxNumPages = numPages;
         pictureAdapter.updateData(pictures);
         showData();
     }
@@ -194,8 +199,14 @@ public abstract class BestPicturesFragment extends FiguresFragment {
             mPictureItemListener = pictureItemListener;
         }
 
-        void updateData(List<Picture> myDataset) {
-            mDataset = myDataset;
+        void updateData(List<Picture> newDataset) {
+            int lastIndex = mDataset.size() > 0 ? mDataset.size() - 1 : 0;
+            mDataset.addAll(newDataset);
+            notifyItemInserted(lastIndex);
+        }
+
+        void resetData(){
+            mDataset.clear();
             notifyDataSetChanged();
         }
 

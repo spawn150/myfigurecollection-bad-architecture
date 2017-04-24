@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 public abstract class FiguresFragment extends Fragment {
 
+    private static final String TAG = FiguresFragment.class.getName();
+    private static final int LAYOUT_COLUMNS = 2;
+    private static final int ITEM_OFFSET = 15;
+
     protected static final int LOADING = 0;
     protected static final int SUCCESS = 1;
     protected static final int ERROR = 2;
@@ -33,12 +38,45 @@ public abstract class FiguresFragment extends Fragment {
     public @interface ViewState {
     }
 
-    private static final int LAYOUT_COLUMNS = 2;
+    private boolean loading;
+    private int mPage;
     private ViewFlipper viewFlipper;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private TextView textViewErrorMessage;
     private TextView textViewErrorTitle;
+    protected int mMaxNumPages;
+    private int[] firstVisibleItemPositions = new int[LAYOUT_COLUMNS];
 
+    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            if (dy > 0) {
+
+                int visibleItemCount = mRecyclerView.getChildCount();
+                int totalItemCount = mStaggeredGridLayoutManager.getItemCount();
+                mStaggeredGridLayoutManager.findFirstVisibleItemPositions(firstVisibleItemPositions);
+
+                int lastItemVisible = visibleItemCount + firstVisibleItemPositions[0];
+                Log.v(TAG, "visibleItemCount: " + visibleItemCount);
+                Log.v(TAG, "firstVisibleItemPositions: " + firstVisibleItemPositions[LAYOUT_COLUMNS - 1]);
+                Log.v(TAG, "lastItemVisible: " + lastItemVisible);
+                Log.v(TAG, "totalItemCount: " + totalItemCount);
+                if (!loading && lastItemVisible + ITEM_OFFSET > totalItemCount) {
+                    int nextPage = ++mPage;
+                    if(nextPage <= mMaxNumPages) {
+                        Log.d(TAG, "Must be loaded more items!");
+                        loading = true;
+                        loadCollection(nextPage);
+                    }
+                }
+
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,33 +97,41 @@ public abstract class FiguresFragment extends Fragment {
         viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_figures);
         textViewErrorTitle = (TextView) view.findViewById(R.id.text_view_error_title);
         textViewErrorMessage = (TextView) view.findViewById(R.id.text_view_error_message);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_collection_figures);
+        mRecyclerView.addOnScrollListener(scrollListener);
         //performance optimization
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(createAdapter());
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(createAdapter());
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager =
+        mStaggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(LAYOUT_COLUMNS, StaggeredGridLayoutManager.VERTICAL);
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.figures_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
-            loadCollection();
+            loadCollectionFromBeginning();
         });
-
-        loadCollection();
+        loadCollectionFromBeginning();
     }
 
-    protected abstract void loadCollection();
+    private void loadCollectionFromBeginning() {
+        mPage = 1;
+        resetCollection();
+        loadCollection(mPage);
+    }
+
+    protected abstract void loadCollection(int page);
+    protected abstract void resetCollection();
 
     protected abstract RecyclerView.Adapter createAdapter();
 
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
 
     protected void showData() {
+        setNotLoadingState();
         setViewState(SUCCESS);
     }
 
@@ -94,13 +140,21 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected void showError(String title, String message) {
-        textViewErrorTitle.setOnClickListener(v -> {
-            setViewState(LOADING);
-            loadCollection();
-        });
-        textViewErrorTitle.setText(title);
-        textViewErrorMessage.setText(message);
-        setViewState(ERROR);
+
+        if (mRecyclerView.getAdapter().getItemCount() == 0) {
+            textViewErrorTitle.setOnClickListener(v -> {
+                setViewState(LOADING);
+                loadCollectionFromBeginning();
+            });
+            textViewErrorTitle.setText(title);
+            textViewErrorMessage.setText(message);
+            setViewState(ERROR);
+        }
+        setNotLoadingState();
+    }
+
+    private void setNotLoadingState(){
+        loading = false;
     }
 
     protected void setViewState(@ViewState int viewState) {

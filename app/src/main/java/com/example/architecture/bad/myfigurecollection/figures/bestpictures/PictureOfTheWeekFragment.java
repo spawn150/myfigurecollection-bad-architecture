@@ -20,7 +20,7 @@ public class PictureOfTheWeekFragment extends BestPicturesFragment {
 
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
     }
 
