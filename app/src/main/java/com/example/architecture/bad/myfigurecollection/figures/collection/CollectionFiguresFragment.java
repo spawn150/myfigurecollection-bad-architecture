@@ -86,8 +86,14 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
     }
 
     protected void showData(ItemState itemState) {
+        mMaxNumPages = Integer.valueOf(itemState.getNumPages());
         figureAdapter.updateData(itemState.getItem());
         showData();
+    }
+
+    @Override
+    protected void resetCollection() {
+        figureAdapter.resetData();
     }
 
     static class FigureAdapter extends RecyclerView.Adapter<FigureAdapter.ViewHolder> {
@@ -145,8 +151,14 @@ public abstract class CollectionFiguresFragment extends FiguresFragment {
             mFigureItemListener = figureItemListener;
         }
 
-        public void updateData(List<Item> myDataset) {
-            mDataset = myDataset;
+        public void updateData(List<Item> newDataset) {
+            int lastIndex = mDataset.size() > 0 ? mDataset.size() - 1 : 0;
+            mDataset.addAll(newDataset);
+            notifyItemInserted(lastIndex);
+        }
+
+        public void resetData() {
+            mDataset.clear();
             notifyDataSetChanged();
         }
 

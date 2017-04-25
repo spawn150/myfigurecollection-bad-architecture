@@ -20,7 +20,6 @@ import retrofit2.Response;
  */
 public class LatestPicturesFragment extends BestPicturesFragment {
 
-
     public LatestPicturesFragment() {
     }
 
@@ -29,15 +28,16 @@ public class LatestPicturesFragment extends BestPicturesFragment {
     }
 
     @Override
-    protected void loadCollection() {
+    protected void loadCollection(int page) {
 
-        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getLatestPictures(0);
+        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getLatestPictures(page);
         call.enqueue(new retrofit2.Callback<PictureGallery>() {
             @Override
             public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {
+                int numPages = Integer.valueOf(response.body().getGallery().getNumPages());
                 List<Picture> pictures = response.body().getGallery().getPicture();
                 if (pictures != null && !pictures.isEmpty()) {
-                    showData(pictures);
+                    showData(pictures, numPages);
                 } else {
                     showError();
                 }

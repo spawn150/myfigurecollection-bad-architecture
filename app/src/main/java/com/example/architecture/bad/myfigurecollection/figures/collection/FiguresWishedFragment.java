@@ -44,9 +44,12 @@ public class FiguresWishedFragment extends CollectionFiguresFragment {
     }
 
     @Override
-    protected void loadCollection() {
-
-        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getWished(SessionHelper.getUserName(getContext()));
+    protected void loadCollection(int page) {
+        /* Users for tests
+         * "STARlock"
+         * "climbatize"
+         * */
+        Call<ItemList> call = MFCRequest.getInstance().getCollectionService().getWished(SessionHelper.getUserName(getContext()), page);
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {
@@ -60,7 +63,6 @@ public class FiguresWishedFragment extends CollectionFiguresFragment {
                     String message = getActivity().getString(R.string.message_error_no_wished_items_in_list);
                     showError(title, message);
                 }
-
             }
 
             @Override
