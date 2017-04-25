@@ -13,11 +13,6 @@ public class FigureDetailCollectionFigureActivity extends FigureDetailActivity {
 
     @Override
     protected View.OnClickListener getImageViewClickListener(final DetailedFigure detailedFigure) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtils.startItemCollectionFiguresGalleryActivity(FigureDetailCollectionFigureActivity.this, detailedFigure.getId());
-            }
-        };
+        return v -> ActivityUtils.startItemCollectionFiguresGalleryActivity(FigureDetailCollectionFigureActivity.this, detailedFigure.getId());
     }
 }

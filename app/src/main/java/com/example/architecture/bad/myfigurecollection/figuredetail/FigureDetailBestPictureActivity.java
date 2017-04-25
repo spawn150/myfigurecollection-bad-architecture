@@ -13,11 +13,6 @@ public class FigureDetailBestPictureActivity extends FigureDetailActivity {
 
     @Override
     protected View.OnClickListener getImageViewClickListener(final DetailedFigure detailedFigure) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtils.startItemBestPicturesGalleryActivity(FigureDetailBestPictureActivity.this, detailedFigure.getId(), detailedFigure.getImageUrlFull());
-            }
-        };
+        return v -> ActivityUtils.startItemBestPicturesGalleryActivity(FigureDetailBestPictureActivity.this, detailedFigure.getId(), detailedFigure.getImageUrlFull());
     }
 }

@@ -94,28 +94,13 @@ public class LoginFragment extends Fragment {
         viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper_login);
 
         Button buttonSignin = (Button) view.findViewById(R.id.button_signin);
-        buttonSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginButtonClicked();
-            }
-        });
+        buttonSignin.setOnClickListener(viewClicked -> loginButtonClicked());
 
         Button buttonSignup = (Button) view.findViewById(R.id.button_signup);
-        buttonSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signupButtonClicked();
-            }
-        });
+        buttonSignup.setOnClickListener(viewClicked -> signupButtonClicked());
 
         Button buttonForgotPassword = (Button) view.findViewById(R.id.button_forgot_password);
-        buttonForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                forgotPasswordButtonClicked();
-            }
-        });
+        buttonForgotPassword.setOnClickListener(viewClicked -> forgotPasswordButtonClicked());
 
     }
 

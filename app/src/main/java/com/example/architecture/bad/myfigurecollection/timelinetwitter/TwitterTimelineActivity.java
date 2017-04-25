@@ -44,23 +44,20 @@ public class TwitterTimelineActivity extends ListActivity {
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.twitter_swipe_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.accent);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                adapter.refresh(new Callback<TimelineResult<Tweet>>() {
-                    @Override
-                    public void success(Result<TimelineResult<Tweet>> result) {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            adapter.refresh(new Callback<TimelineResult<Tweet>>() {
+                @Override
+                public void success(Result<TimelineResult<Tweet>> result) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
 
-                    @Override
-                    public void failure(TwitterException exception) {
-                        swipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(TwitterTimelineActivity.this, "Error loading tweets...", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void failure(TwitterException exception) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(TwitterTimelineActivity.this, "Error loading tweets...", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
