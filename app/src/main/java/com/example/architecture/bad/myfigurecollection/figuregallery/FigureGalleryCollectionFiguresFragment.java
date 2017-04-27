@@ -48,7 +48,7 @@ public class FigureGalleryCollectionFiguresFragment extends FigureGalleryFragmen
 
     @Override
     protected void loadGallery() {
-        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, 0);
+        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, 1);
         call.enqueue(new Callback<PictureGallery>() {
             @Override
             public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {
@@ -68,7 +68,11 @@ public class FigureGalleryCollectionFiguresFragment extends FigureGalleryFragmen
                             galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
                         }
                     }
-                    gallerySize = galleryFigures.size();
+                    try {
+                        gallerySize = Integer.valueOf(pictureGallery.getGallery().getNumPictures()); // galleryFigures.size();
+                    } catch (NumberFormatException nfe) {
+                        gallerySize = galleryFigures.size();
+                    }
                     galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
                     galleryListener.onFigureChanged(1, gallerySize);
                 }
