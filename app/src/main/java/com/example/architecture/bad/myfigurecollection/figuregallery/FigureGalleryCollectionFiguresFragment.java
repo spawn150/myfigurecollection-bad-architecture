@@ -69,7 +69,7 @@ public class FigureGalleryCollectionFiguresFragment extends FigureGalleryFragmen
                         }
                     }
                     try {
-                        gallerySize = Integer.valueOf(pictureGallery.getGallery().getNumPictures()); // galleryFigures.size();
+                        gallerySize = Integer.valueOf(pictureGallery.getGallery().getNumPictures());
                     } catch (NumberFormatException nfe) {
                         gallerySize = galleryFigures.size();
                     }
