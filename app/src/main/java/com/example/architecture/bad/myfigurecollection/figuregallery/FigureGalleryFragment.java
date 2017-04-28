@@ -41,6 +41,7 @@ public abstract class FigureGalleryFragment extends Fragment {
     protected int gallerySize;
     protected ViewPager galleryPager;
     protected OnGalleryListener galleryListener;
+    private FullScreenImageAdapter fullScreenImageAdapter;
     private int currentItemSelected;
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -54,6 +55,11 @@ public abstract class FigureGalleryFragment extends Fragment {
             Log.d(TAG, "onPageSelected");
             currentItemSelected = position;
             galleryListener.onFigureChanged(++position, gallerySize);
+
+            int ITEMS_OFFSET = 10;
+            if (position + ITEMS_OFFSET > fullScreenImageAdapter.getCount()) {
+                Log.v(TAG, "Load new gallery data!");
+            }
         }
 
         @Override
@@ -136,13 +142,13 @@ public abstract class FigureGalleryFragment extends Fragment {
     protected abstract void loadGallery();
 
     private void downloadImage() {
-        FullScreenImageAdapter adapter = (FullScreenImageAdapter) galleryPager.getAdapter();
-        GalleryFigure figureToDownload = adapter.getItemByPosition(currentItemSelected);
+        fullScreenImageAdapter = (FullScreenImageAdapter) galleryPager.getAdapter();
+        GalleryFigure figureToDownload = fullScreenImageAdapter.getItemByPosition(currentItemSelected);
         if (figureToDownload != null) {
             String imageUrl = figureToDownload.getUrl();
             String id = figureToDownload.getId();
-            if(!TextUtils.isEmpty(id) && !TextUtils.isEmpty(imageUrl))
-            DownloadService.startActionDownload(getContext(), id, imageUrl);
+            if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(imageUrl))
+                DownloadService.startActionDownload(getContext(), id, imageUrl);
         }
     }
 
@@ -205,6 +211,11 @@ public abstract class FigureGalleryFragment extends Fragment {
 
         public GalleryFigure getItemByPosition(int position) {
             return galleryFigures.get(position);
+        }
+
+        public void addGalleryFigures(List<GalleryFigure> newGalleryFigures) {
+            this.galleryFigures.addAll(newGalleryFigures);
+            notifyDataSetChanged();
         }
     }
 
