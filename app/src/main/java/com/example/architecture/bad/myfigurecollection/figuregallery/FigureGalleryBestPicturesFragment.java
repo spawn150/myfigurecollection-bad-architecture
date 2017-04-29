@@ -42,7 +42,7 @@ public class FigureGalleryBestPicturesFragment extends FigureGalleryFragment {
     }
 
     @Override
-    protected void loadGallery() {
+    protected void loadGallery(int page) {
         List<GalleryFigure> galleryFigures = new ArrayList<>();
         galleryFigures.add(new GalleryFigure(figureId, "", "", pictureUrl));
 
