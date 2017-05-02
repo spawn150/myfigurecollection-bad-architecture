@@ -47,15 +47,14 @@ public class FigureGalleryCollectionFiguresFragment extends FigureGalleryFragmen
     }
 
     @Override
-    protected void loadGallery() {
-        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, 0);
+    protected void loadGallery(int page) {
+        Call<PictureGallery> call = MFCRequest.getInstance().getGalleryService().getGalleryForItem(figureId, page);
         call.enqueue(new Callback<PictureGallery>() {
             @Override
             public void onResponse(Call<PictureGallery> call, Response<PictureGallery> response) {
 
                 if (getActivity() != null && isAdded()) {
                     List<GalleryFigure> galleryFigures = new ArrayList<>();
-                    galleryFigures.add(new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
 
                     PictureGallery pictureGallery = response.body();
                     if (!"".equals(pictureGallery.getGallery().getNumPictures()) && Integer.valueOf(pictureGallery.getGallery().getNumPictures()) > 0) {
@@ -68,9 +67,23 @@ public class FigureGalleryCollectionFiguresFragment extends FigureGalleryFragmen
                             galleryFigures.add(new GalleryFigure(picture.getId(), picture.getAuthor(), StringUtils.formatDate(picture.getDate(), getString(R.string.not_available)), picture.getFull()));
                         }
                     }
-                    gallerySize = galleryFigures.size();
-                    galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
-                    galleryListener.onFigureChanged(1, gallerySize);
+                    FullScreenImageAdapter fullScreenImageAdapter = (FullScreenImageAdapter) galleryPager.getAdapter();
+                    if (fullScreenImageAdapter == null) {
+                        galleryFigures.add(0, new GalleryFigure(figureId, "", "", getString(R.string.figure_large_image_url, figureId)));
+                        try {
+                            gallerySize = Integer.valueOf(pictureGallery.getGallery().getNumPictures());
+                            mMaxNumPages = Integer.valueOf(pictureGallery.getGallery().getNumPages());
+                        } catch (NumberFormatException nfe) {
+                            gallerySize = galleryFigures.size();
+                            mMaxNumPages = 1;
+                        }
+                        galleryPager.setAdapter(new FullScreenImageAdapter(galleryFigures));
+                        //elements returned + cover image
+                        galleryListener.onFigureChanged(1, ++gallerySize);
+                    } else {
+                        fullScreenImageAdapter.addGalleryFigures(galleryFigures);
+                    }
+                    loading = false;
                 }
             }
 

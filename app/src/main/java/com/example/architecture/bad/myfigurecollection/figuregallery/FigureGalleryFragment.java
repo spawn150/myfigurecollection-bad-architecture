@@ -42,6 +42,9 @@ public abstract class FigureGalleryFragment extends Fragment {
     protected ViewPager galleryPager;
     protected OnGalleryListener galleryListener;
     private int currentItemSelected;
+    private int mPage = 1;
+    protected int mMaxNumPages;
+    protected boolean loading;
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -54,6 +57,16 @@ public abstract class FigureGalleryFragment extends Fragment {
             Log.d(TAG, "onPageSelected");
             currentItemSelected = position;
             galleryListener.onFigureChanged(++position, gallerySize);
+
+            int ITEMS_OFFSET = 10;
+            if (!loading && position + ITEMS_OFFSET > galleryPager.getAdapter().getCount()) {
+                int nextPage = ++mPage;
+                if (nextPage <= mMaxNumPages) {
+                    Log.v(TAG, "Load new gallery data!");
+                    loading = true;
+                    loadGallery(nextPage);
+                }
+            }
         }
 
         @Override
@@ -106,7 +119,7 @@ public abstract class FigureGalleryFragment extends Fragment {
         galleryPager = (ViewPager) view.findViewById(R.id.pager_gallery);
         galleryPager.addOnPageChangeListener(onPageChangeListener);
 
-        loadGallery();
+        loadGallery(mPage);
     }
 
     @Override
@@ -133,16 +146,18 @@ public abstract class FigureGalleryFragment extends Fragment {
         galleryPager.removeOnPageChangeListener(onPageChangeListener);
     }
 
-    protected abstract void loadGallery();
+    protected abstract void loadGallery(int page);
 
     private void downloadImage() {
-        FullScreenImageAdapter adapter = (FullScreenImageAdapter) galleryPager.getAdapter();
-        GalleryFigure figureToDownload = adapter.getItemByPosition(currentItemSelected);
-        if (figureToDownload != null) {
-            String imageUrl = figureToDownload.getUrl();
-            String id = figureToDownload.getId();
-            if(!TextUtils.isEmpty(id) && !TextUtils.isEmpty(imageUrl))
-            DownloadService.startActionDownload(getContext(), id, imageUrl);
+        FullScreenImageAdapter fullScreenImageAdapter = (FullScreenImageAdapter) galleryPager.getAdapter();
+        if (fullScreenImageAdapter != null) {
+            GalleryFigure figureToDownload = fullScreenImageAdapter.getItemByPosition(currentItemSelected);
+            if (figureToDownload != null) {
+                String imageUrl = figureToDownload.getUrl();
+                String id = figureToDownload.getId();
+                if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(imageUrl))
+                    DownloadService.startActionDownload(getContext(), id, imageUrl);
+            }
         }
     }
 
@@ -205,6 +220,11 @@ public abstract class FigureGalleryFragment extends Fragment {
 
         public GalleryFigure getItemByPosition(int position) {
             return galleryFigures.get(position);
+        }
+
+        public void addGalleryFigures(List<GalleryFigure> newGalleryFigures) {
+            this.galleryFigures.addAll(newGalleryFigures);
+            notifyDataSetChanged();
         }
     }
 

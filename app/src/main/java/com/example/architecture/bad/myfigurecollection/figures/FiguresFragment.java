@@ -27,7 +27,7 @@ public abstract class FiguresFragment extends Fragment {
 
     private static final String TAG = FiguresFragment.class.getName();
     private static final int LAYOUT_COLUMNS = 2;
-    private static final int ITEM_OFFSET = 15;
+    private static final int ITEMS_OFFSET = 20;
 
     protected static final int LOADING = 0;
     protected static final int SUCCESS = 1;
@@ -65,7 +65,7 @@ public abstract class FiguresFragment extends Fragment {
                 Log.v(TAG, "firstVisibleItemPositions: " + firstVisibleItemPositions[LAYOUT_COLUMNS - 1]);
                 Log.v(TAG, "lastItemVisible: " + lastItemVisible);
                 Log.v(TAG, "totalItemCount: " + totalItemCount);
-                if (!loading && lastItemVisible + ITEM_OFFSET > totalItemCount) {
+                if (!loading && lastItemVisible + ITEMS_OFFSET > totalItemCount) {
                     int nextPage = ++mPage;
                     if(nextPage <= mMaxNumPages) {
                         Log.d(TAG, "Must be loaded more items!");
