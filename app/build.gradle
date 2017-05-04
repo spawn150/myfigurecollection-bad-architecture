@@ -74,7 +74,8 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     //Firebase
-    compile 'com.google.firebase:firebase-crash:10.2.1'
+    //noinspection GradleCompatible
+    compile 'com.google.firebase:firebase-crash:10.2.4'
 
     //TODO Remove when new version of MFC-SDK is published
     compile project(':MFC-SDK')
@@ -85,5 +86,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'io.reactivex:rxjava:1.0.8'
-    compile 'com.google.guava:guava:20.0'
+    compile 'com.google.guava:guava:21.0'
 }
