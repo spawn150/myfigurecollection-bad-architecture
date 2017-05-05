@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -71,12 +72,13 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
+
         }
 
         //set default value for settings (just once)
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
-        setupUserProfileData();
+        setupUserProfileData(savedInstanceState);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupUserProfileData() {
+    private void setupUserProfileData(Bundle savedInstanceState) {
         if (navigationView != null) {
 
             //fix bug on library using app:headerLayout="@layout/nav_header" - ref link: http://stackoverflow.com/questions/33199764/android-api-23-change-navigation-view-headerlayout-textview
@@ -102,93 +104,101 @@ public class MainActivity extends AppCompatActivity
             if (SessionHelper.isAuthenticated(this)) {
 
                 setupDrawerForUser();
+                setHeaderInfo(header, context);
 
-                SessionUser sessionUser = SessionHelper.getUserData(context);
-                final ImageView imageViewAvatar = (ImageView) header.findViewById(R.id.image_view_avatar);
-                TextView textViewUsername = (TextView) header.findViewById(R.id.text_view_username);
-                textViewUsername.setText(sessionUser.getName());
+                if(savedInstanceState == null) {
+                    setMyCollectionFragment();
+                }
 
-                setMyCollectionFragment();
-
-                int imageSize = (int) CodeUtils.convertDpToPixel(120, context);
-
-                Picasso.with(context)
-                        .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
-                        .resize(imageSize, imageSize)
-                        .into(imageViewAvatar, new com.squareup.picasso.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
-                                RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                                imageDrawable.setCircular(true);
-                                imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                                imageViewAvatar.setImageDrawable(imageDrawable);
-                            }
-
-                            @Override
-                            public void onError() {
-                                imageViewAvatar.setImageResource(R.drawable.ic_tsuko_bn);
-                            }
-                        });
             } else {
-                setPODFragment();
                 setupDrawerForGuest();
+                if(savedInstanceState == null) {
+                    setPODFragment();
+                }
             }
 
         }
     }
 
+    private void setHeaderInfo(View header, Context context) {
+        SessionUser sessionUser = SessionHelper.getUserData(context);
+        final ImageView imageViewAvatar = (ImageView) header.findViewById(R.id.image_view_avatar);
+        TextView textViewUsername = (TextView) header.findViewById(R.id.text_view_username);
+        textViewUsername.setText(sessionUser.getName());
+
+        int imageSize = (int) CodeUtils.convertDpToPixel(120, context);
+
+        Picasso.with(context)
+                .load(context.getString(R.string.avatar_large_image_url, sessionUser.getPicture()))
+                .resize(imageSize, imageSize)
+                .into(imageViewAvatar, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap bitmap = ((BitmapDrawable) imageViewAvatar.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                        imageDrawable.setCircular(true);
+                        imageDrawable.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                        imageViewAvatar.setImageDrawable(imageDrawable);
+                    }
+
+                    @Override
+                    public void onError() {
+                        imageViewAvatar.setImageResource(R.drawable.ic_tsuko_bn);
+                    }
+                });
+    }
+
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
-                    boolean checkMenuItem = false;
-                    switch (menuItem.getItemId()) {
-                        case R.id.mfc_navigation_menu_item:
-                            checkMenuItem = true;
-                            setMyCollectionFragment();
-                            break;
-                        case R.id.potd_navigation_menu_item:
-                            checkMenuItem = true;
-                            setPODFragment();
-                            break;
-                        case R.id.latest_pictures_navigation_menu_item:
-                            checkMenuItem = true;
-                            setLatestPicturesFragment();
-                            break;
-                        /*
-                        case R.id.pow_navigation_menu_item:
-                            Log.d(TAG, "POW menu tapped!");
-                            setPOWFragment();
-                            break;
-                        case R.id.pom_navigation_menu_item:
-                            Log.d(TAG, "POM menu tapped!");
-                            setPOMFragment();
-                            break;
-                        */
-                        case R.id.twitter_navigation_menu_item:
-                            Log.d(TAG, "Twitter menu tapped!");
-                            openTwitterTimeline();
-                            break;
-                        case R.id.settings_navigation_menu_item:
-                            Log.d(TAG, "Settings menu tapped!");
-                            openSettings();
-                            break;
-                        case R.id.login_menu_item:
-                            Log.d(TAG, "Settings menu tapped!");
-                            openLogin();
-                            break;
-                        case R.id.logout_menu_item:
-                            Log.d(TAG, "Settings menu tapped!");
-                            logout();
-                            break;
-                        default:
-                            break;
-                    }
+                    setFragmentByMenuItem(menuItem.getItemId());
                     // Close the navigation drawer when an item is selected.
-                    menuItem.setChecked(checkMenuItem);
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
+    }
+
+    private void setFragmentByMenuItem(@IdRes int menuItemId) {
+        switch (menuItemId) {
+            case R.id.mfc_navigation_menu_item:
+                setMyCollectionFragment();
+                break;
+            case R.id.potd_navigation_menu_item:
+                setPODFragment();
+                break;
+            case R.id.latest_pictures_navigation_menu_item:
+                setLatestPicturesFragment();
+                break;
+            /*
+            case R.id.pow_navigation_menu_item:
+                Log.d(TAG, "POW menu tapped!");
+                setPOWFragment();
+                break;
+            case R.id.pom_navigation_menu_item:
+                Log.d(TAG, "POM menu tapped!");
+                setPOMFragment();
+                break;
+            */
+            case R.id.twitter_navigation_menu_item:
+                Log.d(TAG, "Twitter menu tapped!");
+                openTwitterTimeline();
+                break;
+            case R.id.settings_navigation_menu_item:
+                Log.d(TAG, "Settings menu tapped!");
+                openSettings();
+                break;
+            case R.id.login_menu_item:
+                Log.d(TAG, "Settings menu tapped!");
+                openLogin();
+                break;
+            case R.id.logout_menu_item:
+                Log.d(TAG, "Settings menu tapped!");
+                logout();
+                break;
+            default:
+                break;
+        }
+        navigationView.setCheckedItem(menuItemId);
     }
 
     private void setMyCollectionFragment() {
