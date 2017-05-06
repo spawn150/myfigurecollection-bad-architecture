@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.example.architecture.bad.myfigurecollection.views.TouchImageView
-        android:id="@+id/image_view_figure"
+        android:id="@+id/touch_image_view_figure"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
