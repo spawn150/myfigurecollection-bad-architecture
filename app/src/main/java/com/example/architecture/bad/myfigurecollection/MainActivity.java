@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         BestPicturesFragment.OnBestPicturesFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TITLE_KEY = "TITLE_KEY";
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
 
@@ -117,6 +119,23 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if(savedInstanceState != null){
+            setTitle(savedInstanceState.getString(TITLE_KEY));
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(TITLE_KEY, getTitle().toString());
     }
 
     private void setHeaderInfo(View header, Context context) {
