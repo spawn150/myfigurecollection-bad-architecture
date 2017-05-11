@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import com.example.architecture.bad.myfigurecollection.download.DownloadService;
 import com.example.architecture.bad.myfigurecollection.util.BitmapResizeTransformation;
 import com.example.architecture.bad.myfigurecollection.util.CodeUtils;
 import com.example.architecture.bad.myfigurecollection.util.ProgressImageViewTarget;
+import com.example.architecture.bad.myfigurecollection.views.TouchImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -182,7 +182,6 @@ public abstract class FigureGalleryFragment extends Fragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imgDisplay;
 
             inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View viewLayout = inflater.inflate(R.layout.layout_image_fullscreen, container,
@@ -190,7 +189,7 @@ public abstract class FigureGalleryFragment extends Fragment {
 
             GalleryFigure galleryFigure = galleryFigures.get(position);
 
-            imgDisplay = (ImageView) viewLayout.findViewById(R.id.image_view_figure);
+            TouchImageView imgDisplay = (TouchImageView) viewLayout.findViewById(R.id.touch_image_view_figure);
             ProgressBar progressBar = (ProgressBar) viewLayout.findViewById(R.id.gallery_progressbar);
 
             ProgressImageViewTarget target = new ProgressImageViewTarget(imgDisplay, progressBar);
