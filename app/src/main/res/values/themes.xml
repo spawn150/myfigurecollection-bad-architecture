@@ -46,8 +46,6 @@
         </item>
     </style>
 
-    <style name="AppTheme.Search" parent="Base.AppTheme" />
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -57,8 +55,18 @@
     </style>
 
     <style name="AppTheme.Gallery" parent="AppTheme.NoActionBar" />
+    <style name="AppTheme.Search" parent="AppTheme.NoActionBar">
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="searchViewStyle">@style/AppTheme.SearchViewStyle</item>
+    </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="closeIcon">@drawable/ic_clear_24px</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
