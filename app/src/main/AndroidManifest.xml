@@ -54,6 +54,11 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Search" />
+
         <activity android:name=".timelinetwitter.TwitterTimelineActivity" />
 
         <service
@@ -64,7 +69,7 @@
             android:name="io.fabric.ApiKey"
             android:value="f8bc8a7c2b7a740714261964ad4795c6df3a6a12" />
 
-        <activity android:name=".search.SearchActivity"></activity>
+
     </application>
 
 </manifest>

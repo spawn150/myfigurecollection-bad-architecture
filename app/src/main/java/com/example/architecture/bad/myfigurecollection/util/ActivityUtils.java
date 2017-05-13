@@ -19,6 +19,7 @@ package com.example.architecture.bad.myfigurecollection.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -27,11 +28,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.example.architecture.bad.myfigurecollection.R;
 import com.example.architecture.bad.myfigurecollection.data.figures.DetailedFigure;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailBestPictureActivity;
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailCollectionFigureActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryBestPicturesActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryCollectionFiguresActivity;
+import com.example.architecture.bad.myfigurecollection.search.SearchActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -124,6 +127,12 @@ public class ActivityUtils {
         intent.putExtra(ARG_PICTURE_URL, pictureUrl);
         intent.putExtra(ARG_FIGURE_ID, figureId);
         context.startActivity(intent);
+    }
+
+    public static void startSearchActivity(@NonNull Context context) {
+        Intent intent = new Intent(context, SearchActivity.class);
+        Bundle bundleOptions = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.anim_slide_in, R.anim.anim_scale_out).toBundle();
+        context.startActivity(intent, bundleOptions);
     }
 
 }

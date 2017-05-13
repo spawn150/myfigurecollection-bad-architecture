@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity
                 // Open the navigation drawer when the home icon is selected from the toolbar.
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.search:
+                ActivityUtils.startSearchActivity(this);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
