@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -17,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,6 +84,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -107,13 +116,13 @@ public class MainActivity extends AppCompatActivity
                 setupDrawerForUser();
                 setHeaderInfo(header, context);
 
-                if(savedInstanceState == null) {
+                if (savedInstanceState == null) {
                     setMyCollectionFragment();
                 }
 
             } else {
                 setupDrawerForGuest();
-                if(savedInstanceState == null) {
+                if (savedInstanceState == null) {
                     setPODFragment();
                 }
             }
@@ -125,10 +134,9 @@ public class MainActivity extends AppCompatActivity
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             setTitle(savedInstanceState.getString(TITLE_KEY));
         }
-
     }
 
     @Override

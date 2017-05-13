@@ -41,6 +41,7 @@
     <string name="button_title_signin">Login</string>
     <string name="button_signup">Don\'t have an account? <b>Sign up!</b></string>
     <string name="button_forgot_password">Forgot password?</string>
+    <string name="menu_search_description">Name &amp; keywords </string>
 
     <!-- Error messages -->
     <string name="ordered_items_value">ordered</string>
