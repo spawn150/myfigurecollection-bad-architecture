@@ -63,12 +63,13 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile('com.twitter.sdk.android:twitter:2.3.2@aar')
-    {
-        transitive = true
-    }
+            {
+                transitive = true
+            }
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0' //waiting new Picasso version supporting OkHttp3 with OkHttpDownloader class
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    //waiting new Picasso version supporting OkHttp3 with OkHttpDownloader class
     //LeakCanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
@@ -87,4 +88,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'io.reactivex:rxjava:1.0.8'
     compile 'com.google.guava:guava:21.0'
+    compile 'com.android.support:support-v4:25.3.1'
 }

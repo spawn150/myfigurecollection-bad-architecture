@@ -31,9 +31,9 @@ public abstract class FiguresFragment extends Fragment {
 
     protected static final int LOADING = 0;
     protected static final int SUCCESS = 1;
-    protected static final int ERROR = 2;
+    protected static final int MESSAGING = 2;
 
-    @IntDef({LOADING, SUCCESS, ERROR})
+    @IntDef({LOADING, SUCCESS, MESSAGING})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ViewState {
     }
@@ -67,7 +67,7 @@ public abstract class FiguresFragment extends Fragment {
                 Log.v(TAG, "totalItemCount: " + totalItemCount);
                 if (!loading && lastItemVisible + ITEMS_OFFSET > totalItemCount) {
                     int nextPage = ++mPage;
-                    if(nextPage <= mMaxNumPages) {
+                    if (nextPage <= mMaxNumPages) {
                         Log.d(TAG, "Must be loaded more items!");
                         loading = true;
                         loadCollection(nextPage);
@@ -124,11 +124,19 @@ public abstract class FiguresFragment extends Fragment {
     }
 
     protected abstract void loadCollection(int page);
+
     protected abstract void resetCollection();
 
     protected abstract RecyclerView.Adapter createAdapter();
 
     protected abstract void onFragmentInteraction(View view, DetailedFigure detailedFigure);
+
+    protected void showHintMessage(String hintMessage) {
+        textViewErrorTitle.setVisibility(View.GONE);
+        textViewErrorMessage.setText(hintMessage);
+        setNotLoadingState();
+        setViewState(MESSAGING);
+    }
 
     protected void showData() {
         setNotLoadingState();
@@ -148,12 +156,12 @@ public abstract class FiguresFragment extends Fragment {
             });
             textViewErrorTitle.setText(title);
             textViewErrorMessage.setText(message);
-            setViewState(ERROR);
+            setViewState(MESSAGING);
         }
         setNotLoadingState();
     }
 
-    private void setNotLoadingState(){
+    private void setNotLoadingState() {
         loading = false;
     }
 

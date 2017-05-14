@@ -55,7 +55,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login" />
         <activity
-            android:name=".search.SearchActivity"
+            android:name=".figures.search.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Search" />
 

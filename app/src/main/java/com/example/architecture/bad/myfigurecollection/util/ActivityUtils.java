@@ -34,7 +34,7 @@ import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetail
 import com.example.architecture.bad.myfigurecollection.figuredetail.FigureDetailCollectionFigureActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryBestPicturesActivity;
 import com.example.architecture.bad.myfigurecollection.figuregallery.FigureGalleryCollectionFiguresActivity;
-import com.example.architecture.bad.myfigurecollection.search.SearchActivity;
+import com.example.architecture.bad.myfigurecollection.figures.search.SearchActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
