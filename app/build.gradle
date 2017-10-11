@@ -46,6 +46,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '26.0.2'
 }
 
 static def getBuildString() {
@@ -76,7 +77,7 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     //Firebase
     //noinspection GradleCompatible
-    compile 'com.google.firebase:firebase-crash:10.2.4'
+    compile 'com.google.firebase:firebase-crash:10.2.6'
 
     //TODO Remove when new version of MFC-SDK is published
     compile project(':MFC-SDK')
@@ -86,7 +87,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    compile 'io.reactivex:rxjava:1.0.8'
-    compile 'com.google.guava:guava:21.0'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'io.reactivex:rxjava:1.2.3'
+    compile 'com.google.guava:guava:22.0'
+
 }
